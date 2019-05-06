@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2ffb7bf-eada-41bd-9b73-3a4dd23131db" name="Default Changelist" comment="" />
+    <list default="true" id="d2ffb7bf-eada-41bd-9b73-3a4dd23131db" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Android" type="462c0819:PsiDirectoryNode" />
+              <item name="uitleensysteem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="uitleensysteem" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Android" type="462c0819:PsiDirectoryNode" />
+              <item name="uitleensysteem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="uitleensysteem" type="462c0819:PsiDirectoryNode" />
               <item name="TechLab" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -39,7 +44,7 @@
         <subPane>
           <expand>
             <path>
-              <item name="Android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="uitleensysteem" type="1abcf292:AndroidViewProjectNode" />
               <item name="Android" type="e9137016:NonAndroidModuleNode" />
             </path>
           </expand>
@@ -47,6 +52,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -151,8 +157,8 @@
       <window_info id="Build Variants" order="8" side_tool="true" />
       <window_info anchor="bottom" id="TODO" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Messages" order="4" />
       <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="6" />
