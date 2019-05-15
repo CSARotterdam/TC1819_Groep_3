@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     View FindText;
     String personEmail;
     static boolean logged_in;
+    boolean AdminClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         logged_in = account != null;
 
-        FindPassword = findViewById(R.id.Password);
-        FindPassword.setVisibility(View.INVISIBLE);
-        FindPassword.setVisibility(View.GONE);
-        FindText = findViewById(R.id.textView4);
-        FindText.setVisibility(View.INVISIBLE);
-        FindText.setVisibility(View.GONE);
+        findViewById(R.id.Password).setVisibility(View.GONE);
+        findViewById(R.id.textView4).setVisibility(View.GONE);
+        findViewById(R.id.button).setVisibility(View.GONE);
+        findViewById(R.id.email).setVisibility(View.GONE);
+        findViewById(R.id.textView3).setVisibility(View.GONE);
+        findViewById(R.id.back).setVisibility(View.GONE);
+
 
         /* Initializing Views*/
         signInButton = findViewById(R.id.sign_in_button);
@@ -71,35 +73,79 @@ public class LoginActivity extends AppCompatActivity {
         myDb.getWritableDatabase();
     }
 
-   public void loggingIn(View view) {
-       myDb = new MyTechlab(this);
-       FindEmail = findViewById(R.id.email);
-       Email = ((EditText) FindEmail).getText().toString();
-       String Password = ((EditText) FindPassword).getText().toString();
-       String Admin = "Admin";
-       Boolean Email_Password = myDb.Email_Password(Email, Password);
-       Boolean AdminTrue = myDb.Rol(Email ,Admin);
-       if (Email.endsWith("@hr.nl")) {
-           Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
-           signIn();
-       } else if (AdminTrue) {
-           FindPassword.setVisibility(View.VISIBLE);
-           FindText.setVisibility(View.VISIBLE);
-           ((Button)findViewById(R.id.button)).setText(getString(R.string.inloggen));
-           if (Email_Password){
-               startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
-           } else if (!Password.equals("")){
-               Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
-           }
-       } else{
-           Toast.makeText(LoginActivity.this, "Log in met uw Hogeschool email", Toast.LENGTH_SHORT).show();
-       }
+    public void LogInAdmin(View view) {
+        findViewById(R.id.inloggen_als_student).setVisibility(View.GONE);
+        findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+        findViewById(R.id.inloggen_als_admin).setVisibility(View.GONE);
+        findViewById(R.id.admin_button).setVisibility(View.GONE);
+        findViewById(R.id.Password).setVisibility(View.VISIBLE);
+        findViewById(R.id.textView4).setVisibility(View.VISIBLE);
+        findViewById(R.id.button).setVisibility(View.VISIBLE);
+        findViewById(R.id.email).setVisibility(View.VISIBLE);
+        findViewById(R.id.textView3).setVisibility(View.VISIBLE);
+        findViewById(R.id.back).setVisibility(View.VISIBLE);
+        AdminClicked = true;
+
+    }
+
+    public void AdminTerug(View view) {
+//        findViewById(R.id.inloggen_als_student).setVisibility(View.VISIBLE);
+//        findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+//        findViewById(R.id.inloggen_als_admin).setVisibility(View.VISIBLE);
+//        findViewById(R.id.admin_button).setVisibility(View.VISIBLE);
+//        findViewById(R.id.Password).setVisibility(View.GONE);
+//        findViewById(R.id.textView4).setVisibility(View.GONE);
+//        findViewById(R.id.button).setVisibility(View.GONE);
+//        findViewById(R.id.email).setVisibility(View.GONE);
+//        findViewById(R.id.textView3).setVisibility(View.GONE);
+//        findViewById(R.id.back).setVisibility(View.GONE);
+//        AdminClicked = false;
+        onBackPressed();
+    }
+
+    public void onBackPressed() {
+        if (AdminClicked) {
+            findViewById(R.id.inloggen_als_student).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.inloggen_als_admin).setVisibility(View.VISIBLE);
+            findViewById(R.id.admin_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.Password).setVisibility(View.GONE);
+            findViewById(R.id.textView4).setVisibility(View.GONE);
+            findViewById(R.id.button).setVisibility(View.GONE);
+            findViewById(R.id.email).setVisibility(View.GONE);
+            findViewById(R.id.textView3).setVisibility(View.GONE);
+            findViewById(R.id.back).setVisibility(View.GONE);
+            AdminClicked = false;
+        } else {
+//            finish();
+            super.onBackPressed();
+        }
+    }
+    public void loggingIn(View view) {
+        myDb = new MyTechlab(this);
+        FindEmail = findViewById(R.id.email);
+        Email = ((EditText) FindEmail).getText().toString();
+        FindPassword = findViewById(R.id.Password);
+        String Password = ((EditText) FindPassword).getText().toString();
+        String Admin = "Admin";
+        Boolean Email_Password = myDb.Email_Password(Email, Password);
+        Boolean AdminTrue = myDb.Rol(Email ,Admin);
+        if (AdminTrue) {
+            if (Email_Password){
+                startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+            } else if (Password.equals("")){
+                Toast.makeText(LoginActivity.this, "Voer een wachtwoord in", Toast.LENGTH_SHORT).show();
+            } else if (!Password.equals("")){
+                Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(LoginActivity.this, "Log in met de admin email", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        finish();
     }
 
     @Override
@@ -129,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "Je moet met jouw HR account loggingIn", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Je moet met jouw HR account inloggen", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                 mGoogleSignInClient.signOut();
                 finish();
