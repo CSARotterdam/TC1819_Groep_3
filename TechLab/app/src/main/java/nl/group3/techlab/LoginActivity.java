@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void LogInAdmin(View view) {
+        // If the admin wants to log in, the buttons disappear and the admin can insert his/her email and password
         findViewById(R.id.inloggen_als_student).setVisibility(View.GONE);
         findViewById(R.id.sign_in_button).setVisibility(View.GONE);
         findViewById(R.id.inloggen_als_admin).setVisibility(View.GONE);
@@ -85,25 +86,16 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.textView3).setVisibility(View.VISIBLE);
         findViewById(R.id.back).setVisibility(View.VISIBLE);
         AdminClicked = true;
-
     }
 
     public void AdminTerug(View view) {
-//        findViewById(R.id.inloggen_als_student).setVisibility(View.VISIBLE);
-//        findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//        findViewById(R.id.inloggen_als_admin).setVisibility(View.VISIBLE);
-//        findViewById(R.id.admin_button).setVisibility(View.VISIBLE);
-//        findViewById(R.id.Password).setVisibility(View.GONE);
-//        findViewById(R.id.textView4).setVisibility(View.GONE);
-//        findViewById(R.id.button).setVisibility(View.GONE);
-//        findViewById(R.id.email).setVisibility(View.GONE);
-//        findViewById(R.id.textView3).setVisibility(View.GONE);
-//        findViewById(R.id.back).setVisibility(View.GONE);
-//        AdminClicked = false;
+        // If someone clicks on 'Back' or 'Terug', the google and admin buttons reappear and the editTexts disappear
         onBackPressed();
     }
 
     public void onBackPressed() {
+        // If someone clicks on 'Back' or 'Terug', the google and admin buttons reappear and the editTexts disappear,
+        // if the user clicked on admin. If they did not, they will just go back.
         if (AdminClicked) {
             findViewById(R.id.inloggen_als_student).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
@@ -117,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
             findViewById(R.id.back).setVisibility(View.GONE);
             AdminClicked = false;
         } else {
-//            finish();
             super.onBackPressed();
         }
     }
