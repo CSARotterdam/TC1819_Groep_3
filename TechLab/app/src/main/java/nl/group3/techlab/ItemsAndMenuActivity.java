@@ -145,7 +145,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(ItemsAndMenuActivity.this, AddNewItem.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
