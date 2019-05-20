@@ -43,7 +43,7 @@ public class ProductListAdapter extends ArrayAdapter<Item> {
                 ItemImage.setImageResource(R.drawable.ic_launcher_background);
             }
             if(ItemName != null){
-                ItemName.setText((item.getItem()));
+                ItemName.setText((item.getName()));
             }
             if(ItemDescription != null){
                 ItemDescription.setText("Beschikbaar");

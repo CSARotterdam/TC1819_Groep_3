@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Notifications" />
         <activity android:name=".AddNewItem" />
-        <activity android:name=".History.HistoryActivity" />
+        <!-- <activity android:name=".History.HistoryActivity" /> -->
         <activity
             android:name=".ItemsAndMenuActivity"
             android:label="@string/Producten"
@@ -25,11 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".History"
-            android:label="Geshiedenis" />
+        <activity android:name=".History" android:label="Geshiedenis" />
         <activity android:name=".view.ViewBorrowedItem" />
         <activity android:name=".ItemEdit" />
+        <activity android:name=".ReturnItemActivity"/>
+        <activity android:name=".HandInConfirmation"/>
     </application>
 
 </manifest>

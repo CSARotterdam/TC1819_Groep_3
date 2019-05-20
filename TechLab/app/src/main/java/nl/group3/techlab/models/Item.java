@@ -1,34 +1,58 @@
 package nl.group3.techlab.models;
 
-public class Item {
-    private String ItemName;
-    private String ItemCategorie;
-    private String ItemDescription;
-    private int ItemQuantity;
+import java.io.Serializable;
 
+public class Item implements Serializable {
+
+    int id;
+    String productId;
+    String manufacturer;
+    String category;
+    String name;
+    String description;
+    int quantity;
+
+    public Item(int id, String productId, String manufacturer, String category, String name){
+        this.id = id;
+        this.productId = productId;
+        this.manufacturer = manufacturer;
+        this.category = category;
+        this.name = name;
+    }
 
     public Item(String fItem, String fCat, String fDes, int fQuan){
-        ItemName = fItem;
-        ItemCategorie = fCat;
-        ItemDescription = fDes;
-        ItemQuantity = fQuan;
+        name = fItem;
+        category = fCat;
+        description = fDes;
+        quantity = fQuan;
 
     }
 
-    public String getItem() {
-        return ItemName;
+    public int getId() {
+        return id;
     }
 
-    public String getItemCategorie() {
-        return ItemCategorie;
+    public String getProductId() {
+        return productId;
     }
 
-    public String getItemDescription() {
-        return ItemDescription;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
-    public int getItemQuantity() {
-        return ItemQuantity;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }
