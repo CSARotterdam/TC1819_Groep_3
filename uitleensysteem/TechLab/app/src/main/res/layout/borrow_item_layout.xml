@@ -25,7 +25,7 @@
         android:layout_marginEnd="300dp"
         android:layout_marginRight="300dp"
         android:background="#CC0133"
-        android:textColor="#FFF"
+        android:textColor="@android:color/white"
         android:text="Lenen" />
     <!--<Button-->
     <!--android:layout_width="wrap_content"-->
@@ -69,7 +69,7 @@
         android:layout_marginRight="59dp"
         android:inputType="textPersonName"
         android:text="Product"
-        android:textColor="#FFF"
+        android:textColor="@android:color/white"
         android:textSize="32dp" />
 
     <TextView
@@ -87,7 +87,7 @@
         android:layout_marginEnd="184dp"
         android:layout_marginRight="184dp"
         android:textSize="22dp"
-        android:textColor="#FFF"
+        android:textColor="@android:color/white"
         android:text="Beschrijving" />
 
     <TextView
@@ -107,7 +107,7 @@
         android:layout_marginRight="21dp"
         android:layout_marginBottom="50dp"
         android:text="Beschrijving"
-        android:textColor="#FFF"
+        android:textColor="@android:color/white"
         android:textSize="16dp" />
 
     <TextView
@@ -125,7 +125,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-94dp"
         android:text="Beschikbaarheid"
-        android:textColor="#FFF"
+        android:textColor="@android:color/white"
         android:textSize="22dp" />
 
     <android.support.design.widget.FloatingActionButton

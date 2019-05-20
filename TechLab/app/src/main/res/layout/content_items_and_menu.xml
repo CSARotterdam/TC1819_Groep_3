@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,159 +9,19 @@
     android:background="@drawable/background"
     tools:showIn="@layout/app_bar_items_and_menu">
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/background"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
+            android:id="@+id/listView" />
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/raspberry_pi3"
-                    android:padding="6dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:textSize="20sp"
-                    android:text="Raspberry Pi 3 model B+\n\n\nBeschikbaar"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    <include layout="@layout/new_item_button"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:textSize="20sp"
-                    android:text="Beschikbaar"
-                    android:textColor="@color/white"
-                    android:padding="6dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/htc_vive_vr"
-                    android:padding="6dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:text="HTC Vive - Virtual Reality System\n\nBeschikbaar"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/oculus_rift"
-                    android:padding="6dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:text="Oculus Rift - Virtual Reality Headset\n\nBeschikbaar"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/drone"
-                    android:padding="6dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:text="SJRC S20W Dubbel GPS Dynamisch Drone\n\nBeschikbaar"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/playstation4"
-                    android:padding="6dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:text="Playstation 4\n\n\nBeschikbaar"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/fifa18"
-                    android:padding="6dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:text="FIFA 18\n\n\nBeschikbaar"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

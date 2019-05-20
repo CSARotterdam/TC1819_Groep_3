@@ -30,7 +30,7 @@
         android:layout_marginStart="-1dp"
         android:layout_toEndOf="@+id/eItem"
         android:layout_weight="25"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/eItem"
         android:layout_weight="25"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 

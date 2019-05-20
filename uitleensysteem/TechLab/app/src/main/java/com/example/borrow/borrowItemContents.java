@@ -11,12 +11,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.borrow.database.BorrowDatabase;
 import com.example.borrow.database.DatabaseHelper;
 import com.example.borrow.models.Item;
 import com.example.borrow.view.ViewBorrowedItem;
 import com.example.borrow.view.ViewItemContents;
+
+import java.security.PublicKey;
+import java.util.ArrayList;
 
 
 public class borrowItemContents extends AppCompatActivity {
@@ -26,10 +32,12 @@ public class borrowItemContents extends AppCompatActivity {
     private FloatingActionButton delButton;
     private TextView eItem, eItemD, Bsk;
     private TextView ID;
-
+EditText eItemdes,eItemcat;
     DatabaseHelper myDB;
     private String selectedName;
     private int selectedID;
+    BorrowDatabase db;
+
     private int selectedquan;
     private String selectedDesc;
 
@@ -39,10 +47,15 @@ public class borrowItemContents extends AppCompatActivity {
         super.onCreate(savedInstancesState);
         setContentView(R.layout.borrow_item_layout);
 //        vBorrow = (Button) findViewById(R.id.vBorrow);
+        db = new BorrowDatabase(this);
+        ArrayList<Item> theList = new ArrayList<>();
+        Cursor data = db.getListContents();
+
         Borrow = (Button) findViewById(R.id.Borrow);
         eItem = (TextView) findViewById(R.id.eItem);
         eItemD = (TextView) findViewById(R.id.eItemD);
         Bsk = (TextView) findViewById(R.id.Bsk);
+
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
 
         myDB = new DatabaseHelper(this);
@@ -95,13 +108,13 @@ public class borrowItemContents extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                if (selectedquan >= 1) {
+                if (selectedquan >= 1 ) {
                     myDB.addBorrow(selectedID,selectedquan);
-
+                    db.insertData(selectedName,selectedDesc);
+                    toastMessage("Data added");
                     toastMessage("Item has been borrowed");
-                }
-                else{
+                    startActivity(new Intent(borrowItemContents.this, ViewItemContents.class));
+                } else{
                     toastMessage("Item is not available");
 
                 }

@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.borrow.Geschiedenis;
 import com.example.borrow.borrowItemContents;
 import com.example.borrow.addItem;
 import com.example.borrow.R;
 import com.example.borrow.adapters.FourColumn_ListAdapter;
+import com.example.borrow.database.BorrowDatabase;
 import com.example.borrow.database.DatabaseHelper;
 import com.example.borrow.models.Item;
 
@@ -24,12 +26,14 @@ import java.util.ArrayList;
 
 
 public class ViewItemContents extends AppCompatActivity {
+    BorrowDatabase db;
 
     DatabaseHelper myDB;
     ArrayList<Item> itemList;
     ListView listView;
     Item item;
     FloatingActionButton addButton;
+    Button historyButton;
     private static final String TAG = "FourColumn_ListAdapter";
 
 
@@ -37,8 +41,10 @@ public class ViewItemContents extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewcontents_layout);
+        db = new BorrowDatabase(this);
 
         addButton =  findViewById(R.id.addButton);
+        historyButton = findViewById(R.id.history);
 
         myDB = new DatabaseHelper(this);
 
@@ -104,6 +110,12 @@ public class ViewItemContents extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewItemContents.this, Geschiedenis.class);
+                startActivity(intent);
+            }
+        });
     }
-
 }
