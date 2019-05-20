@@ -1,6 +1,7 @@
 package nl.group3.techlab;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,17 +10,35 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import nl.group3.techlab.databases.DatabaseHelper;
-
+import nl.group3.techlab.statistic;
 
 public class AddNewItem extends AppCompatActivity {
     EditText eItem, eItemcat, eItemdes, eItemq;
     Button btnAdd;
     DatabaseHelper myDB;
+    static int totalQuantity;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    int intAV;
+    int intLE;
+    int inttot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_item);
+
+
+
+        sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        intAV = sharedPreferences.getInt("AV", 0);
+        intLE = sharedPreferences.getInt("LE", 0);
+        inttot = sharedPreferences.getInt("TOT", 0);
+
+
 
         eItem = (EditText) findViewById(R.id.eItem);
         eItemcat = (EditText) findViewById(R.id.eItemcat);
@@ -42,6 +61,9 @@ public class AddNewItem extends AppCompatActivity {
                     eItemcat.setText("");
                     eItemdes.setText("");
                     eItemq.setText("");
+                    totalQuantity += fQuan;
+                    editor.putInt("AV", intAV+=fQuan);
+                    editor.apply();
                 } else{
                     Toast.makeText(AddNewItem.this, "You must put something in all fields!", Toast.LENGTH_LONG).show();
                 }
@@ -59,5 +81,9 @@ public class AddNewItem extends AppCompatActivity {
             Toast.makeText(AddNewItem.this, "Adding Item failed, please check your connection", Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    static public int getTotalQuantity(){
+        return totalQuantity;
     }
 }
