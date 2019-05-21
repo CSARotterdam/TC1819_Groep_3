@@ -20,6 +20,7 @@ public class statistic extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
 
+
     /*int available = AddNewItem.getTotalQuantity();
     int lend = ItemEdit.loanQuantity;
     int totalPro = available + lend;*/

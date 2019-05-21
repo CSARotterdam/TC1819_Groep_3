@@ -2,6 +2,7 @@ package nl.group3.techlab;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,13 @@ import nl.group3.techlab.models.BorrowItem;
 import nl.group3.techlab.models.StockItem;
 
 public class HandInConfirmation extends AppCompatActivity {
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    int intAV;
+    int intLE;
+    int inttot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,12 @@ public class HandInConfirmation extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Het voorwerp is teruggebracht.", Toast.LENGTH_LONG).show();
                 ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
                 Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
+
+                AddNewItem.totalQuantity += 1;
+                ItemEdit.loanQuantity -= 1;
+                editor.putInt("AV", intAV+=1);
+                editor.putInt("AV", intLE-=1);
+                editor.apply();
 
                 StockItem stockItem = myDB.getStockItem(borrowedItem.getItem());
                 stockItem.addOneStock();
