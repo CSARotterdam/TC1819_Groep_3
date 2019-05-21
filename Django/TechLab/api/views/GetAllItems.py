@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.generic import View
+from django.db.models import Prefetch
 
-from api.models import (Book, Electronic)
+from api.models import (Book, Electronic, Writer)
 
 import json
 
@@ -14,27 +15,16 @@ class GetAllItems(View):
         allBooks = Book.objects.all()
         allElectronics = Electronic.objects.all()
 
-        
-
         return JsonResponse(json.loads('[{ "books": %s}, {"electronics" : %s}]' % (
-            json.dumps([{
-                'book_title': book.title,
-                'book_description': book.description,
-#                'book_image':  "%s%s%s" % (settings.BASE_URL, settings.MEDIA_ROOT, book.image.url) if book.image != '' else '',
-                'book_image': settings.BASE_URL + settings.MEDIA_ROOT + book.image.url if book.image != '' else '',
-                'writers': [{'name': writer.name} for writer in book.writers.all()],
-                'isbn': book.isbn,
-                'publisher': book.publisher.name,
-                'is_available': True if book.stock > 0 else False,
-                'borrow_days': book.borrow_days
-                } for book in allBooks]),
-            json.dumps([{
-                'electronic_title' : electronic.name,
-                'electronic_description' : electronic.description,
-                'electionric_image': settings.BASE_URL + settings.MEDIA_ROOT + electronic.image.url if electronic.image != '' else '',
-                'manufacturer': [{'name':manufacturer.name} for manufacturer in electronic.manufacturer.all()],
-                'category': electronic.category.name,
-                'is_available': True if electronic.stock > 0 else False,
-                'borrow_days': electronic.borrow_days
-                } for electronic in allElectronics]))),safe=False)
-            
+            json.dumps([book.to_json('_state', 'item_ptr_id', 'writers') for book in allBooks]),
+            json.dumps([electronic.to_json('_state', 'item_ptr_id') for electronic in allElectronics]))), safe=False)
+
+class GetAllBooks(View):
+    def get(self, request, *args, **kwargs):
+        allBooks = Book.objects.all()
+        return JsonResponse(json.loads(json.dumps([book.to_json('_state', 'item_ptr_id') for book in allBooks])), safe=False)
+
+class GetAllElectronics(View):
+    def get(self, request, *args, **kwargs):
+        allElectronics = Electronic.objects.all()
+        return JsonResponse(json.loads(json.dumps([electronic.to_json('_state', 'item_ptr_id') for electronic in allElectronics])), safe=False)
