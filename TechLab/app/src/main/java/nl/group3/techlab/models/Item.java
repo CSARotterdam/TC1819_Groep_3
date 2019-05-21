@@ -20,6 +20,11 @@ public class Item implements Serializable {
         this.name = name;
     }
 
+    public Item(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+
     public Item(String fItem, String fCat, String fDes, int fQuan){
         name = fItem;
         category = fCat;

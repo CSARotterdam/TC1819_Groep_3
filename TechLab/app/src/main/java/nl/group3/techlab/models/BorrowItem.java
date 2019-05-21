@@ -23,6 +23,14 @@ public class BorrowItem implements Serializable {
         this.id = id;
     }
 
+    public BorrowItem(int id, String name, String desc) {
+        this.id = id;
+        this.item = new Item(name, desc);
+        this.startDate = new Date();
+        this.endDate = new Date();
+    }
+
+
     public int getId(){ return id; }
 
     public Item getItem() {
