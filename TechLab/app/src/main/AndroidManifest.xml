@@ -11,7 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".statistic" />
+        <activity
+            android:name=".theme"
+            android:label="Thema"
+            />
+        <activity
+            android:name=".language"
+            android:label="Taal"
+            />
+        <activity
+            android:name=".settings"
+            android:label="Instellingen"
+            />
+        <activity
+            android:name=".statistic"
+            android:label="Statistiek"
+            />
         <activity android:name=".Notifications" />
         <activity android:name=".AddNewItem" />
         <activity android:name=".History.HistoryActivity" />
