@@ -197,6 +197,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             startActivity(new Intent(ItemsAndMenuActivity.this, Notifications.class));
         } else if(id == R.id.statistieken){
             startActivity(new Intent(ItemsAndMenuActivity.this, statistic.class));
+        } else if(id == R.id.instellingen){
+            startActivity(new Intent(ItemsAndMenuActivity.this, settings.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
