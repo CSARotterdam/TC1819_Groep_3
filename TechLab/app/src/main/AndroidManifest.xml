@@ -14,7 +14,6 @@
         <activity android:name=".statistic" />
         <activity android:name=".Notifications" />
         <activity android:name=".AddNewItem" />
-        <activity android:name=".History.HistoryActivity" />
         <activity
             android:name=".ItemsAndMenuActivity"
             android:label="@string/Producten"
@@ -28,7 +27,7 @@
         </activity>
         <activity
             android:name=".History"
-            android:label="Geshiedenis" />
+            android:label="@string/geschiedenis" />
         <activity android:name=".view.ViewBorrowedItem" />
         <activity android:name=".ItemEdit" />
     </application>

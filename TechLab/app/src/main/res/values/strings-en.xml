@@ -2,14 +2,14 @@
     <string name="app_name">TechLab</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="Producten">Producten</string>
-    <string name="volgende">Volgende</string>
-    <string name="inloggen">Inloggen</string>
-    <string name="gebruikersnaam">Gebruikersnaam</string>
-    <string name="wachtwoord">Wachtwoord</string>
+    <string name="Producten">Products</string>
+    <string name="inloggen">Sign In</string>
+    <string name="gebruikersnaam">Username</string>
+    <string name="wachtwoord">Password</string>
     <string name="email">E-mail</string>
-    <string name="geschiedenis">Geshiedenis</string>
+    <string name="geschiedenis">History</string>
 
+    <string name="message_notification_title_template">Message: %1$s</string>
 
     <!-- TODO: remove this placeholder text -->
     <string name="message_notification_placeholder_text_template">You said %1$s and lorem ipsum
@@ -20,6 +20,5 @@
         viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
         tortor.
     </string>
-
 
 </resources>
