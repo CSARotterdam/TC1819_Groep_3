@@ -1,0 +1,13 @@
+package nl.group3.techlab;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class language extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_language);
+    }
+}

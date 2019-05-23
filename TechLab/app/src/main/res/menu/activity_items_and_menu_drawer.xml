@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/meldingen"
+            android:title="Meldingen" />
+        <item
+            android:id="@+id/geschiedenis"
+            android:title="Geschiedenis" />
+        <item
+            android:id="@+id/terugnemen"
+            android:title="Terugnemen" />
+        <item
+            android:id="@+id/beheerders"
+            android:title="Beheerders" />
+        <item
+            android:id="@+id/producten"
+            android:title="Producten" />
+        <item
+            android:id="@+id/statistieken"
+            android:title="Statistiek" />
+        <item
+            android:id="@+id/instellingen"
+            android:title="Instellingen" />
+        <item
+            android:id="@+id/contact"
+            android:title="Contact" />
+        <item
+            android:id="@+id/uitloggen"
+            android:title="Uitloggen" />
+    </group>
+</menu>

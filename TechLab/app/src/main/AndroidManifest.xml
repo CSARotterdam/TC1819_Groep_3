@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nl.group3.techlab">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="TechLab"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".theme"
+            android:label="Thema"
+            />
+        <activity
+            android:name=".language"
+            android:label="Taal"
+            />
+        <activity
+            android:name=".settings"
+            android:label="Instellingen"
+            />
+        <activity
+            android:name=".statistic"
+            android:label="Statistiek"
+            />
+        <activity android:name=".Notifications" />
+        <activity android:name=".AddNewItem" />
+        <!-- <activity android:name=".History.HistoryActivity" /> -->
+        <activity
+            android:name=".ItemsAndMenuActivity"
+            android:label="@string/Producten"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".History" android:label="Geshiedenis" />
+        <activity android:name=".view.ViewBorrowedItem" />
+        <activity android:name=".ItemEdit" />
+        <activity android:name=".ReturnItemActivity"/>
+        <activity android:name=".HandInConfirmation"/>
+    </application>
+
+</manifest>

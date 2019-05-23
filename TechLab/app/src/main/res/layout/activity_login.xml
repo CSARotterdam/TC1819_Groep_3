@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="38dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:paddingTop="50dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/logotechlab"/>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="TECHLAB"
+                    android:textColor="@color/white"
+                    android:textSize="36sp"/>
+
+                <TextView
+                    android:id="@+id/textLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView"
+                    android:layout_marginTop="60dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="Log in met je Hogeschool account"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+
+                <FrameLayout
+                    android:id="@+id/frameLayout2"
+                    android:layout_width="304dp"
+                    android:layout_height="355dp"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="78dp"
+                    android:background="#2E1C1C">
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/frameLayout3"
+                    android:layout_width="300dp"
+                    android:layout_height="350dp"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="80dp"
+                    android:background="@color/white">
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="390dp"
+                    android:text="@string/email"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/textView3"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintBottom_toTopOf="@+id/textView4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/email"
+                    android:text="@string/wachtwoord"
+                    android:textSize="18sp"
+                    android:layout_centerHorizontal="true"/>
+
+                <EditText
+                    android:id="@+id/Password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/textView4"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="213dp"
+                    android:layout_height="44dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="550dp"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/inloggen"
+                    android:textColor="@color/white"
+                    android:onClick="loggingIn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Password"/>
+
+                <TextView
+                    android:id="@+id/inloggen_als_student"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:textAlignment="center"
+                    android:layout_below="@id/textLogin"
+                    android:text="Inloggen als student"
+                    android:textSize="18sp"
+                    android:layout_centerHorizontal="true" />
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="213dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/inloggen_als_student"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="30dp"/>
+
+                <TextView
+                    android:id="@+id/inloggen_als_admin"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_below="@id/sign_in_button"
+                    android:text="Inloggen als admin"
+                    android:textSize="18sp"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:id="@+id/admin_button"
+                    android:layout_width="213dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/inloggen_als_admin"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="360dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Inloggen"
+                    android:onClick="LogInAdmin"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terug"
+                    android:textAlignment="center"
+                    android:layout_below="@id/button"
+                    android:onClick="AdminTerug"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="300dp"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
