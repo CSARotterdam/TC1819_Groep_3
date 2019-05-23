@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:borrow="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:background="@drawable/background"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -58,7 +57,6 @@
                     android:inputType="textPersonName"
                     android:text="@string/product"
                     android:layout_marginTop="15dp"
-                    android:textColor="@android:color/white"
                     android:textSize="32sp"
                     android:layout_alignParentLeft="true" />
 
@@ -72,7 +70,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentStart="true"
                     android:textSize="22sp"
-                    android:layout_marginLeft="15dp"
                     android:textColor="@android:color/white"
                     android:text="@string/beschrijving"
                     android:layout_alignParentLeft="true" />
@@ -94,7 +91,6 @@
                     android:layout_marginRight="21dp"
                     android:layout_marginBottom="50dp"
                     android:text="@string/beschrijving"
-                    android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
                 <TextView

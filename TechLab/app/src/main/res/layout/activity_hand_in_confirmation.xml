@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_drawable_background_dark"
     tools:context=".HandInConfirmation">
 
     <LinearLayout
@@ -18,8 +17,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             android:textSize="24dp"
-            tools:text="Item"
-            android:textColor="#FFFFFF"/>
+            tools:text="Item" />
 
         <TextView
             android:id="@+id/borrowedBy"
@@ -36,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:textColor="#FFFFFF"
             android:gravity="center"
             android:text="Weet je zeker dat je het voorwerp terug wilt nemen?"/>
 

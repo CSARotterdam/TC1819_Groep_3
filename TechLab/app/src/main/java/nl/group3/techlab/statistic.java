@@ -33,6 +33,18 @@ public class statistic extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("Techlab", 0);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.statistic_layout1);
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);

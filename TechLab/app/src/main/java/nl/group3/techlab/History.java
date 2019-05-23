@@ -1,5 +1,6 @@
 package nl.group3.techlab;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +15,24 @@ import java.util.ArrayList;
 
 public class History extends AppCompatActivity {
     BorrowDatabase mydb;
+    SharedPreferences sharedPreferences;
+
     private HistoryAdapter historyAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("Techlab", 0);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.borrow_list);
         ListView listView=(ListView)findViewById(R.id.List_view);
         mydb=new BorrowDatabase(this);

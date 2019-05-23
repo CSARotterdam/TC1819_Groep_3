@@ -48,6 +48,18 @@ public class ItemEdit extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstancesState) {
         super.onCreate(savedInstancesState);
+        sharedPreferences = getSharedPreferences("Techlab", 0);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.borrow_item_layout);
 //        vBorrow = (Button) findViewById(R.id.vBorrow);
 

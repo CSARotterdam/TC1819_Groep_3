@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context="nl.group3.techlab.Notifications">
     <Button
         android:id="@+id/notify"
@@ -35,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/editTextDescription"
-        android:textColorHint="@android:color/white"
         android:layout_centerInParent="true"
         android:hint="@string/titel"
 android:textColor="@android:color/white"

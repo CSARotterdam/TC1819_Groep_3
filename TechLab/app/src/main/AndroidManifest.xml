@@ -47,8 +47,8 @@
             android:name=".History"
             android:label="@string/geschiedenis" />
         <activity android:name=".view.ViewBorrowedItem" />
-        <activity android:name=".ItemEdit" />
-        <activity android:name=".ReturnItemActivity"/>
+        <activity android:name=".ItemEdit"  android:label="lenen"/>
+        <activity android:name=".ReturnItemActivity" android:label="Terugnemen"/>
         <activity android:name=".HandInConfirmation"/>
     </application>
 
