@@ -1,6 +1,7 @@
 package nl.group3.techlab.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,12 +29,24 @@ public class ViewBorrowedItem extends AppCompatActivity {
     BorrowItem borrowItem;
     private static final String TAG = "ListAdapterBorrowed";
 
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("Techlab", 0);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.viewcontents_layout);
-
 
         myDB = new DatabaseHelper(this);
 

@@ -20,26 +20,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inlever datum:"
-            tools:textColor="#000000"
-            android:textColor="#ffffff"/>
+            android:text="Inlever datum:" />
 
         <TextView
             android:id="@+id/returnDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:textColor="#000000"
-            android:text="Text"
-            android:textColor="#ffffff"/>
+            android:text="Text" />
 
         <TextView
             android:id="@+id/objectName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            tools:textColor="#000000"
-            android:text="Text"
-            android:textColor="#ffffff"/>
+            android:text="Text" />
     </LinearLayout>
 
      <Button

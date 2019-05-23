@@ -27,8 +27,8 @@
             android:name=".statistic"
             android:label="Statistiek"
             />
-        <activity android:name=".Notifications" />
-        <activity android:name=".AddNewItem" />
+        <activity android:name=".Notifications" android:label="Meldingen"/>
+        <activity android:name=".AddNewItem" android:label="Product toevoegen" />
         <!-- <activity android:name=".History.HistoryActivity" /> -->
         <activity
             android:name=".ItemsAndMenuActivity"
@@ -43,8 +43,8 @@
         </activity>
         <activity android:name=".History" android:label="Geshiedenis" />
         <activity android:name=".view.ViewBorrowedItem" />
-        <activity android:name=".ItemEdit" />
-        <activity android:name=".ReturnItemActivity"/>
+        <activity android:name=".ItemEdit"  android:label="lenen"/>
+        <activity android:name=".ReturnItemActivity" android:label="Terugnemen"/>
         <activity android:name=".HandInConfirmation"/>
     </application>
 
