@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:background="@color/colorPrimary"
-        android:text="Verstuur melding"
+        android:text="@string/verstuur_melding"
         android:textColor="@color/white"/>
 
     <EditText
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColor="@android:color/white"
-        android:hint="Description"
+        android:hint="@string/beschrijving"
 
         android:textColorHint="@android:color/white"
         android:layout_above="@id/notify"
@@ -37,7 +37,7 @@
         android:layout_above="@id/editTextDescription"
         android:textColorHint="@android:color/white"
         android:layout_centerInParent="true"
-        android:hint="Title"
+        android:hint="@string/titel"
 android:textColor="@android:color/white"
         android:layout_marginBottom="10dp"
         android:ems="10"

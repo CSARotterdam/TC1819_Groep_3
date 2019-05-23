@@ -28,7 +28,7 @@
             android:padding="16dp"
             android:gravity="center"
             tools:text="Borrowed by"
-            android:text="Geleend door %s"
+            android:text="@string/geleend_door_s"
             android:textColor="#FFFFFF"/>
 
 

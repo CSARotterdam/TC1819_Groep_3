@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/item_name"
-            android:text="Product"
+            android:text="@string/naam"
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/description"
-            android:text="Beschrijving"
+            android:text="@string/beschrijving"
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="80dp"

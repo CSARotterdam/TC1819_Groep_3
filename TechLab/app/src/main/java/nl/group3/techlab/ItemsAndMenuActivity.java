@@ -98,7 +98,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         Cursor data = myDB.getListContents();
         int numRows = data.getCount();
         if (numRows == 0) {
-            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
+//            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
         } else {
             while (data.moveToNext()) {
                 item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));

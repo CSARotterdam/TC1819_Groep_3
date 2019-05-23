@@ -11,18 +11,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-  >
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="-200dp"
-            android:layout_height="725dp">
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="-200dp"
+                android:layout_height="725dp">
 
 
                 <EditText
@@ -30,7 +28,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:hint="Item Name" />
+                    android:hint="@string/naam" />
 
                 <EditText
                     android:id="@+id/eItemcat"
@@ -38,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eItem"
                     android:layout_centerHorizontal="true"
-                    android:hint="Item categorie" />
+                    android:hint="@string/categorie" />
 
                 <EditText
                     android:id="@+id/eItemdes"
@@ -46,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eItemcat"
                     android:layout_centerInParent="true"
-                    android:hint="Item description" />
+                    android:hint="@string/beschrijving" />
 
                 <EditText
                     android:id="@+id/eItemq"
@@ -54,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/eItemdes"
                     android:layout_centerInParent="true"
-                    android:hint="Item quantity"
+                    android:hint="@string/hoeveelheid"
                     android:inputType="number" />
 
                 <Button
@@ -62,13 +60,13 @@
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/eItemq"
-                  android:layout_centerInParent="true"
-                    android:text="Toevoegen"
+                    android:layout_centerInParent="true"
+                    android:text="@string/toevoegen"
                     android:layout_marginTop="20dp"
                     android:textColor="#FFFFFF"
                     app:backgroundTint="#CC0133" />
 
-        </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

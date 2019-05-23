@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,60 +7,46 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="nl.group3.techlab.settings">
 
-
-    <LinearLayout
+    <Button
+        android:id="@+id/language"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/taal"
+        android:textColor="#FFFFFF"
+        android:textAlignment="viewStart"
+        android:paddingTop="4dp"
+        android:drawableLeft="@drawable/language2"/>
 
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp"
+        android:background="#FFFFFF"/>
 
-        <Button
-            android:id="@+id/language"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:textSize="24sp"
-            android:gravity="center"
-            android:text="Taal"
-            android:textColor="#FFFFFF"
-            android:textAlignment="viewStart"
-            android:paddingTop="20sp"
-            android:drawableLeft="@drawable/language2"/>
+    <Button
+        android:id="@+id/theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/theme"
+        android:textAlignment="viewStart"
+        android:text="@string/thema"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:gravity="center" />
 
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginLeft="75dp"
-            android:background="#FFFFFF"/>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp"
+        android:background="#FFFFFF"/>
 
-        <Button
-            android:id="@+id/theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/theme"
-            android:textAlignment="viewStart"
-            android:text="Thema"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:gravity="center" />
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginLeft="75dp"
-            android:background="#FFFFFF"/>
-
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

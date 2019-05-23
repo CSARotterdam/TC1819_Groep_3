@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TechLab</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="Producten">Products</string>
+    <string name="inloggen">Sign In</string>
+    <string name="gebruikersnaam">Username</string>
+    <string name="wachtwoord">Password</string>
+    <string name="email">E-mail</string>
+    <string name="geschiedenis">History</string>
+    <string name="thema">Theme</string>
+    <string name="taal">Language</string>
+    <string name="geleend_door_s">Borrowed by %s</string>
+    <string name="log_in_met_je_hr_account">Sign in with your HR account</string>
+    <string name="inloggen_als_student">Sign in as a student</string>
+    <string name="inloggen_als_admin">Sign in as an admin</string>
+    <string name="terug">Back</string>
+    <string name="verstuur_melding">Send notification</string>
+    <string name="beschrijving">Description</string>
+    <string name="titel">Title</string>
+    <string name="inleverdatum">Return date:</string>
+    <string name="terugnemen">Return</string>
+    <string name="naam">Name</string>
+    <string name="categorie">Category</string>
+    <string name="hoeveelheid">Quantity</string>
+    <string name="toevoegen">Add</string>
+    <string name="lenen">Borrow</string>
+    <string name="product">Product</string>
+    <string name="beschikbaarheid">Availability</string>
+    <string name="beschikbaar">Available</string>
+    <string name="admin">Admin</string>
+    <string name="_1_beschikbare_producten">1. Available products:</string>
+    <string name="_2_uitgeleende_producten">2. Loaned products:</string>
+    <string name="_0">0</string>
+    <string name="meldingen">Notifications</string>
+    <string name="contact">Contact</string>
+    <string name="beheerders">Managers</string>
+    <string name="statistieken">Statistics</string>
+    <string name="instellingen">Settings</string>
+    <string name="uitloggen">Sign out</string>
+</resources>

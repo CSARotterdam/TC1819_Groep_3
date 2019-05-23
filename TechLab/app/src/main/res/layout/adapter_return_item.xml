@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inlever datum:"
+            android:text="@string/inleverdatum"
             tools:textColor="#000000"
             android:textColor="#ffffff"/>
 
@@ -42,12 +42,12 @@
             android:textColor="#ffffff"/>
     </LinearLayout>
 
-     <Button
-        android:id="@+id/returnButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Terugnemen"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:backgroundTint="@color/colorPrimary"
-android:textColor="#FFFFFF"/>
+    <Button
+    android:id="@+id/returnButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/terugnemen"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:backgroundTint="@color/colorPrimary"
+    android:textColor="#FFFFFF"/>
 </LinearLayout>

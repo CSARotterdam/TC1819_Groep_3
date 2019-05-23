@@ -15,110 +15,103 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/Borrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="340dp"
-        android:background="#CC0133"
-        android:textColor="@android:color/white"
-        android:text="Lenen" />
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:text="View Borrowed"-->
-    <!--android:id="@+id/vBorrow"/>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/Borrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="340dp"
+                    android:background="#CC0133"
+                    android:textColor="@android:color/white"
+                    android:text="@string/lenen" />
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="178dp"
-        android:layout_above="@+id/eItemD"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="166dp"
-        android:src="@drawable/ic_launcher_background" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="178dp"
+                    android:layout_above="@+id/eItemD"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="116dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="166dp"
+                    android:src="@drawable/ic_launcher_background" />
 
-    <TextView
-        android:id="@+id/eItem"
-        android:layout_width="329dp"
-        android:layout_height="81dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:inputType="textPersonName"
-        android:text="Product"
-        android:layout_marginTop="15dp"
-        android:textColor="@android:color/white"
-        android:textSize="32dp"
-        android:layout_alignParentLeft="true" />
+                <TextView
+                    android:id="@+id/eItem"
+                    android:layout_width="329dp"
+                    android:layout_height="81dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="15dp"
+                    android:inputType="textPersonName"
+                    android:text="@string/product"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="204dp"
-        android:layout_height="49dp"
-        android:layout_below="@+id/Borrow"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:textSize="22dp"
-        android:layout_marginLeft="15dp"
-        android:textColor="@android:color/white"
-        android:text="Beschrijving"
-        android:layout_alignParentLeft="true" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="204dp"
+                    android:layout_height="49dp"
+                    android:layout_below="@+id/Borrow"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="22sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/beschrijving"
+                    android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/eItemD"
-        android:layout_width="368dp"
-        android:layout_height="222dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="50dp"
-        android:text="Beschrijving"
-        android:textColor="@android:color/white"
-        android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/eItemD"
+                    android:layout_width="368dp"
+                    android:layout_height="222dp"
+                    android:layout_below="@+id/textView3"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/beschrijving"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/Bsk"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/imageView2"
-        android:textAlignment="viewEnd"
-        android:layout_marginBottom="-103dp"
-        android:layout_marginRight="21dp"
-        android:layout_alignParentRight="true"
-        android:text="Beschikbaarheid"
-        android:textColor="@android:color/white"
-        android:textSize="22dp"
-        android:gravity="end" />
-
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/Bsk"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_alignBottom="@+id/imageView2"
+                    android:textAlignment="viewEnd"
+                    android:layout_marginBottom="-103dp"
+                    android:layout_marginRight="21dp"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/beschikbaarheid"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:gravity="end" />
+            </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
 
     <android.support.constraint.ConstraintLayout
@@ -142,8 +135,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.951"
-            android:src="@android:drawable/ic_menu_delete"
-            />
+            android:src="@android:drawable/ic_menu_delete" />
+
     </android.support.constraint.ConstraintLayout>
 
 

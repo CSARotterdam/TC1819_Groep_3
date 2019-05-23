@@ -3,23 +3,39 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="Producten">Producten</string>
-    <string name="volgende">Volgende</string>
     <string name="inloggen">Inloggen</string>
     <string name="gebruikersnaam">Gebruikersnaam</string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="email">E-mail</string>
     <string name="geschiedenis">Geshiedenis</string>
-
-
-    <!-- TODO: remove this placeholder text -->
-    <string name="message_notification_placeholder_text_template">You said %1$s and lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
-        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
-        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
-        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
-        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
-        tortor.
-    </string>
-
-
+    <string name="thema">Thema</string>
+    <string name="taal">Taal</string>
+    <string name="geleend_door_s">Geleend door %s</string>
+    <string name="log_in_met_je_hr_account">Log in met je HR account</string>
+    <string name="inloggen_als_student">Inloggen als student</string>
+    <string name="inloggen_als_admin">Inloggen als admin</string>
+    <string name="terug">Terug</string>
+    <string name="verstuur_melding">Verstuur melding</string>
+    <string name="beschrijving">Beschrijving</string>
+    <string name="titel">Titel</string>
+    <string name="inleverdatum">Inleverdatum:</string>
+    <string name="terugnemen">Terugnemen</string>
+    <string name="naam">Naam</string>
+    <string name="categorie">Categorie</string>
+    <string name="hoeveelheid">Hoeveelheid</string>
+    <string name="toevoegen">Toevoegen</string>
+    <string name="lenen">Lenen</string>
+    <string name="product">Product</string>
+    <string name="beschikbaarheid">Beschikbaarheid</string>
+    <string name="beschikbaar">Beschikbaar</string>
+    <string name="admin">Admin</string>
+    <string name="_1_beschikbare_producten">1. Beschikbare producten:</string>
+    <string name="_2_uitgeleende_producten">2. Uitgeleende producten:</string>
+    <string name="_0">0</string>
+    <string name="meldingen">Meldingen</string>
+    <string name="contact">Contact</string>
+    <string name="beheerders">Beheerders</string>
+    <string name="statistieken">Statistieken</string>
+    <string name="instellingen">Instellingen</string>
+    <string name="uitloggen">Uitloggen</string>
 </resources>
