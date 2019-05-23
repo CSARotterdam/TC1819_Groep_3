@@ -110,7 +110,7 @@ class Publisher(models.Model):
 class Book(Item):
     title = models.CharField(max_length=128)
     writers = models.ManyToManyField(Writer, blank=True)
-    isbn = models.CharField(max_length=128, default = "")
+    isbn = models.CharField(max_length=128)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
 
