@@ -20,8 +20,8 @@
                 android:layout_height="match_parent">
                 <Button
                     android:id="@+id/Borrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="95dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="23dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="340dp"
@@ -70,7 +70,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentStart="true"
                     android:textSize="22sp"
-                    android:textColor="@android:color/white"
                     android:text="@string/beschrijving"
                     android:layout_alignParentLeft="true" />
 
@@ -103,7 +102,6 @@
                     android:layout_marginRight="21dp"
                     android:layout_alignParentRight="true"
                     android:text="@string/beschikbaarheid"
-                    android:textColor="@android:color/white"
                     android:textSize="22sp"
                     android:gravity="end" />
             </RelativeLayout>

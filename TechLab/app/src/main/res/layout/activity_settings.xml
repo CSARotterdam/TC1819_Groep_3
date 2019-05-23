@@ -17,7 +17,6 @@
         android:textSize="24sp"
         android:gravity="center"
         android:text="@string/taal"
-        android:textColor="#FFFFFF"
         android:textAlignment="viewStart"
         android:paddingTop="4dp"
         android:drawableLeft="@drawable/language2"/>
@@ -37,7 +36,6 @@
         android:drawableLeft="@drawable/theme"
         android:textAlignment="viewStart"
         android:text="@string/thema"
-        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:gravity="center" />
 
