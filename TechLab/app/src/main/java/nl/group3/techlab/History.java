@@ -26,7 +26,7 @@ public class History extends AppCompatActivity {
         if (data.getCount() != 0 ){
             while (data.moveToNext())
             {
-                String Itemname= (data.getString(1));
+                String Itemname = (data.getString(1));
                 String Description = (data.getString(2));
                 thelist.add(new RowListItem(Itemname,Description));
                 historyAdapter = new HistoryAdapter(this,thelist);

@@ -112,9 +112,9 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                     Item item = (Item) adapterView.getItemAtPosition(i);
-                    int quantity = item.getItemQuantity();
-                    String itemText = item.getItem();
-                    String itemDesc = item.getItemDescription();
+                    int quantity = item.getQuantity();
+                    String itemText = item.getName();
+                    String itemDesc = item.getDescription();
 
                     Log.d(TAG, "onItemClick You clicked on " + itemText);
 
@@ -195,6 +195,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             startActivity(new Intent(ItemsAndMenuActivity.this, History.class));
         } else if(id == R.id.meldingen){
             startActivity(new Intent(ItemsAndMenuActivity.this, Notifications.class));
+        } else if (id == R.id.terugnemen) {
+            startActivity(new Intent(ItemsAndMenuActivity.this, ReturnItemActivity.class));
         } else if(id == R.id.statistieken){
             startActivity(new Intent(ItemsAndMenuActivity.this, statistic.class));
         } else if(id == R.id.instellingen){

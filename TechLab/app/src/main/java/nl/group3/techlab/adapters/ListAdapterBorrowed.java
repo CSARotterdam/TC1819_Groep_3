@@ -36,7 +36,7 @@ public class ListAdapterBorrowed extends ArrayAdapter<BorrowItem> {
 
 
             if(IDName != null){
-                IDName.setText((borrowItem.getID()));
+                IDName.setText((borrowItem.getId()));
 
             }
 //            if(UserName != null){

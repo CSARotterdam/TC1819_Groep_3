@@ -45,6 +45,8 @@
             android:label="@string/geschiedenis" />
         <activity android:name=".view.ViewBorrowedItem" />
         <activity android:name=".ItemEdit" />
+        <activity android:name=".ReturnItemActivity"/>
+        <activity android:name=".HandInConfirmation"/>
     </application>
 
 </manifest>
