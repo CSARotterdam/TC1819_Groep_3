@@ -53,6 +53,7 @@ public class BorrowDatabase  extends SQLiteOpenHelper {
         Cursor data= db.rawQuery("select * from Borrow",null);
         return data;
     }
+
     public Boolean CheckProduct(String item_name, String item_description) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from Borrow where item_name=? and item_description=?",new String[]{item_name,item_description});

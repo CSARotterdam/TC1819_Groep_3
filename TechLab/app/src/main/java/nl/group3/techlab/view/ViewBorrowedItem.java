@@ -45,7 +45,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
         }else{
 
             while(data.moveToNext()){
-                borrowItem = new BorrowItem( data.getInt(1));
+                borrowItem = new BorrowItem(data.getInt(1));
                 BorrowedList.add(borrowItem);
             }
             ListAdapterBorrowed adapter = new ListAdapterBorrowed(this, R.layout.borrowed_items, BorrowedList);
@@ -56,7 +56,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                 BorrowItem borrowItem  = (BorrowItem)adapterView.getItemAtPosition(i);
-                int borrowText = borrowItem.getID();
+                int borrowText = borrowItem.getId();
 
                 Cursor data = myDB.getBorrowedID(borrowText);
                 int ID = -1;
