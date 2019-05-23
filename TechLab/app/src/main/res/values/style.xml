@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="theme1">
-        <item name="android:colorBackground">@android:color/white</item>
-        <item name="android:buttonStyle">@style/b_style1</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="colorAccent">@android:color/black</item>
-        <item name="android:textColorHint">@android:color/black</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:radioButtonStyle">@style/r_style1</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="b_style1" parent="android:Widget.Button">
-        <item name="android:textSize">18dp</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    <style name="r_style1" parent="android:Widget.CompoundButton.RadioButton">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">18dp</item>
-    </style>
-    <style name="theme2">
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:buttonStyle">@style/b_style2</item>
         <item name="android:textColorPrimary">@android:color/white</item>
@@ -39,22 +19,25 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">18dp</item>
     </style>
-    <style name="theme3">
-        <item name="android:colorBackground">@android:color/holo_green_light</item>
-        <item name="android:buttonStyle">@style/b_style3</item>
-        <item name="android:textColorPrimary">@android:color/holo_red_light</item>
-        <item name="colorAccent">@android:color/holo_red_light</item>
+    <style name="theme2">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:buttonStyle">@style/b_style1</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="colorAccent">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:radioButtonStyle">@style/r_style3</item>
+        <item name="android:radioButtonStyle">@style/r_style1</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="b_style3" parent="android:Widget.Button">
+    <style name="b_style1" parent="android:Widget.Button">
         <item name="android:textSize">18dp</item>
-        <item name="android:textColor">@android:color/holo_red_light</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
-    <style name="r_style3" parent="android:Widget.CompoundButton.RadioButton">
-        <item name="android:textColor">@android:color/holo_red_light</item>
+    <style name="r_style1" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">18dp</item>
     </style>
+
 </resources>
 
