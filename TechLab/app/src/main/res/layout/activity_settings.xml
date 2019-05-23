@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
@@ -10,8 +11,8 @@
 
 
     <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="768dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:orientation="vertical"
@@ -24,14 +25,13 @@
         <Button
             android:id="@+id/language"
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textSize="24sp"
-            android:gravity="start"
+            android:gravity="center"
             android:text="Taal"
             android:textColor="#FFFFFF"
-            android:textAlignment="viewEnd"
-            android:paddingRight="250sp"
+            android:textAlignment="viewStart"
             android:paddingTop="20sp"
             android:drawableLeft="@drawable/language2"/>
 
@@ -39,30 +39,28 @@
             android:id="@+id/divider1"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="75dp"
             android:background="#FFFFFF"/>
 
         <Button
             android:id="@+id/theme"
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/theme"
-            android:gravity="start"
-            android:paddingRight="230sp"
-            android:textAlignment="viewEnd"
-            android:paddingTop="20sp"
+            android:textAlignment="viewStart"
             android:text="Thema"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:gravity="center" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="75dp"
             android:background="#FFFFFF"/>
 
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
