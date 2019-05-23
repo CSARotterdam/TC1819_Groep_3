@@ -19,13 +19,15 @@ class User(models.Model):
         return self.email
 
     def to_json(self, *exclude_vars):
-        print(vars(self))
         json_dict = vars(self)
-        json_dict['id'] = str(json_dict['id'])
+
+        for x, y in json_dict.items():
+            if type(y).__name__ == 'datetime' or type(y).__name__ == 'UUID':
+                json_dict[x] = str(y)
 
         for arg in exclude_vars:
             json_dict.pop(arg, None)
-        print(json_dict)
+
         return json_dict
 
 
@@ -41,38 +43,68 @@ class Item(models.Model):
     image = models.ImageField(blank=True, upload_to='static')
 
     def to_json(self, *exclude_vars):
-        print(vars(self))
         json_dict = vars(self)
         json_dict['id'] = str(json_dict['id'])
 
         for arg in exclude_vars:
             json_dict.pop(arg, None)
-        print(json_dict)
         return json_dict
 
 
 class Writer(models.Model):
+    name = models.CharField(max_length=128, default="")
+
     def __str__(self):
         return self.name
-    name = models.CharField(max_length=128, default="")
+
+    def to_json(self, *exclude_vars):
+        json_dict = vars(self)
+
+        for arg in exclude_vars:
+            json_dict.pop(arg, None)
+        return json_dict
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=128, default="")
+
     def __str__(self):
         return self.name
-    name = models.CharField(max_length=128, default="")
+
+    def to_json(self, *exclude_vars):
+        json_dict = vars(self)
+
+        for arg in exclude_vars:
+            json_dict.pop(arg, None)
+        return json_dict
 
 
 class Manufacturer(models.Model):
+    name = models.CharField(max_length=128, default="")
+
     def __str__(self):
         return self.name
-    name = models.CharField(max_length=128, default="")
+
+    def to_json(self, *exclude_vars):
+        json_dict = vars(self)
+
+        for arg in exclude_vars:
+            json_dict.pop(arg, None)
+        return json_dict
 
 
 class Publisher(models.Model):
+    name = models.CharField(max_length=128, default="")
+
     def __str__(self):
         return self.name
-    name = models.CharField(max_length=128, default="")
+
+    def to_json(self, *exclude_vars):
+        json_dict = vars(self)
+
+        for arg in exclude_vars:
+            json_dict.pop(arg, None)
+        return json_dict
 
 
 class Book(Item):
@@ -109,16 +141,13 @@ class BorrowItem(models.Model):
         return str(self.user) + '( ' + str(self.borrow_date) + ' - ' + str(self.return_date) + ' )'
 
     def to_json(self, *exclude_vars):
-        print(vars(self))
         json_dict = vars(self)
-        json_dict['item_id'] = str(json_dict['item_id'])
         json_dict['item'] = Item.objects.get(id=json_dict['item_id']).to_json('_state', 'item_ptr_id')
-        json_dict['user_id'] = str(json_dict['user_id'])
-        json_dict['borrow_date'] = str(json_dict['borrow_date'])
-        json_dict['return_date'] = str(json_dict['return_date'])
-        json_dict['hand_in_date'] = str(json_dict['hand_in_date'])
+
+        for x, y in json_dict.items():
+            if type(y).__name__ == 'datetime' or type(y).__name__ == 'UUID':
+                json_dict[x] = str(y)
 
         for arg in exclude_vars:
             json_dict.pop(arg, None)
-        print(json_dict)
         return json_dict

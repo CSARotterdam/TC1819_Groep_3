@@ -20,6 +20,7 @@ class Statistics(View):
         list of returned items
         list of available items
         list of different people that have borrowed an item.
+        
         '''
 
         return JsonResponse(json.loads(json.dumps({
