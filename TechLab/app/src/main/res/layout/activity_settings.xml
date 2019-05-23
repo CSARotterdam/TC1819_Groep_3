@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="84dp"
             android:background="@android:color/transparent"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:gravity="start"
             android:text="Taal"
             android:textAlignment="viewEnd"
@@ -51,7 +51,7 @@
             android:textAlignment="viewEnd"
             android:paddingTop="20sp"
             android:text="Thema"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
         <View
             android:id="@+id/divider2"
