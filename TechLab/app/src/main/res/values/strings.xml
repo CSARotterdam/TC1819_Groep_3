@@ -38,4 +38,14 @@
     <string name="statistieken">Statistieken</string>
     <string name="instellingen">Instellingen</string>
     <string name="uitloggen">Uitloggen</string>
+    <string name="weet_je_zeker_terug">Weet je zeker dat je het voorwerp terug wilt nemen?</string>
+    <string name="beschadigd">Beschadigd</string>
+    <string name="annuleren">Annuleren</string>
+    <string name="kies_je_thema">Kies je thema</string>
+    <string name="basis_thema">Basis thema</string>
+    <string name="witte_thema">Witte thema</string>
+    <string name="opslaan">Opslaan</string>
+    <string name="kies_een_taal">Kies een taal</string>
+    <string name="nederlands">Nederlands</string>
+    <string name="english">English</string>
 </resources>

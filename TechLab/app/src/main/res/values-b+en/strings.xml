@@ -39,4 +39,14 @@
     <string name="statistieken">Statistics</string>
     <string name="instellingen">Settings</string>
     <string name="uitloggen">Sign out</string>
+    <string name="weet_je_zeker_terug">Are you sure that you want to take back the item?</string>
+    <string name="beschadigd">Damaged</string>
+    <string name="annuleren">Cancel</string>
+    <string name="kies_je_thema">Choose your theme</string>
+    <string name="basis_thema">Basic theme</string>
+    <string name="witte_thema">White theme</string>
+    <string name="opslaan">Save</string>
+    <string name="kies_een_taal">Choose a language</string>
+    <string name="nederlands">Nederlands</string>
+    <string name="english">English</string>
 </resources>
