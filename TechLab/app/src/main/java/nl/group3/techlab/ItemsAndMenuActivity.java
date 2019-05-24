@@ -72,6 +72,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 break;
         }
         int language = sharedPreferences.getInt("language", 1);
+//        int language = sharedPreferences.getInt("language", 0);
         switch (language) {
             case 1:
                 setLocale("nl");
@@ -183,9 +184,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-//        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
-//        startActivity(refresh);
-//        finish();
     }
 
     @Override
