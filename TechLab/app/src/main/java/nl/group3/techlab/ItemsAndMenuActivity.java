@@ -67,9 +67,22 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             default:
                 break;
         }
+//        sharedPreferences = getSharedPreferences("Techlab", 0);
+//        int language = sharedPreferences.getInt("language", 1);
+//        switch (language) {
+//            case 1:
+//                language.setLocale(NEDERLANDS);
+//                break;
+//            case 2:
+//                setTheme(R.style.theme2);
+//                break;
+//            default:
+//                break;
+//        }
         setContentView(R.layout.activity_items_and_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(R.string.Producten);
         LoginActivity.logged_in = true;
 
         // Dit is voor de menu-button.

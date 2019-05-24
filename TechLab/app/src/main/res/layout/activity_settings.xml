@@ -36,6 +36,7 @@
         android:drawableLeft="@drawable/ic_format_paint_black_75dp"
         android:textAlignment="viewStart"
         android:text="@string/thema"
+        android:layout_marginTop="20dp"
         android:textSize="24sp"
         android:gravity="center" />
 

@@ -15,9 +15,9 @@ import android.widget.RadioButton;
 
 public class language extends AppCompatActivity {
     SharedPreferences sharedPreferences;
-    public static final Locale ENGLISH = Locale.ENGLISH;
-    public static final Locale NEDERLANDS = new Locale("de_NL");
-    public static Locale DEFAULT = Locale.getDefault();
+//    public static final Locale ENGLISH = Locale.ENGLISH;
+//    public static final Locale NEDERLANDS = new Locale("de_NL");
+//    public static Locale DEFAULT = Locale.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +52,18 @@ public class language extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (radioButton.isChecked()) {
-//                    editor.putInt("d_color", 1);
-                    setLocale(NEDERLANDS);
+                    editor.putInt("language", 1);
+                    setLocale("nl");
                 }
 
                 if (radioButton2.isChecked()) {
-//                    editor.putInt("d_color", 2);
-                    setLocale(ENGLISH);
+                    editor.putInt("language", 2);
+                    setLocale("en");
                 }
 
-//                editor.apply();
+                editor.apply();
                 Intent intent = new Intent(v.getContext(), ItemsAndMenuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -74,32 +74,32 @@ public class language extends AppCompatActivity {
 
         });
     }
-//    public void setLocale(String lang) {
-//        Locale myLocale = new Locale(lang);
-//        Resources res = getResources();
-//        DisplayMetrics dm = res.getDisplayMetrics();
-//        Configuration conf = res.getConfiguration();
-//        conf.locale = myLocale;
-//        res.updateConfiguration(conf, dm);
-//        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
-//        startActivity(refresh);
-//        finish();
-//    }
-    @SuppressWarnings("deprecation")
-    private void setLocale(Locale locale){
-//        SharedPrefUtils.saveLocale(locale); // optional - Helper method to save the selected language to SharedPreferences in case you might need to attach to activity context (you will need to code this)
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-            configuration.setLocale(locale);
-        } else{
-            configuration.locale=locale;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            getApplicationContext().createConfigurationContext(configuration);
-        } else {
-            resources.updateConfiguration(configuration,displayMetrics);
-        }
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
+        startActivity(refresh);
+        finish();
     }
+//    @SuppressWarnings("deprecation")
+//    public void setLocale(Locale locale){
+////        SharedPrefUtils.saveLocale(locale); // optional - Helper method to save the selected language to SharedPreferences in case you might need to attach to activity context (you will need to code this)
+//        Resources resources = getResources();
+//        Configuration configuration = resources.getConfiguration();
+//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+//            configuration.setLocale(locale);
+//        } else{
+//            configuration.locale=locale;
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+//            getApplicationContext().createConfigurationContext(configuration);
+//        } else {
+//            resources.updateConfiguration(configuration,displayMetrics);
+//        }
+//    }
 }
