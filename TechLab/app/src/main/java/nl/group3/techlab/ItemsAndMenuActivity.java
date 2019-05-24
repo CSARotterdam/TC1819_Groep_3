@@ -2,10 +2,13 @@ package nl.group3.techlab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import nl.group3.techlab.adapters.ProductListAdapter;
 import nl.group3.techlab.databases.BorrowDatabase;
@@ -67,18 +71,17 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             default:
                 break;
         }
-//        sharedPreferences = getSharedPreferences("Techlab", 0);
-//        int language = sharedPreferences.getInt("language", 1);
-//        switch (language) {
-//            case 1:
-//                language.setLocale(NEDERLANDS);
-//                break;
-//            case 2:
-//                setTheme(R.style.theme2);
-//                break;
-//            default:
-//                break;
-//        }
+        int language = sharedPreferences.getInt("language", 1);
+        switch (language) {
+            case 1:
+                setLocale("nl");
+                break;
+            case 2:
+                setLocale("en");
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.activity_items_and_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -172,6 +175,17 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+//        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
+//        startActivity(refresh);
+//        finish();
     }
 
     @Override

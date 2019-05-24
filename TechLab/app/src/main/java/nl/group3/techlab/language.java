@@ -34,11 +34,23 @@ public class language extends AppCompatActivity {
             default:
                 break;
         }
+        int language = sharedPreferences.getInt("language", 1);
+        switch (language) {
+            case 1:
+                setLocale("nl");
+                break;
+            case 2:
+                setLocale("en");
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.activity_language);
         Button button = findViewById(R.id.button);
+         language = sharedPreferences.getInt("language", 0);
         final RadioButton radioButton = findViewById(R.id.rbc1);
         final RadioButton radioButton2 = findViewById(R.id.rbc2);
-        switch (d_color) {
+        switch (language) {
             case 1:
                 radioButton.setChecked(true);
                 break;
@@ -55,12 +67,12 @@ public class language extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (radioButton.isChecked()) {
                     editor.putInt("language", 1);
-                    setLocale("nl");
+//                    setLocale("nl");
                 }
 
                 if (radioButton2.isChecked()) {
                     editor.putInt("language", 2);
-                    setLocale("en");
+//                    setLocale("en");
                 }
 
                 editor.apply();
@@ -81,9 +93,9 @@ public class language extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
-        startActivity(refresh);
-        finish();
+//        Intent refresh = new Intent(this, ItemsAndMenuActivity.class);
+//        startActivity(refresh);
+//        finish();
     }
 //    @SuppressWarnings("deprecation")
 //    public void setLocale(Locale locale){
