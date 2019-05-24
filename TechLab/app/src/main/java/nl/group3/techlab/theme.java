@@ -58,18 +58,17 @@ public class theme extends AppCompatActivity {
 
                 editor.apply();
                 Intent intent = new Intent(v.getContext(), ItemsAndMenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_right_out, R.anim.push_right_in);
-//                finish();
             }
-
         });
-
     }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(theme.this, ItemsAndMenuActivity.class);
-        startActivity(intent);
-    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent = new Intent(theme.this, ItemsAndMenuActivity.class);
+//        startActivity(intent);
+//    }
 }

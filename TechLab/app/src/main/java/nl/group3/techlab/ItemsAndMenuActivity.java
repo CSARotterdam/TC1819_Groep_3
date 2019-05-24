@@ -130,8 +130,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                     String itemText = item.getName();
                     String itemDesc = item.getDescription();
 
-                    Log.d(TAG, "onItemClick You clicked on " + itemText);
-
                     Cursor data = myDB.getItemID(itemText);
                     int ID = -1;
 
@@ -169,8 +167,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            super.onBackPressed();
-            finish();
+            super.onBackPressed();
         }
     }
 

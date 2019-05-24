@@ -4,7 +4,7 @@
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:buttonStyle">@style/b_style2</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@android:color/white</item>
 
         <item name="android:textColor">@android:color/white</item>
@@ -23,7 +23,7 @@
         <item name="android:colorBackground">@android:color/white</item>
         <item name="android:buttonStyle">@style/b_style1</item>
         <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="colorAccent">@android:color/black</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@android:color/black</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:radioButtonStyle">@style/r_style1</item>

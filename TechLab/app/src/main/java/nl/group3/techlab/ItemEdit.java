@@ -95,10 +95,10 @@ public class ItemEdit extends AppCompatActivity {
         eItemD.setText(selectedDesc);
 
         if (selectedquan > 0){
-            Bsk.setText("Beschikbaar");
+            Bsk.setText(R.string.beschikbaar);
         }
         else {
-            Bsk.setText("Niet beschikbaar");
+            Bsk.setText(R.string.niet_beshikbaar);
         }
 
         delButton.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +109,7 @@ public class ItemEdit extends AppCompatActivity {
                 AddNewItem.totalQuantity -= selectedquan;
                 editor.putInt("AV", intAV-=selectedquan);
                 editor.apply();
-                toastMessage("Removed from database");
+//                toastMessage("Removed from database");
                 Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
                 startActivity(intent);
                 finish();
@@ -147,6 +147,13 @@ public class ItemEdit extends AppCompatActivity {
         });
 
     }
+    public void onBackPressed() {
+        Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
     private void toastMessage (String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
