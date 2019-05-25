@@ -71,8 +71,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             default:
                 break;
         }
-        int language = sharedPreferences.getInt("language", 1);
-//        int language = sharedPreferences.getInt("language", 0);
+//        int language = sharedPreferences.getInt("language", 1);
+        int language = sharedPreferences.getInt("language", 0);
         switch (language) {
             case 1:
                 setLocale("nl");
