@@ -49,4 +49,20 @@
     <string name="nederlands">Nederlands</string>
     <string name="english">English</string>
     <string name="niet_beshikbaar">Niet beschikbaar</string>
+    <string name="product_toevoegen">Product toevoegen</string>
+    <string name="alle_velden_invullen">Vul alstublieft alle velden in</string>
+    <string name="product_toegevoegd">Product is toegevoegd</string>
+    <string name="pruduct_toevoegen_mislukt">Product toevoegen is mislukt, controleer uw verbinding</string>
+    <string name="product_teruggebracht">Het voorwerp is teruggebracht.</string>
+    <string name="product_verwijderd">Product is verwijderd</string>
+    <string name="product_geleend">Het product is geleend</string>
+    <string name="product_niet_beschikbaar">Het product is niet beschikbaar</string>
+    <string name="wachtwoord_invoeren">Voer een wachtwoord in</string>
+    <string name="fout_wachtwoord">Fout wachtwoord</string>
+    <string name="login_admin_email">Log in met de admin email</string>
+    <string name="login_met_hr">Je moet met jouw HR account inloggen</string>
+    <string name="inloggen_mislukt">Inloggen mislukt</string>
+    <string name="geen_producten">Geen producten</string>
+    <string name="teruggebracht">Teruggebracht</string>
+    <string name="uitgelogd">Uitgelogd</string>
 </resources>

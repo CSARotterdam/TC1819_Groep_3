@@ -50,4 +50,20 @@
     <string name="nederlands">Nederlands</string>
     <string name="english">English</string>
     <string name="niet_beshikbaar">Not available</string>
+    <string name="product_toevoegen">Add product</string>
+    <string name="alle_velden_invullen">Please fill out all fields</string>
+    <string name="product_toegevoegd">Product has been added</string>
+    <string name="pruduct_toevoegen_mislukt">Adding product failed, please check your connection</string>
+    <string name="product_teruggebracht">The product has been returned</string>
+    <string name="product_verwijderd">Product has been deleted</string>
+    <string name="product_geleend">The product has been borrowed</string>
+    <string name="product_niet_beschikbaar">The product is unavailable</string>
+    <string name="wachtwoord_invoeren">Please insert a password</string>
+    <string name="fout_wachtwoord">Wrong password</string>
+    <string name="login_admin_email">Please sign in with the admin email</string>
+    <string name="login_met_hr">Please log in with your HR email</string>
+    <string name="inloggen_mislukt">Sign in failed</string>
+    <string name="geen_producten">No products</string>
+    <string name="teruggebracht">Returned</string>
+    <string name="uitgelogd">Succesfully signed out</string>
 </resources>

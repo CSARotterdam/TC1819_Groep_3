@@ -34,6 +34,7 @@ public class History extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.borrow_list);
+        setTitle(R.string.geschiedenis);
         ListView listView=(ListView)findViewById(R.id.List_view);
         mydb=new BorrowDatabase(this);
         ArrayList<RowListItem> thelist = new ArrayList<>();

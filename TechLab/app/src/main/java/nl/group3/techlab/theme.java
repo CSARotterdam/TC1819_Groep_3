@@ -30,6 +30,7 @@ public class theme extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_theme);
+        setTitle(R.string.thema);
         Button button = findViewById(R.id.button);
         final RadioButton radioButton = findViewById(R.id.rbc1);
         final RadioButton radioButton2 = findViewById(R.id.rbc2);

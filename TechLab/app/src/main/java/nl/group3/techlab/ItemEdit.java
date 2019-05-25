@@ -61,6 +61,7 @@ public class ItemEdit extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.borrow_item_layout);
+        setTitle(R.string.lenen);
 //        vBorrow = (Button) findViewById(R.id.vBorrow);
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
@@ -109,7 +110,7 @@ public class ItemEdit extends AppCompatActivity {
                 AddNewItem.totalQuantity -= selectedquan;
                 editor.putInt("AV", intAV-=selectedquan);
                 editor.apply();
-//                toastMessage("Removed from database");
+                toastMessage(getString(R.string.product_verwijderd));
                 Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
                 startActivity(intent);
                 finish();
@@ -137,11 +138,11 @@ public class ItemEdit extends AppCompatActivity {
                     editor.putInt("LE", intLE+=1);
                     editor.putInt("AV", intAV-=1);
                     editor.apply();
-                    toastMessage("Item has been borrowed");
+                    toastMessage(getString(R.string.product_geleend));
                     startActivity(new Intent(ItemEdit.this, ItemsAndMenuActivity.class));
                     finish();
                 } else {
-                    toastMessage("Item is not available");
+                    toastMessage(getString(R.string.product_niet_beschikbaar));
                 }
             }
         });

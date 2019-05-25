@@ -47,7 +47,7 @@ public class ReturnItemAdapter extends ArrayAdapter<BorrowItem> {
         tvReturnDate.setText(format.format(borrowItem.getBorrowDate()));
 
         if(borrowItem.getReturnDate().getTime() > new Date(1553893014504L).getTime())
-            bReturnButton.setText("Teruggebracht");
+            bReturnButton.setText(R.string.teruggebracht);
         else
             bReturnButton.setOnClickListener(new AdapterView.OnClickListener() {
                 @Override

@@ -33,6 +33,7 @@ public class language extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_language);
+        setTitle(R.string.taal);
         Button button = findViewById(R.id.button);
         int language = sharedPreferences.getInt("language", 0);
         final RadioButton radioButton = findViewById(R.id.rbc1);

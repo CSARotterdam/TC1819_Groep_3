@@ -71,8 +71,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             default:
                 break;
         }
-        int language = sharedPreferences.getInt("language", 1);
-//        int language = sharedPreferences.getInt("language", 0);
+//        int language = sharedPreferences.getInt("language", 1);
+        int language = sharedPreferences.getInt("language", 0);
         switch (language) {
             case 1:
                 setLocale("nl");
@@ -162,9 +162,9 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                         editScreenIntent.putExtra("Description", itemDesc);
                         startActivity(editScreenIntent);
                         finish();
-                    } else{
-                        Toast.makeText(view.getContext(), "No ID associated with that name",
-                                Toast.LENGTH_SHORT).show();
+//                    } else{
+//                        Toast.makeText(view.getContext(), "No ID associated with that name",
+//                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -250,7 +250,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         LoginActivity.logged_in = false;
-                        Toast.makeText(ItemsAndMenuActivity.this, "Succesfully signed out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemsAndMenuActivity.this, getString(R.string.uitgelogd), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ItemsAndMenuActivity.this, LoginActivity.class));
                         finish();
                     }

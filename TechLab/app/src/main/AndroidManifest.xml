@@ -32,7 +32,10 @@
             android:name=".Notifications"
             android:label="@string/meldingen"
             />
-        <activity android:name=".AddNewItem" />
+        <activity
+            android:name=".AddNewItem"
+            android:label="@string/product_toevoegen"
+            />
         <activity
             android:name=".ItemsAndMenuActivity"
             android:label="@string/Producten"
