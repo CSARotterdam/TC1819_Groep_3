@@ -46,6 +46,7 @@ public class statistic extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.statistic_layout1);
+        setTitle(R.string.statistieken);
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();

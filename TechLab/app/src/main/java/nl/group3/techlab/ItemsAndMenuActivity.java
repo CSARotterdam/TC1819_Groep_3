@@ -2,10 +2,13 @@ package nl.group3.techlab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import nl.group3.techlab.adapters.ProductListAdapter;
 import nl.group3.techlab.databases.BorrowDatabase;
@@ -67,9 +71,22 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             default:
                 break;
         }
+//        int language = sharedPreferences.getInt("language", 1);
+        int language = sharedPreferences.getInt("language", 0);
+        switch (language) {
+            case 1:
+                setLocale("nl");
+                break;
+            case 2:
+                setLocale("en");
+                break;
+            default:
+                break;
+        }
         setContentView(R.layout.activity_items_and_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(R.string.Producten);
         LoginActivity.logged_in = true;
 
         // Dit is voor de menu-button.
@@ -112,7 +129,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         Cursor data = myDB.getListContents();
         int numRows = data.getCount();
         if (numRows == 0) {
-            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
+//            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
         } else {
             while (data.moveToNext()) {
                 item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));
@@ -130,8 +147,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                     String itemText = item.getName();
                     String itemDesc = item.getDescription();
 
-                    Log.d(TAG, "onItemClick You clicked on " + itemText);
-
                     Cursor data = myDB.getItemID(itemText);
                     int ID = -1;
 
@@ -147,9 +162,9 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                         editScreenIntent.putExtra("Description", itemDesc);
                         startActivity(editScreenIntent);
                         finish();
-                    } else{
-                        Toast.makeText(view.getContext(), "No ID associated with that name",
-                                Toast.LENGTH_SHORT).show();
+//                    } else{
+//                        Toast.makeText(view.getContext(), "No ID associated with that name",
+//                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -159,8 +174,17 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(ItemsAndMenuActivity.this, AddNewItem.class);
                 startActivity(intent);
+                finish();
             }
         });
+    }
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
     @Override
@@ -169,8 +193,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            super.onBackPressed();
-            finish();
+            super.onBackPressed();
         }
     }
 
@@ -228,7 +251,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         LoginActivity.logged_in = false;
-                        Toast.makeText(ItemsAndMenuActivity.this, "Succesfully signed out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemsAndMenuActivity.this, getString(R.string.uitgelogd), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ItemsAndMenuActivity.this, LoginActivity.class));
                         finish();
                     }

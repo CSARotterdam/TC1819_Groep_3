@@ -29,6 +29,7 @@ public class HandInConfirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hand_in_confirmation);
 
+
         final BorrowItem borrowedItem = (BorrowItem)getIntent().getSerializableExtra("BorrowedItemObject");
 
         TextView tvBorrowedBy = (TextView)findViewById(R.id.borrowedBy);
@@ -58,7 +59,7 @@ public class HandInConfirmation extends AppCompatActivity {
         bBrokenAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Het voorwerp is teruggebracht.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), getString(R.string.product_teruggebracht), Toast.LENGTH_LONG).show();
                 ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
                 Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
 
@@ -80,7 +81,7 @@ public class HandInConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Toast.makeText(getBaseContext(), "Het voorwerp is teruggebracht.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
                 ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
                 Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
 

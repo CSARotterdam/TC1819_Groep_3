@@ -13,11 +13,8 @@ import android.widget.RadioButton;
 
 public class theme extends AppCompatActivity {
     SharedPreferences sharedPreferences;
+
     @Override
-//    public void onBackPressed() {
-//        Intent intent = new Intent(theme.this, ItemsAndMenuActivity.class);
-//        startActivity(intent);
-//    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("Techlab", 0);
@@ -33,6 +30,7 @@ public class theme extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_theme);
+        setTitle(R.string.thema);
         Button button = findViewById(R.id.button);
         final RadioButton radioButton = findViewById(R.id.rbc1);
         final RadioButton radioButton2 = findViewById(R.id.rbc2);
@@ -61,12 +59,17 @@ public class theme extends AppCompatActivity {
 
                 editor.apply();
                 Intent intent = new Intent(v.getContext(), ItemsAndMenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
                 overridePendingTransition(R.anim.push_right_out, R.anim.push_right_in);
             }
-
         });
-
     }
+//
+//    @Override
+//    public void onBackPressed() {
+//        Intent intent = new Intent(theme.this, ItemsAndMenuActivity.class);
+//        startActivity(intent);
+//    }
 }

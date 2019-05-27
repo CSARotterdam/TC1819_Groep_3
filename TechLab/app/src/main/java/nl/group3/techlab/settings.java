@@ -29,6 +29,7 @@ public class settings extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_settings);
+        setTitle(R.string.instellingen);
 
         language = (Button) findViewById(R.id.language);
         theme = (Button) findViewById(R.id.theme);

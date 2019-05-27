@@ -1,65 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="nl.group3.techlab.settings">
 
+    <Button
+        android:id="@+id/language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/taal"
+        android:textAlignment="viewStart"
+        android:paddingTop="4dp"
+        android:drawableLeft="@drawable/ic_language_black_75dp"/>
 
-    <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="768dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp"
+        android:background="#FFFFFF"/>
 
+    <Button
+        android:id="@+id/theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_format_paint_black_75dp"
+        android:textAlignment="viewStart"
+        android:text="@string/thema"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:gravity="center" />
 
-        <Button
-            android:id="@+id/language"
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:background="@android:color/transparent"
-            android:textSize="22sp"
-            android:gravity="start"
-            android:text="Taal"
-            android:textAlignment="viewEnd"
-            android:paddingRight="250sp"
-            android:paddingTop="20sp"
-            android:drawableLeft="@drawable/language2"/>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp" />
 
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginLeft="80dp"
-            android:background="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/theme"
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/theme"
-            android:gravity="start"
-            android:paddingRight="230sp"
-            android:textAlignment="viewEnd"
-            android:paddingTop="20sp"
-            android:text="Thema"
-            android:textSize="22sp" />
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginLeft="80dp"
-            android:background="#FFFFFF"/>
-
-
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -3,6 +3,8 @@ package nl.group3.techlab;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +43,7 @@ public class AddNewItem extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.add_item);
+        setTitle(R.string.product_toevoegen);
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -75,7 +78,7 @@ public class AddNewItem extends AppCompatActivity {
                     editor.putInt("AV", intAV+=fQuan);
                     editor.apply();
                 } else{
-                    Toast.makeText(AddNewItem.this, "You must put something in all fields!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNewItem.this, getString(R.string.alle_velden_invullen), Toast.LENGTH_LONG).show();
                 }
                 Intent intent = new Intent(AddNewItem.this, ItemsAndMenuActivity.class);
                 startActivity(intent);
@@ -86,14 +89,20 @@ public class AddNewItem extends AppCompatActivity {
     public void AddData(String Item, String Categorie, String Description, int fQuan){
         boolean insertData = myDB.addData(Item,Categorie,Description,fQuan);
         if (insertData){
-            Toast.makeText(AddNewItem.this, "Item has been added", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddNewItem.this, getString(R.string.product_toegevoegd), Toast.LENGTH_LONG).show();
         } else{
-            Toast.makeText(AddNewItem.this, "Adding Item failed, please check your connection", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddNewItem.this, getString(R.string.pruduct_toevoegen_mislukt), Toast.LENGTH_LONG).show();
 
         }
     }
 
     static public int getTotalQuantity(){
         return totalQuantity;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddNewItem.this, ItemsAndMenuActivity.class));
+        finish();
     }
 }

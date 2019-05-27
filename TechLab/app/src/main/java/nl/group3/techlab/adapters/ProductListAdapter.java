@@ -46,7 +46,7 @@ public class ProductListAdapter extends ArrayAdapter<Item> {
                 ItemName.setText((item.getName()));
             }
             if(ItemDescription != null){
-                ItemDescription.setText("Beschikbaar");
+                ItemDescription.setText(R.string.beschikbaar);
             }
 
 //            if(ItemCategorie != null){

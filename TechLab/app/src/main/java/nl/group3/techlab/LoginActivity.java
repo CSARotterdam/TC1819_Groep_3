@@ -124,13 +124,14 @@ public class LoginActivity extends AppCompatActivity {
         if (AdminTrue) {
             if (Email_Password){
                 startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+                finish();
             } else if (Password.equals("")){
-                Toast.makeText(LoginActivity.this, "Voer een wachtwoord in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.wachtwoord_invoeren), Toast.LENGTH_SHORT).show();
             } else if (!Password.equals("")){
-                Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.fout_wachtwoord), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(LoginActivity.this, "Log in met de admin email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.login_admin_email), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "Je moet met jouw HR account inloggen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.login_met_hr), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                 mGoogleSignInClient.signOut();
                 finish();
@@ -176,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
             /* The ApiException status code indicates the detailed failure reason. */
             /* Please refer to the GoogleSignInStatusCodes class reference for more information.*/
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.inloggen_mislukt), Toast.LENGTH_LONG).show();
         }
     }
 

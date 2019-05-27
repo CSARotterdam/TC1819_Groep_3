@@ -26,7 +26,8 @@
             android:padding="16dp"
             android:gravity="center"
             tools:text="Borrowed by"
-            android:text="Geleend door %s" />
+            android:text="@string/geleend_door_s"
+            android:textColor="#FFFFFF"/>
 
 
         <TextView
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:gravity="center"
-            android:text="Weet je zeker dat je het voorwerp terug wilt nemen?"/>
+            android:text="@string/weet_je_zeker_terug"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#FFFFFF"
-                android:text="Terugnemen"/>
+                android:text="@string/terugnemen"/>
 
             <Button
                 android:id="@+id/brokenAction"
@@ -64,7 +65,7 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#FFFFFF"
-                android:text="Beschadigd"/>
+                android:text="@string/beschadigd"/>
 
             <Button
                 android:id="@+id/cancelAction"
@@ -76,7 +77,7 @@
                 android:layout_marginBottom="64dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#FFFFFF"
-                android:text="Annuleren"/>
+                android:text="@string/annuleren"/>
 
         </LinearLayout>
     </LinearLayout>

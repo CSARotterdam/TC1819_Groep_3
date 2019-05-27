@@ -54,7 +54,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
         Cursor data = myDB.GetBorrowedContents();
         int numRows = data.getCount();
         if (numRows == 0){
-            Toast.makeText(ViewBorrowedItem.this, "No items", Toast.LENGTH_LONG).show();
+            Toast.makeText(ViewBorrowedItem.this, getString(R.string.geen_producten), Toast.LENGTH_LONG).show();
         }else{
 
             while(data.moveToNext()){
@@ -83,9 +83,9 @@ public class ViewBorrowedItem extends AppCompatActivity {
                     editScreenIntent.putExtra("id", ID);
                     editScreenIntent.putExtra("ITEM", borrowText );
                     startActivity(editScreenIntent);
-                } else{
-                    Toast.makeText(view.getContext(), "No ID associated with that name",
-                            Toast.LENGTH_SHORT).show();
+//                } else{
+//                    Toast.makeText(view.getContext(), "No ID associated with that name",
+//                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

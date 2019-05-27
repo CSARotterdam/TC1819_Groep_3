@@ -41,6 +41,7 @@ public class ReturnItemActivity extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_hand_in);
+        setTitle(R.string.terugnemen);
 
         LoadDatabaseData();
 

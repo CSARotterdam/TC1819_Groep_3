@@ -32,6 +32,7 @@ private  NotificationHelper mNotificationHelper;
                 break;
         }
         setContentView(R.layout.activity_notifications);
+        setTitle(R.string.meldingen);
         editTextTitle = (EditText)findViewById(R.id.editTextTitle);
         editTextDescription = (EditText) findViewById(R.id.editTextDescription);
         notify = (Button)findViewById(R.id.notify);

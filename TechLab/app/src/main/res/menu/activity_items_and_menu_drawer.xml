@@ -6,30 +6,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/meldingen"
-            android:title="Meldingen" />
+            android:title="@string/meldingen" />
         <item
             android:id="@+id/geschiedenis"
-            android:title="Geschiedenis" />
+            android:title="@string/geschiedenis" />
         <item
             android:id="@+id/terugnemen"
-            android:title="Terugnemen" />
+            android:title="@string/terugnemen" />
         <item
             android:id="@+id/beheerders"
-            android:title="Beheerders" />
+            android:title="@string/beheerders" />
         <item
             android:id="@+id/producten"
-            android:title="Producten" />
+            android:title="@string/Producten" />
         <item
             android:id="@+id/statistieken"
-            android:title="Statistiek" />
+            android:title="@string/statistieken" />
         <item
             android:id="@+id/instellingen"
-            android:title="Instellingen" />
+            android:title="@string/instellingen" />
         <item
             android:id="@+id/contact"
-            android:title="Contact" />
+            android:title="@string/contact" />
         <item
             android:id="@+id/uitloggen"
-            android:title="Uitloggen" />
+            android:title="@string/uitloggen" />
     </group>
 </menu>

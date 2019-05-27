@@ -24,16 +24,16 @@
 
         <TextView
             android:id="@+id/item_name"
-            android:text="Product"
+            android:text="@string/naam"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:padding="6dp"
             android:paddingBottom="0dp"
-            android:textSize="32sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/description"
-            android:text="Beschrijving"
+            android:text="@string/beschrijving"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:padding="6dp"
