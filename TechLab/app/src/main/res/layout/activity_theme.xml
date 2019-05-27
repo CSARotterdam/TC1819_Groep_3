@@ -35,7 +35,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="right"
                 android:layout_centerInParent="true"
-                android:background="@drawable/c_text"
+                android:background="@drawable/rectangle"
                 tools:ignore="MissingConstraints">
 
                 <RadioButton
@@ -85,7 +85,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginEnd="50dp"
                 android:text="@string/opslaan"
-                android:background="@drawable/c_note"
+                android:background="@drawable/button"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="425dp"
                 android:textColor="@color/white" />
