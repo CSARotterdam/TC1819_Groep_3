@@ -3,6 +3,8 @@ from datetime import datetime
 from django.conf import settings
 import uuid
 from django.contrib.auth.models import User as AuthUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # TODO: For each model make a to_json function that takes all of the model's variables and
 #  puts them in a json dump, variables can dynamically be excluded, by adding the names into
@@ -37,10 +39,16 @@ class API(models.Model):
 
 
 class Item(models.Model):
+    type = models.CharField(max_length=256, null=True, blank=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     borrow_days = models.IntegerField(default=0)
     description = models.CharField(max_length=2048, default="")
-    image = models.ImageField(blank=True, upload_to='static')
+    image = models.ImageField(blank=True, upload_to='static') # TODO: Return a valid abs url
+
+    def save(self, *args, **kwargs):
+        self.type = type(self).__name__
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+
 
     def to_json(self, *exclude_vars):
         json_dict = vars(self)

@@ -32,12 +32,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import nl.group3.techlab.adapters.ProductListAdapter;
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
+import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Item;
 
 public class ItemsAndMenuActivity extends AppCompatActivity
