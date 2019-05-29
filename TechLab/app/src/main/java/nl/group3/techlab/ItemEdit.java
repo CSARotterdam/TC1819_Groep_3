@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
+import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 
 import java.util.ArrayList;
@@ -86,36 +87,38 @@ public class ItemEdit extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
 
+        Book book = (Book)receivedIntent.getSerializableExtra("item");
+
         selectedID = receivedIntent.getIntExtra("id", -1);
         selectedName = receivedIntent.getStringExtra("ITEM");
         selectedquan = receivedIntent.getIntExtra("quantity", 0);
         selectedDesc = receivedIntent.getStringExtra("Description");
 
 
-        eItem.setText(selectedName);
-        eItemD.setText(selectedDesc);
+        eItem.setText(book.getTitle());
+        eItemD.setText(book.getDescription());
 
-        if (selectedquan > 0){
+        if (book.getStock() > 0){
             Bsk.setText(R.string.beschikbaar);
         }
         else {
             Bsk.setText(R.string.niet_beshikbaar);
         }
 
-        delButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myDB.deleteName(selectedID, selectedName);
-                eItem.setText("");
-                AddNewItem.totalQuantity -= selectedquan;
-                editor.putInt("AV", intAV-=selectedquan);
-                editor.apply();
-                toastMessage(getString(R.string.product_verwijderd));
-                Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        delButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                myDB.deleteName(selectedID, selectedName);
+//                eItem.setText("");
+//                AddNewItem.totalQuantity -= selectedquan;
+//                editor.putInt("AV", intAV-=selectedquan);
+//                editor.apply();
+//                toastMessage(getString(R.string.product_verwijderd));
+//                Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
 //        vBorrow.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -38,6 +38,8 @@ public class JSONHelper {
         }
         br.close();
 
+        urlConnection.disconnect();
+
         return sb.toString();
     }
 

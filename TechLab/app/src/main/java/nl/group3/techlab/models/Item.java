@@ -57,6 +57,7 @@ public class Item implements Serializable {
         return id;
     }
 
+    @Deprecated
     public String getProductId() {
         return productId;
     }
@@ -76,7 +77,6 @@ public class Item implements Serializable {
         return name;
     }
 
-    @Deprecated
     public String getDescription() {
         return description;
     }

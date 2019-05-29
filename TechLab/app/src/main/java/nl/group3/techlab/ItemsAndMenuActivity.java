@@ -31,6 +31,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
@@ -41,6 +45,7 @@ import nl.group3.techlab.adapters.ProductListAdapter;
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
 import nl.group3.techlab.helpers.JSONHelper;
+import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 
 public class ItemsAndMenuActivity extends AppCompatActivity
@@ -51,10 +56,11 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     BorrowDatabase db;
 
     DatabaseHelper myDB;
-    ArrayList<Item> itemList;
     ListView listView;
     Item item;
     FloatingActionButton addProductButton;
+
+    ArrayList<Book> books;
 
     private static final String TAG = "ProductListAdapter";
     SharedPreferences sharedPreferences;
@@ -128,49 +134,48 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
         myDB = new DatabaseHelper(this);
 
-        itemList = new ArrayList<>();
         Cursor data = myDB.getListContents();
         int numRows = data.getCount();
         if (numRows == 0) {
 //            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
         } else {
-            while (data.moveToNext()) {
-                item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));
-                itemList.add(item);
-            }
-            ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, itemList);
-            listView = findViewById(R.id.listView);
-            listView.setAdapter(adapter);
+//            while (data.moveToNext()) {
+//                item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));
+//                itemList.add(item);
+//            }
+//            ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, itemList);
+//            listView = findViewById(R.id.listView);
+//            listView.setAdapter(adapter);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-                    Item item = (Item) adapterView.getItemAtPosition(i);
-                    int quantity = item.getQuantity();
-                    String itemText = item.getName();
-                    String itemDesc = item.getDescription();
-
-                    Cursor data = myDB.getItemID(itemText);
-                    int ID = -1;
-
-                    while (data.moveToNext()) {
-                        ID = data.getInt(0);
-                    }
-                    if (ID > -1) {
-                        Log.d(TAG, "onItemClick: The ID is: " + ID);
-                        Intent editScreenIntent = new Intent(ItemsAndMenuActivity.this, ItemEdit.class);
-                        editScreenIntent.putExtra("id", ID);
-                        editScreenIntent.putExtra("quantity", quantity);
-                        editScreenIntent.putExtra("ITEM", itemText);
-                        editScreenIntent.putExtra("Description", itemDesc);
-                        startActivity(editScreenIntent);
-                        finish();
-//                    } else{
-//                        Toast.makeText(view.getContext(), "No ID associated with that name",
-//                                Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+//                    Item item = (Item) adapterView.getItemAtPosition(i);
+//                    int quantity = item.getQuantity();
+//                    String itemText = item.getName();
+//                    String itemDesc = item.getDescription();
+//
+//                    Cursor data = myDB.getItemID(itemText);
+//                    int ID = -1;
+//
+//                    while (data.moveToNext()) {
+//                        ID = data.getInt(0);
+//                    }
+//                    if (ID > -1) {
+//                        Log.d(TAG, "onItemClick: The ID is: " + ID);
+//                        Intent editScreenIntent = new Intent(ItemsAndMenuActivity.this, ItemEdit.class);
+//                        editScreenIntent.putExtra("id", ID);
+//                        editScreenIntent.putExtra("quantity", quantity);
+//                        editScreenIntent.putExtra("ITEM", itemText);
+//                        editScreenIntent.putExtra("Description", itemDesc);
+//                        startActivity(editScreenIntent);
+//                        finish();
+////                    } else{
+////                        Toast.makeText(view.getContext(), "No ID associated with that name",
+////                                Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
         }
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +185,64 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 finish();
             }
         });
+
+
+
+
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/items/");
+                    Log.d("JSON", jsonString);
+
+                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+                    books = new ArrayList<Book>();
+
+                    for(JsonElement elem : jsonArray){
+                        JsonObject obj = elem.getAsJsonObject();
+
+                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")){
+                            books.add(new Book(
+                                    obj.get("type").getAsString(),
+                                    obj.get("id").getAsString(),
+                                    obj.get("description").getAsString(),
+                                    obj.get("borrow_days").getAsInt(),
+                                    null, // new URL(obj.get("image").toString())
+                                    obj.get("title").getAsString(),
+                                    null,
+                                    obj.get("isbn").getAsString(),
+                                    obj.get("publisher_id").getAsString(), // TODO: Get the publishers name
+                                    obj.get("stock").getAsInt()));
+                        } else {
+                            Log.d("Books", "Failed to find a book");
+                        }
+
+                        Log.d("JSON", obj.get("type").toString());
+                    }
+//                    String json = new Gson().toJson(books.get(0));
+//                    Log.d("Found book:", json);
+
+                    Log.d("Found books:", books.size() + "");
+
+                }catch(Exception ex){ ex.printStackTrace();}
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        }catch(Exception ex){ ex.printStackTrace();}
+
+
+        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+        listView = findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+
     }
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
