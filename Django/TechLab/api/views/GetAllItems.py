@@ -42,7 +42,7 @@ class GetAllItems(View):
 class GetAllBooks(View):
     def get(self, request, *args, **kwargs):
         allBooks = Book.objects.all()
-        return JsonResponse(json.loads(json.dumps([book.to_json('_state', 'item_ptr_id') for book in allBooks])), safe=False)
+        return JsonResponse(json.loads(json.dumps([book.to_json('_state', 'item_ptr', 'borrow_item_item') for book in allBooks])), safe=False)
 
     def post(self, request, *args, **kwargs):
         if 'username' in request.POST:
@@ -66,7 +66,7 @@ class GetAllBooks(View):
 class GetAllElectronics(View):
     def get(self, request, *args, **kwargs):
         allElectronics = Electronic.objects.all()
-        return JsonResponse(json.loads(json.dumps([electronic.to_json('_state', 'item_ptr_id') for electronic in allElectronics])), safe=False)
+        return JsonResponse(json.loads(json.dumps([electronic.to_json('_state', 'item_ptr', 'borrow_item_item') for electronic in allElectronics])), safe=False)
 
     def post(self, request, *args, **kwargs):
         if 'username' in request.POST:
@@ -94,4 +94,4 @@ class GetItem(View):
         item = get_object_or_404(Item, id=pk)
         model_item = get_object_or_404(eval(item.type), id=pk)
 
-        return JsonResponse(json.loads(json.dumps(model_item.to_json('_state', 'item_ptr_id'))),safe=False)
+        return JsonResponse(json.loads(json.dumps(model_item.to_json('_state', 'item_ptr'))), safe=False)
