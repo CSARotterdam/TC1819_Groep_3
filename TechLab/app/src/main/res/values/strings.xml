@@ -65,6 +65,6 @@
     <string name="geen_producten">Geen producten</string>
     <string name="teruggebracht">Teruggebracht</string>
     <string name="uitgelogd">Uitgelogd</string>
-    <string name="geschreven_door">Geschreven door: \n%s</string>
+    <string name="geschreven_door">Geschreven door: %s</string>
     <string name="uitgegeven_door">Uitgegeven door: %s</string>
 </resources>

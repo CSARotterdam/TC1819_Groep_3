@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -99,7 +100,11 @@ public class ItemEdit extends AppCompatActivity {
 
         eItem.setText(book.getTitle());
         eItemD.setText(book.getDescription());
-
+        {
+            ViewGroup.LayoutParams params = eItemD.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            eItemD.setLayoutParams(params); // this call is what you need to add
+        }
         if (book.getStock() > 0){
             Bsk.setText(R.string.beschikbaar);
         }
@@ -116,10 +121,19 @@ public class ItemEdit extends AppCompatActivity {
                 writers = writers.substring(0, writers.length() - 2);
             ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
 
+            ViewGroup.LayoutParams params = findViewById(R.id.writers).getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            findViewById(R.id.writers).setLayoutParams(params); // this call is what you need to add
+
+
         }
 
         {
             ((TextView) findViewById(R.id.publisher)).setText(String.format(((TextView) findViewById(R.id.publisher)).getText().toString(), book.getPublisher()));
+            ViewGroup.LayoutParams params = findViewById(R.id.publisher).getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            findViewById(R.id.publisher).setLayoutParams(params); // this call is what you need to add
+
 
         }
 
