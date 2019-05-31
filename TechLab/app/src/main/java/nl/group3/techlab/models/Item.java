@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.URL;
 
 public class Item implements Serializable {
+    //TODO: CLEANUP / Create missing models
 
     String type;
     String id;

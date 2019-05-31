@@ -17,11 +17,13 @@ import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
+import nl.group3.techlab.models.Writer;
 
 import java.util.ArrayList;
 
 
 public class ItemEdit extends AppCompatActivity {
+    //TODO: CLEANUP, add delete functionality
     private static final String TAG = "ItemEdit";
 
     private Button Borrow;
@@ -104,6 +106,24 @@ public class ItemEdit extends AppCompatActivity {
         else {
             Bsk.setText(R.string.niet_beshikbaar);
         }
+
+        {
+            String writers = "";
+            for(Writer writer : book.getWriters()){
+                writers += writer.getName() + ", ";
+            }
+            if(writers.length() > 0)
+                writers = writers.substring(0, writers.length() - 2);
+            ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
+
+        }
+
+        {
+            ((TextView) findViewById(R.id.publisher)).setText(String.format(((TextView) findViewById(R.id.publisher)).getText().toString(), book.getPublisher()));
+
+        }
+
+
 
 //        delButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

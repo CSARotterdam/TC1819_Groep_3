@@ -14,6 +14,7 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class JSONHelper {
+    //TODO: Add methods for post and delete
 
     // A GET request for getting a JSON String from a given HTTPS url
     public static String getJSONStringFromURL(String urlString) throws IOException, JSONException {

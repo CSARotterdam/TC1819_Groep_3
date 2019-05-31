@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.google.gson.JsonParser;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import nl.group3.techlab.adapters.ProductListAdapter;
@@ -47,6 +49,7 @@ import nl.group3.techlab.databases.DatabaseHelper;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
+import nl.group3.techlab.models.Writer;
 
 public class ItemsAndMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -202,8 +205,15 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
                     for(JsonElement elem : jsonArray){
                         JsonObject obj = elem.getAsJsonObject();
-
-                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")){
+                        Writer[] writers = null;
+                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
+                            if(obj.get("writers").getAsJsonArray() != null){
+                                writers = new Writer[obj.get("writers").getAsJsonArray().size()];
+                                for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
+                                    JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
+                                    writers[i] = (new Writer(writerObj.get("id").getAsInt(),
+                                            writerObj.get("name").getAsString()));
+                                }
                             books.add(new Book(
                                     obj.get("type").getAsString(),
                                     obj.get("id").getAsString(),
@@ -211,13 +221,14 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                                     obj.get("borrow_days").getAsInt(),
                                     null, // new URL(obj.get("image").toString())
                                     obj.get("title").getAsString(),
-                                    null,
+                                    writers,
                                     obj.get("isbn").getAsString(),
-                                    obj.get("publisher_id").getAsString(), // TODO: Get the publishers name
+                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(), // TODO: Get the publishers name
                                     obj.get("stock").getAsInt()));
-                        } else {
-                            Log.d("Books", "Failed to find a book");
                         }
+                    } else {
+                        Log.d("Books", "Failed to find a book");
+                    }
 
                         Log.d("JSON", obj.get("type").toString());
                     }

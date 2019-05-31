@@ -26,6 +26,8 @@ import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.BorrowItem;
 
 public class ReturnItemActivity extends AppCompatActivity {
+    //TODO: Connect to API
+
     ArrayList<BorrowItem> borrowedItems;
     SharedPreferences sharedPreferences;
 

@@ -16,10 +16,12 @@ import nl.group3.techlab.ItemsAndMenuActivity;
 import nl.group3.techlab.R;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
+import nl.group3.techlab.models.Writer;
 
 import java.util.ArrayList;
 
 public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Electronic> */ {
+    //TODO: CLEANUP, add electronics
 
     private LayoutInflater mInflater;
     private ArrayList<Book> books;
@@ -55,15 +57,15 @@ public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Ele
 //          TextView ItemQuantity = (TextView) convertView.findViewById(R.id.eItemq);
 
 
-            if(ItemImage != null) {
-                ItemImage.setImageResource(R.drawable.ic_launcher_background);
-            }
-            if(ItemName != null){
-                ItemName.setText((item.getTitle()));
-            }
-            if(ItemDescription != null){
-                ItemDescription.setText(item.getStock() > 0 ? R.string.beschikbaar : R.string.niet_beshikbaar);
-            }
+        if(ItemImage != null) {
+            ItemImage.setImageResource(R.drawable.ic_launcher_background);
+        }
+        if(ItemName != null){
+            ItemName.setText((item.getTitle()));
+        }
+        if(ItemDescription != null){
+            ItemDescription.setText(item.getStock() > 0 ? R.string.beschikbaar : R.string.niet_beshikbaar);
+        }
         return convertView;
     }
 
