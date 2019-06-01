@@ -207,25 +207,26 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                         JsonObject obj = elem.getAsJsonObject();
                         Writer[] writers = null;
                         if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
-                            if(obj.get("writers").getAsJsonArray() != null){
+                            if(obj.get("writers").getAsJsonArray().size() > 0){
                                 writers = new Writer[obj.get("writers").getAsJsonArray().size()];
                                 for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
                                     JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
                                     writers[i] = (new Writer(writerObj.get("id").getAsInt(),
                                             writerObj.get("name").getAsString()));
                                 }
+                            }
+
                             books.add(new Book(
                                     obj.get("type").getAsString(),
                                     obj.get("id").getAsString(),
-                                    obj.get("description").getAsString(),
+                                    obj.get("description").getAsString().replace("\\n", System.getProperty ("line.separator")),
                                     obj.get("borrow_days").getAsInt(),
                                     null, // new URL(obj.get("image").toString())
                                     obj.get("title").getAsString(),
                                     writers,
                                     obj.get("isbn").getAsString(),
-                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(), // TODO: Get the publishers name
+                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(),
                                     obj.get("stock").getAsInt()));
-                        }
                     } else {
                         Log.d("Books", "Failed to find a book");
                     }
