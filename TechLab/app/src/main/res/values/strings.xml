@@ -67,4 +67,9 @@
     <string name="uitgelogd">Uitgelogd</string>
     <string name="geschreven_door">Geschreven door: %s</string>
     <string name="uitgegeven_door">Uitgegeven door: %s</string>
+    <string name="leendagen">Leendagen</string>
+    <string name="boek">Boek</string>
+    <string name="elektronica">Elektronica</string>
+    <string name="isbn">ISBN</string>
+    <string name="product_id">Product ID</string>
 </resources>
