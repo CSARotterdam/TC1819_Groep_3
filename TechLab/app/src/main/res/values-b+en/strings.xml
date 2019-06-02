@@ -66,9 +66,9 @@
     <string name="geen_producten">No products</string>
     <string name="teruggebracht">Returned</string>
     <string name="uitgelogd">Succesfully signed out</string>
-    <string name="leendagen">Leendagen</string>
-    <string name="boek">Boek</string>
-    <string name="elektronica">Elektronica</string>
+    <string name="leendagen">Borrow days</string>
+    <string name="boek">Book</string>
+    <string name="elektronica">Electronic</string>
     <string name="isbn">ISBN</string>
     <string name="product_id">Product ID</string>
 </resources>
