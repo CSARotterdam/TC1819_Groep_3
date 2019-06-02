@@ -257,9 +257,9 @@ public class AddNewItem extends AppCompatActivity {
 //                    thread.join();
 //                }catch(Exception ex){ ex.printStackTrace();}
 
-        Intent intent = new Intent(AddNewItem.this, ItemsAndMenuActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(AddNewItem.this, ItemsAndMenuActivity.class);
+//        startActivity(intent);
+//        finish();
 //            }
 //        });
     }
