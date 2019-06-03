@@ -28,7 +28,7 @@ public class ItemEdit extends AppCompatActivity {
     private static final String TAG = "ItemEdit";
 
     private Button Borrow;
-    private FloatingActionButton delButton;
+    public static FloatingActionButton delButton;
     private TextView eItem, eItemD, Bsk;
     private TextView ID;
     EditText eItemdes,eItemcat;

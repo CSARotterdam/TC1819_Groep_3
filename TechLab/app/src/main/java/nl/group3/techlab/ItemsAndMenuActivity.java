@@ -134,6 +134,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+//        deleteProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
         if (!(personEmail.equals("techlabapp00@gmail.com")) && !(personEmail.equals("Techlabapp00@gmail.com"))) {
             Thread thread;
@@ -178,10 +179,12 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 rolTV.setText(getString(R.string.beheerder));
                 nav_Menu.findItem(R.id.terugnemen).setVisible(true);
                 addProductButton.show();
+                ItemEdit.delButton.show();
             } else {
                 rolTV.setText(getString(R.string.gebruiker));
                 nav_Menu.findItem(R.id.terugnemen).setVisible(false);
                 addProductButton.hide();
+                ItemEdit.delButton.hide();
             }
         } else {
             rolTV.setText(getString(R.string.admin));
@@ -189,6 +192,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             nav_Menu.findItem(R.id.beheerders).setVisible(true);
             nav_Menu.findItem(R.id.terugnemen).setVisible(true);
             addProductButton.show();
+            ItemEdit.delButton.show();
         }
         // Dit is voor de menu-button.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
