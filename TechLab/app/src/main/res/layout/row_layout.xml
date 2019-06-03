@@ -32,6 +32,15 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/returned"
+            android:text="@string/teruggebracht"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="6dp"
+            android:paddingBottom="0dp"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/description"
             android:text="@string/beschrijving"
             android:layout_width="match_parent"

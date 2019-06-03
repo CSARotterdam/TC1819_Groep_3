@@ -189,14 +189,11 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             }
         });
 
-
-
-
         Thread thread;
         thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/items/");
+                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 1000, "GET");
                     Log.d("JSON", jsonString);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
@@ -248,14 +245,15 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         // thread is done.
         try {
             thread.join();
+
+            ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+            listView = findViewById(R.id.listView);
+            listView.setAdapter(adapter);
         }catch(Exception ex){ ex.printStackTrace();}
 
 
-        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
-        listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-
     }
+
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
         Resources res = getResources();

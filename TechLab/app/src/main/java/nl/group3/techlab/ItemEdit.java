@@ -3,10 +3,14 @@ package nl.group3.techlab;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,13 +18,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
+import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 import nl.group3.techlab.models.Writer;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ItemEdit extends AppCompatActivity {
@@ -90,7 +105,7 @@ public class ItemEdit extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
 
-        Book book = (Book)receivedIntent.getSerializableExtra("item");
+        final Book book = (Book)receivedIntent.getSerializableExtra("item");
 
         selectedID = receivedIntent.getIntExtra("id", -1);
         selectedName = receivedIntent.getStringExtra("ITEM");
@@ -114,13 +129,15 @@ public class ItemEdit extends AppCompatActivity {
 
         {
             String writers = "";
-            for(Writer writer : book.getWriters()){
-                writers += writer.getName() + ", ";
+            if(book.getWriters() != null){
+                for(Writer writer : book.getWriters()){
+                    writers += writer.getName() + ", ";
+                }
+                if(writers.length() > 0)
+                    writers = writers.substring(0, writers.length() - 2);
             }
-            if(writers.length() > 0)
-                writers = writers.substring(0, writers.length() - 2);
-            ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
 
+            ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
             ViewGroup.LayoutParams params = findViewById(R.id.writers).getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             findViewById(R.id.writers).setLayoutParams(params); // this call is what you need to add
@@ -166,21 +183,70 @@ public class ItemEdit extends AppCompatActivity {
         Borrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedquan >= 1 ) {
-                    myDB.addBorrow(selectedID,selectedquan);
-                    db.insertData(selectedName,selectedDesc);
-//                    toastMessage("Data added");
-                    loanQuantity += 1;
-                    AddNewItem.totalQuantity -= 1;
-                    editor.putInt("LE", intLE+=1);
-                    editor.putInt("AV", intAV-=1);
-                    editor.apply();
-                    toastMessage(getString(R.string.product_geleend));
-                    startActivity(new Intent(ItemEdit.this, ItemsAndMenuActivity.class));
-                    finish();
-                } else {
-                    toastMessage(getString(R.string.product_niet_beschikbaar));
-                }
+                final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        try {
+                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/", String.format("{\"email\": \"%s\", \"item_id\": \"%s\", \"borrow_date\": \"%s\" }",
+                                acct.getEmail(), book.getId(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())), 1000, "PUT");
+
+                            Log.d("JSON", jsonString);
+
+                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+                            Log.d("JSON", obj.toString());
+                            obj.get("success").getAsBoolean();
+                            Log.d("JSON", obj.get("success").getAsString() + "");
+                            if(obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        toastMessage(getString(R.string.product_geleend));
+                                    }
+                                });
+                                onBackPressed();
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        toastMessage(getString(R.string.product_niet_beschikbaar));
+                                    }
+                                });
+                            }
+                        } catch (Exception ex){ex.printStackTrace();}
+                        }
+
+
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                }catch(Exception ex){ ex.printStackTrace();}
+
+
+//                if (selectedquan >= 1 ) {
+//                    myDB.addBorrow(selectedID,selectedquan);
+//                    db.insertData(selectedName,selectedDesc);
+////                    toastMessage("Data added");
+//                    loanQuantity += 1;
+//                    AddNewItem.totalQuantity -= 1;
+//                    editor.putInt("LE", intLE+=1);
+//                    editor.putInt("AV", intAV-=1);
+//                    editor.apply();
+//                    toastMessage(getString(R.string.product_geleend));
+//                    startActivity(new Intent(ItemEdit.this, ItemsAndMenuActivity.class));
+//                    finish();
+//                } else {
+//                    toastMessage(getString(R.string.product_niet_beschikbaar));
+//                }
             }
         });
 
@@ -192,7 +258,7 @@ public class ItemEdit extends AppCompatActivity {
         finish();
     }
 
-    private void toastMessage (String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void toastMessage(String message){
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

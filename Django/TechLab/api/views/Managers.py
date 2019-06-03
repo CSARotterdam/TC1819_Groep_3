@@ -39,6 +39,22 @@ class Manager(View):
 
         return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'), safe=False)
 
+    def post(self, request, *args, **kwargs):
+        if not (i in request.POST for i in ['email']):
+            return JsonResponse(json.loads('{"success": "false", "message": "Missing argument email. "}'),
+                                safe=False, status=400)
+
+        manager = User.objects.get_or_create(
+            email=request.POST.get('email'),
+            defaults={'is_manager': True},
+        )
+
+        manager.is_manager = True
+        manager.save()
+
+        return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'),
+                            safe=False)
+
     def delete(self, request, pk, *args, **kwargs):
         manager = get_object_or_404(User, id=pk)
 
