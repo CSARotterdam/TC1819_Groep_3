@@ -84,6 +84,8 @@ public class AddNewItem extends AppCompatActivity {
                 openGallery();
             }
         });
+        findViewById(R.id.book_button).setVisibility(View.INVISIBLE);
+        findViewById(R.id.electronic_button).setVisibility(View.INVISIBLE);
     }
 
     private void openGallery() {
@@ -154,8 +156,8 @@ public class AddNewItem extends AppCompatActivity {
         findViewById(R.id.publisher_spinner).setVisibility(View.VISIBLE);
         findViewById(R.id.category_spinner).setVisibility(View.GONE);
         findViewById(R.id.manufacturers_spinner).setVisibility(View.GONE);
-        productName.setText(getString(R.string.titel));
-        productIdISBN.setText(getString(R.string.isbn));
+        productName.setHint(getString(R.string.titel));
+        productIdISBN.setHint(getString(R.string.isbn));
 
         writersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/writers/");
         publishersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/publishers/");
@@ -224,8 +226,8 @@ public class AddNewItem extends AppCompatActivity {
         findViewById(R.id.publisher_spinner).setVisibility(View.GONE);
         findViewById(R.id.category_spinner).setVisibility(View.VISIBLE);
         findViewById(R.id.manufacturers_spinner).setVisibility(View.VISIBLE);
-        productName.setText(getString(R.string.naam));
-        productIdISBN.setText(getString(R.string.product_id));
+        productName.setHint(getString(R.string.naam));
+        productIdISBN.setHint(getString(R.string.product_id));
 
         manufacturersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/manufacturers/");
         categoryArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/categories/");
