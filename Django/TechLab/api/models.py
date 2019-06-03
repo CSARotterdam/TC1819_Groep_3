@@ -33,11 +33,6 @@ class User(models.Model):
             except:
                 pass
 
-        for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
-            # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
-
         return item
 
 
@@ -73,8 +68,10 @@ class Item(models.Model):
         for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
             print(field.name)
             # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
-
+            try:
+                item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
+            except:
+                pass
         return item
 
 
@@ -96,12 +93,6 @@ class Writer(models.Model):
                         item.update({field.name: str(getattr(self, field.name))})
             except:
                 pass
-
-        for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
-            # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
-
         return item
 
 
@@ -123,12 +114,6 @@ class Category(models.Model):
                         item.update({field.name: str(getattr(self, field.name))})
             except:
                 pass
-
-        for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
-            # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
-
         return item
 
 
@@ -150,12 +135,6 @@ class Manufacturer(models.Model):
                         item.update({field.name: str(getattr(self, field.name))})
             except:
                 pass
-
-        for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
-            # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
-
         return item
 
 
@@ -177,11 +156,6 @@ class Publisher(models.Model):
                         item.update({field.name: str(getattr(self, field.name))})
             except:
                 pass
-
-        for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
-            # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
 
         return item
 
@@ -222,19 +196,20 @@ class BorrowItem(models.Model):
     def to_json(self, *exclude_vars):
         item = {}
         exclude_vars = exclude_vars + ('_state',)
+
         for field in self._meta.fields:
-            try:
-                if field.name not in exclude_vars:
-                    if str(type(getattr(self, field.name))).find('api') != -1:
-                        item.update({field.name: getattr(self, field.name).to_json()})
-                    else:
-                        item.update({field.name: str(getattr(self, field.name))})
-            except:
-                pass
+            # try:
+            if field.name not in exclude_vars:
+                print("field", field.name)
+                if str(type(getattr(self, field.name))).find('api') != -1:
+                    item.update({field.name: getattr(self, field.name).to_json('borrow_item_item')})
+                else:
+                    item.update({field.name: str(getattr(self, field.name))})
+            # except:
+            #     pass
 
         for field in [x for x in self._meta.get_fields() if x not in self._meta.fields and x.name not in exclude_vars]:
-            print(field.name)
             # if field.name not in exclude_vars:
-            item.update({field.name: [x.to_json('borrow_item_item') for x in getattr(self, field.name).all()]})
+            item.update({field.name: str(getattr(self, field.name))})
 
         return item

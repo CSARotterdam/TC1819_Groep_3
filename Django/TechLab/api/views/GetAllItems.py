@@ -15,25 +15,11 @@ import json
 class GetAllItems(View):
     def get(self, request, *args, **kwargs):
         allBooks = Book.objects.all()
-        #     .prefetch_related(
-        #     Prefetch(
-        #         'writers',
-        #         queryset=Writer.objects.all()
-        #     )
-        # )
-        # books = [book for book in allBooks]
-        # for att in vars(books[0]):
-        #     try:
-        #        print(att, getattr(books[0], att))
-        #     except:
-        #         pass
-        #
-
         allElectronics = Electronic.objects.all()
 
         return JsonResponse(json.loads('%s' % (
-            json.dumps([book.to_json('_state', 'item_ptr', 'borrow_item_item') for book in allBooks] +
-                       [electronic.to_json('_state', 'item_ptr', 'borrow_item_item') for electronic in allElectronics]))), safe=False)
+            json.dumps([book.to_json('item_ptr', 'borrow_item_item') for book in allBooks] +
+                       [electronic.to_json('item_ptr', 'borrow_item_item') for electronic in allElectronics]))), safe=False)
 
         # return JsonResponse(json.loads('[{ "books": %s}, {"electronics" : %s}]' % (
         #     json.dumps([book.to_json('_state', 'item_ptr_id', 'writers') for book in allBooks]),
