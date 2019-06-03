@@ -70,4 +70,6 @@
     <string name="elektronica">Elektronica</string>
     <string name="isbn">ISBN</string>
     <string name="product_id">Product ID</string>
+    <string name="beheerder">Beheerder</string>
+    <string name="gebruiker">Gebruiker</string>
 </resources>

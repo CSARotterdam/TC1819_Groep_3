@@ -71,5 +71,6 @@
     <string name="elektronica">Electronic</string>
     <string name="isbn">ISBN</string>
     <string name="product_id">Product ID</string>
-
+    <string name="beheerder">Manager</string>
+    <string name="gebruiker">User</string>
 </resources>
