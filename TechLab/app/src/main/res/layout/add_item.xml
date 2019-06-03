@@ -99,7 +99,24 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/leendagen"
                 android:inputType="number" />
-
+            <ImageView
+                android:id="@+id/imageview1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:text="image uploaden"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC0133" />
+            <Button
+                android:id="@+id/Uploadimage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Upload image"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC0133" />
             <Button
                 android:id="@+id/btnAdd"
                 android:layout_width="150dp"

@@ -2,13 +2,16 @@ package nl.group3.techlab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,7 +38,10 @@ public class AddNewItem extends AppCompatActivity {
     int intAV;
     int intLE;
     int inttot;
-
+    ImageView imageView;
+    Button button;
+    private static final int PICK_IMAGE=100;
+    Uri imageUri;
     public String[] writersArray, publishersArray, manufacturersArray, categoryArray ,array;
 
     @Override
@@ -56,7 +62,6 @@ public class AddNewItem extends AppCompatActivity {
 
         setContentView(R.layout.add_item);
         setTitle(R.string.product_toevoegen);
-
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         intAV = sharedPreferences.getInt("AV", 0);
@@ -71,8 +76,29 @@ public class AddNewItem extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
 //        Button bookButton = (Button) findViewById(R.id.book_button);
         AddBook((Button) findViewById(R.id.book_button));
-
+        imageView = (ImageView) findViewById(R.id.imageview1);
+        button = (Button)findViewById(R.id.Uploadimage);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
     }
+
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE ){
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+    }
+
     public void AddData(String Item, String Categorie, String Description, int fQuan){
         boolean insertData = myDB.addData(Item,Categorie,Description,fQuan);
         if (insertData){
