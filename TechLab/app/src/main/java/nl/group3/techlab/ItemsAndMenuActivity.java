@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import nl.group3.techlab.adapters.ProductListAdapter;
@@ -56,14 +57,19 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     Button sign_out;
     GoogleSignInClient mGoogleSignInClient;
     TextView emailTV;
+    static TextView rolTV;
+    String personEmail;
     BorrowDatabase db;
+    boolean isManager;
 
     DatabaseHelper myDB;
     ListView listView;
     Item item;
     FloatingActionButton addProductButton;
+    Menu nav_Menu;
 
     ArrayList<Book> books;
+    public String[] arrayManagers;
 
     private static final String TAG = "ProductListAdapter";
     SharedPreferences sharedPreferences;
@@ -99,17 +105,12 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(R.string.Producten);
-        LoginActivity.logged_in = true;
 
-        // Dit is voor de menu-button.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        LoginActivity.logged_in = true;
 
         // Dit zorgt ervoor dat de email in de header is.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         emailTV = (TextView) headerView.findViewById(R.id.emailtv);
@@ -122,18 +123,87 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ItemsAndMenuActivity.this);
 
         if (acct != null){
-            final String personEmail;
             String personName = acct.getDisplayName();
             personEmail = acct.getEmail();
-            emailTV.setText(personEmail);
         } else {
-            emailTV.setText(LoginActivity.Email);
+            personEmail = LoginActivity.Email;
         }
+        emailTV.setText(personEmail);
+
+        rolTV = (TextView) headerView.findViewById(R.id.rol);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+//        deleteProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+
+        if (!(personEmail.equals("techlabapp00@gmail.com")) && !(personEmail.equals("Techlabapp00@gmail.com"))) {
+            Thread thread;
+            thread = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/");
+                        Log.d("JSON", jsonString);
+
+                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+                        arrayManagers = new String[jsonArray.size()];
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                            arrayManagers[i] = jsonArray.get(i).getAsJsonObject().get("email").toString();
+                            Log.d("JSON", arrayManagers[i]);
+//                            if (arrayManagers[i].equals(personEmail)) { isManager = true; }
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            // Start the new thread and run the code.
+            thread.start();
+
+            // Join the thread when it's done, meaning that the application will wait untill the
+            // thread is done.
+            try {
+                thread.join();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            nav_Menu.findItem(R.id.statistieken).setVisible(false);
+            nav_Menu.findItem(R.id.beheerders).setVisible(false);
+
+            List<String> list = Arrays.asList(arrayManagers);
+            isManager = list.contains("\"" + personEmail + "\"");
+            Log.d("JSON", personEmail);
+            if (isManager) {
+                rolTV.setText(getString(R.string.beheerder));
+                nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+                addProductButton.show();
+//                ItemEdit.delButton.show();
+            } else {
+                rolTV.setText(getString(R.string.gebruiker));
+                nav_Menu.findItem(R.id.terugnemen).setVisible(false);
+                addProductButton.hide();
+//                ItemEdit.delButton.hide();
+            }
+        } else {
+            rolTV.setText(getString(R.string.admin));
+            nav_Menu.findItem(R.id.statistieken).setVisible(true);
+            nav_Menu.findItem(R.id.beheerders).setVisible(true);
+            nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+            addProductButton.show();
+//            ItemEdit.delButton.show();
+        }
+        // Dit is voor de menu-button.
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         // dit is voor de items en het lenen
         db = new BorrowDatabase(this);
-
-        addProductButton =  findViewById(R.id.addButton);
 
         myDB = new DatabaseHelper(this);
 
@@ -180,6 +250,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 //                }
 //            });
         }
+
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,12 +316,11 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         // thread is done.
         try {
             thread.join();
-
-            ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
-            listView = findViewById(R.id.listView);
-            listView.setAdapter(adapter);
         }catch(Exception ex){ ex.printStackTrace();}
 
+        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+        listView = findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
     }
 
@@ -280,21 +350,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -314,11 +369,19 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             startActivity(new Intent(ItemsAndMenuActivity.this, statistic.class));
         } else if(id == R.id.instellingen){
             startActivity(new Intent(ItemsAndMenuActivity.this, settings.class));
+        } else if(id == R.id.contact){
+            startActivity(new Intent(ItemsAndMenuActivity.this, contact.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void AddNewProduct(View view){
+        Intent intent = new Intent(ItemsAndMenuActivity.this, AddNewItem.class);
+        startActivity(intent);
+        finish();
     }
     private void signOut() {
         // Dit zorgt ervoor dat je uitlogt, een toast krijgt na het uitloggen en dat je terug gaat naar het loginscherm

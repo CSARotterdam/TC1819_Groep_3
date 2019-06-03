@@ -11,6 +11,7 @@
     <string name="geschiedenis">History</string>
     <string name="thema">Theme</string>
     <string name="taal">Language</string>
+    <string name="notificatie">Notification</string>
     <string name="geleend_door_s">Borrowed by %s</string>
     <string name="log_in_met_je_hr_account">Sign in with your HR account</string>
     <string name="inloggen_als_student">Sign in as a student</string>
@@ -65,5 +66,18 @@
     <string name="inloggen_mislukt">Sign in failed</string>
     <string name="geen_producten">No products</string>
     <string name="teruggebracht">Returned</string>
+    <string name="contactgegevens">Contact details</string>
+    <string name="locatie">Location</string>
+    <string name="adres">WD.04.022 \n Wijnhaven 107 \n 3011 WN Rotterdam</string>
+    <string name="openingstijden">Visiting hours</string>
+    <string name="tijden">"Monday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Tuesday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Wednesday&#160;&#160;&#160;10.30 &#8211; 15.50 \n Thursday&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Friday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;closed"</string>
+    <!-- <string name="contact_titel">For questions and/or uncertainties you can contact the following people:</string> !-->
     <string name="uitgelogd">Succesfully signed out</string>
+    <string name="leendagen">Borrow days</string>
+    <string name="boek">Book</string>
+    <string name="elektronica">Electronic</string>
+    <string name="isbn">ISBN</string>
+    <string name="product_id">Product ID</string>
+    <string name="beheerder">Manager</string>
+    <string name="gebruiker">User</string>
 </resources>

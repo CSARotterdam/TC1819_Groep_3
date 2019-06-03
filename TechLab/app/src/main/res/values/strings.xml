@@ -10,6 +10,7 @@
     <string name="geschiedenis">Geshiedenis</string>
     <string name="thema">Thema</string>
     <string name="taal">Taal</string>
+    <string name="notificatie">Notificatie</string>
     <string name="geleend_door_s">Geleend door %s</string>
     <string name="log_in_met_je_hr_account">Log in met je HR account</string>
     <string name="inloggen_als_student">Inloggen als student</string>
@@ -64,9 +65,22 @@
     <string name="inloggen_mislukt">Inloggen mislukt</string>
     <string name="geen_producten">Geen producten</string>
     <string name="teruggebracht">Teruggebracht</string>
+    <string name="contactgegevens">Contactgegevens</string>
+    <string name="locatie">Locatie</string>
+    <string name="adres">WD.04.022 \n Wijnhaven 107 \n 3011 WN Rotterdam</string>
+    <string name="openingstijden">Openingstijden</string>
+    <string name="tijden">"Maandag&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Dinsdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Woensdag&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Donderdag&#160;&#160;&#160;10.30 &#8211; 17.00 \n Vrijdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;gesloten</string>
+  <!--  <string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string> !-->
     <string name="uitgelogd">Uitgelogd</string>
     <string name="geschreven_door">Geschreven door: %s</string>
     <string name="uitgegeven_door">Uitgegeven door: %s</string>
     <string name="ja">Ja</string>
     <string name="nee">Nee</string>
+    <string name="leendagen">Leendagen</string>
+    <string name="boek">Boek</string>
+    <string name="elektronica">Elektronica</string>
+    <string name="isbn">ISBN</string>
+    <string name="product_id">Product ID</string>
+    <string name="beheerder">Beheerder</string>
+    <string name="gebruiker">Gebruiker</string>
 </resources>
