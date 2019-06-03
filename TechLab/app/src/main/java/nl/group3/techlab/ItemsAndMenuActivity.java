@@ -56,7 +56,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button sign_out;
     GoogleSignInClient mGoogleSignInClient;
-    TextView emailTV, rolTV;
+    TextView emailTV;
+    static TextView rolTV;
     String personEmail;
     BorrowDatabase db;
     boolean isManager;
@@ -179,12 +180,12 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                 rolTV.setText(getString(R.string.beheerder));
                 nav_Menu.findItem(R.id.terugnemen).setVisible(true);
                 addProductButton.show();
-                ItemEdit.delButton.show();
+//                ItemEdit.delButton.show();
             } else {
                 rolTV.setText(getString(R.string.gebruiker));
                 nav_Menu.findItem(R.id.terugnemen).setVisible(false);
                 addProductButton.hide();
-                ItemEdit.delButton.hide();
+//                ItemEdit.delButton.hide();
             }
         } else {
             rolTV.setText(getString(R.string.admin));
@@ -192,7 +193,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             nav_Menu.findItem(R.id.beheerders).setVisible(true);
             nav_Menu.findItem(R.id.terugnemen).setVisible(true);
             addProductButton.show();
-            ItemEdit.delButton.show();
+//            ItemEdit.delButton.show();
         }
         // Dit is voor de menu-button.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

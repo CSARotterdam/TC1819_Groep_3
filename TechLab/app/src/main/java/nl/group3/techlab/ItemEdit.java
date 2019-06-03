@@ -84,6 +84,12 @@ public class ItemEdit extends AppCompatActivity {
         Bsk = (TextView) findViewById(R.id.Bsk);
 
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
+        if (ItemsAndMenuActivity.rolTV.getText() == "User"){
+            delButton.hide();
+        } else {
+            delButton.show();
+        }
+
 
         myDB = new DatabaseHelper(this);
         ID = (TextView) findViewById(R.id.ID);
