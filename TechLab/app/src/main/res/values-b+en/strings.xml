@@ -66,7 +66,12 @@
     <string name="inloggen_mislukt">Sign in failed</string>
     <string name="geen_producten">No products</string>
     <string name="teruggebracht">Returned</string>
-    <string name="contact_titel">For questions and/or uncertainties you can contact the following people:</string>
+    <string name="contactgegevens">Contact details</string>
+    <string name="locatie">Location</string>
+    <string name="adres">WD.04.022 \n Wijnhaven 107 \n 3011 WN Rotterdam</string>
+    <string name="openingstijden">Visiting hours</string>
+    <string name="tijden">"Monday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Tuesday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Wednesday&#160;&#160;&#160;10.30 &#8211; 15.50 \n Thursday&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Friday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;closed"</string>
+    <!-- <string name="contact_titel">For questions and/or uncertainties you can contact the following people:</string> !-->
     <string name="uitgelogd">Succesfully signed out</string>
     <string name="leendagen">Borrow days</string>
     <string name="boek">Book</string>
