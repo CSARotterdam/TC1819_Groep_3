@@ -10,6 +10,7 @@
     <string name="geschiedenis">Geshiedenis</string>
     <string name="thema">Thema</string>
     <string name="taal">Taal</string>
+    <string name="notificatie">Notificatie</string>
     <string name="geleend_door_s">Geleend door %s</string>
     <string name="log_in_met_je_hr_account">Log in met je HR account</string>
     <string name="inloggen_als_student">Inloggen als student</string>
@@ -64,6 +65,7 @@
     <string name="inloggen_mislukt">Inloggen mislukt</string>
     <string name="geen_producten">Geen producten</string>
     <string name="teruggebracht">Teruggebracht</string>
+    <string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string>
     <string name="uitgelogd">Uitgelogd</string>
     <string name="leendagen">Leendagen</string>
     <string name="boek">Boek</string>
