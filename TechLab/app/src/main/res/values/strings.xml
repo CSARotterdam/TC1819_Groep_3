@@ -64,5 +64,6 @@
     <string name="inloggen_mislukt">Inloggen mislukt</string>
     <string name="geen_producten">Geen producten</string>
     <string name="teruggebracht">Teruggebracht</string>
+    <string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string>
     <string name="uitgelogd">Uitgelogd</string>
 </resources>

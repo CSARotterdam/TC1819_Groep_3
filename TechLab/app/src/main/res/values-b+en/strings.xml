@@ -65,5 +65,6 @@
     <string name="inloggen_mislukt">Sign in failed</string>
     <string name="geen_producten">No products</string>
     <string name="teruggebracht">Returned</string>
+    <string name="contact_titel">For questions and/or uncertainties you can contact the following people:</string>
     <string name="uitgelogd">Succesfully signed out</string>
 </resources>

@@ -36,7 +36,9 @@ public class contact extends AppCompatActivity {
         CP4 = (TextView) findViewById(R.id.CPerson4);
         CP5 = (TextView) findViewById(R.id.CPerson5);
 
-        cTitle.setText("Voor vragen en/of onduidelijk- \n heden kan je contact opnemen \n met de volgende personen:");
+
+
+        cTitle.setText(R.string.contact_titel);
 
         CP1.setText("Ricardo Stam – CSAR Voorzitter \n r.stam@csarotterdam.nl");
         CP2.setText("Dion van der Leer – CSAR Softwareontwikkeling \n d.vanderLeer@csarotterdam.nl");
