@@ -54,7 +54,7 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
 
                     String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/items/%s/", item.get("item").getAsJsonObject().get("id").getAsString()),
                             null, 1000, "GET");
-                    Log.d("JSON", jsonString);
+
 
                     JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
                     item_name.setText(obj.get("title").getAsString());

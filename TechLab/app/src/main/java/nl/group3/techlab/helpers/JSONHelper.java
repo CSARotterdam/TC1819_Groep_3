@@ -21,6 +21,7 @@ public class JSONHelper {
     //TODO: Add methods for post and delete
 
     // A GET request for getting a JSON String from a given HTTPS url
+    @Deprecated()
     public static String getJSONStringFromURL(String urlString) throws IOException, JSONException {
         // The string parsed to a new URL
         URL url = new URL(urlString);
@@ -121,10 +122,11 @@ public class JSONHelper {
                     StringBuilder sb = new StringBuilder();
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
-                        sb.append(line + "\n");
+                        sb.append(line);
                     }
                     bufferedReader.close();
                     Log.i("HTTP Client", "Received String : " + sb.toString());
+
                     //return received string
                     return sb.toString();
             }
@@ -140,11 +142,11 @@ public class JSONHelper {
             Log.e("HTTP Client", "Error in http connection" + ex.toString());
         } finally {
             if (connection != null) {
-                try {
-                    connection.disconnect();
-                } catch (Exception ex) {
+                try{
+                connection.disconnect();
+
+                } catch (Exception ex){
                     ex.printStackTrace();
-                    Log.e("HTTP Client", "Error in http connection" + ex.toString());
                 }
             }
         }

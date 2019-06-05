@@ -18,12 +18,12 @@ class BorrowItems(View):
 
         return JsonResponse(json.loads(
             json.dumps([borrowItem.to_json() for borrowItem in allBorrowedItems]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')
 
     def put(self, request, *args, **kwargs):
         if not (i in request.POST for i in ['email', 'item_id', 'borrow_date']):
             return JsonResponse(json.loads('{"success": "false", "message": "Missing argument(s). "}'),
-                                safe=False, status=400)
+                                safe=False, status=400, content_type='application/json')
         put = json.loads(request.body)
 
         user, created = User.objects.get_or_create(email=put.get('email'), defaults={'email': put.get('email'),
@@ -44,8 +44,8 @@ class BorrowItems(View):
             model_item.stock -= 1
             model_item.save()
 
-            return JsonResponse(json.loads('{"success": "true"}'), safe=False)
-        return JsonResponse(json.loads('{"success": "false", "message": "No item available"}'), safe=False)
+            return JsonResponse(json.loads('{"success": "true"}'), safe=False, content_type='application/json')
+        return JsonResponse(json.loads('{"success": "false", "message": "No item available"}'), safe=False, content_type='application/json')
 
 
 class ReturnItems(View):
@@ -55,7 +55,7 @@ class ReturnItems(View):
 
         return JsonResponse(json.loads(
             json.dumps([borrowItem.to_json('_state', 'item_ptr_id', 'writers') for borrowItem in allBorrowedItems]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')
 
 
     def put(self, request, pk, *args, **kwargs):
@@ -68,5 +68,5 @@ class ReturnItems(View):
         model_item.stock += 1
         model_item.save()
 
-        return JsonResponse(json.loads('{"success": "true"}'), safe=False)
+        return JsonResponse(json.loads('{"success": "true"}'), safe=False, content_type='application/json')
 

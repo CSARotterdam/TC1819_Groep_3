@@ -56,9 +56,11 @@ public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Ele
         TextView ItemDescription = (TextView) convertView.findViewById(R.id.eItemdes);
 //          TextView ItemQuantity = (TextView) convertView.findViewById(R.id.eItemq);
 
-
         if(ItemImage != null) {
-            ItemImage.setImageResource(R.drawable.ic_launcher_background);
+            if(item.getImage() != null)
+                ItemImage.setImageBitmap(item.getImage());
+            else
+                ItemImage.setImageResource(R.drawable.ic_launcher_background);
         }
         if(ItemName != null){
             ItemName.setText((item.getTitle()));

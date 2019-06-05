@@ -16,4 +16,4 @@ class Manufacturers(View):
 
         return JsonResponse(json.loads(
             json.dumps([manufacturer.to_json('_state') for manufacturer in allManufacturers]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')

@@ -16,4 +16,4 @@ class Categories(View):
 
         return JsonResponse(json.loads(
             json.dumps([category.to_json('_state') for category in allCategories]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')

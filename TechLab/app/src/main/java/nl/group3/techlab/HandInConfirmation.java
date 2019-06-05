@@ -11,7 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import nl.group3.techlab.database.ItemDatabaseHelper;
+import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.BorrowItem;
 import nl.group3.techlab.models.StockItem;
 
@@ -30,7 +35,7 @@ public class HandInConfirmation extends AppCompatActivity {
         setContentView(R.layout.activity_hand_in_confirmation);
 
 
-        final BorrowItem borrowedItem = (BorrowItem)getIntent().getSerializableExtra("BorrowedItemObject");
+        final JsonObject borrowedItem = (JsonObject) new JsonParser().parse(getIntent().getStringExtra("BorrowedItemObject")).getAsJsonObject();
 
         TextView tvBorrowedBy = (TextView)findViewById(R.id.borrowedBy);
         TextView tvItemName = (TextView)findViewById(R.id.itemName);
@@ -40,9 +45,14 @@ public class HandInConfirmation extends AppCompatActivity {
         Button bBrokenAction = (Button)findViewById(R.id.brokenAction);
 
         tvBorrowedBy.setText(String.format(tvBorrowedBy.getText().toString(),
-                borrowedItem.getUser().getFirstName() + " " + borrowedItem.getUser().getLastName()));
+                borrowedItem.get("user").getAsJsonObject().get("email")));
 
-        tvItemName.setText(String.format(borrowedItem.getItem().getName()));
+
+        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/items/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "GET");
+        JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+
+        tvItemName.setText(String.format(obj.get("title").getAsString()));
 
         bCancelAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,21 +69,21 @@ public class HandInConfirmation extends AppCompatActivity {
         bBrokenAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), getString(R.string.product_teruggebracht), Toast.LENGTH_LONG).show();
-                ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
-                Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
-
-                borrowedItem.getUser().addBroken();
-
-                StockItem stockItem = myDB.getStockItem(borrowedItem.getItem());
-                stockItem.addOneBroken();
-                myDB.UpdateStockItem(stockItem);
-                setResult(Activity.RESULT_OK, new Intent());
-
-                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                startActivity(i);
-
                 finish();
+
+                String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "PUT");
+                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+
+                if (obj.get("success").getAsString().equalsIgnoreCase("true")){
+                    Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+
+                    Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
+
             }
         });
 
@@ -81,25 +91,19 @@ public class HandInConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
-                ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
-                Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
 
-                AddNewItem.totalQuantity += 1;
-                ItemEdit.loanQuantity -= 1;
-                editor.putInt("AV", intAV+=1);
-                editor.putInt("AV", intLE-=1);
-                editor.apply();
+                String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "PUT");
+                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
-                StockItem stockItem = myDB.getStockItem(borrowedItem.getItem());
-                stockItem.addOneStock();
-                myDB.UpdateStockItem(stockItem);
-                setResult(Activity.RESULT_OK, new Intent());
 
-                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                startActivity(i);
+                if (obj.get("success").getAsString().equalsIgnoreCase("true")){
+                    Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
 
-                finish();
+                    Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
 
             }
         });

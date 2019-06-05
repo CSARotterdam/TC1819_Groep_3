@@ -60,7 +60,6 @@ public class History extends AppCompatActivity {
                     final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
                     String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/?email=%s", acct.getEmail()), null, 1000, "GET");
-                    Log.d("JSON", jsonString);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
 

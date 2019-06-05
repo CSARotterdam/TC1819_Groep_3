@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -158,6 +160,11 @@ public class ItemEdit extends AppCompatActivity {
             findViewById(R.id.publisher).setLayoutParams(params); // this call is what you need to add
 
 
+        }
+
+        {
+            if(book.getImage() != null)
+                ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage());
         }
 
 

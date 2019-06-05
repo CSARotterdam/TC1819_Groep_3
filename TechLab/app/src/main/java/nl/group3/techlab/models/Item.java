@@ -1,9 +1,15 @@
 package nl.group3.techlab.models;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.nio.ByteBuffer;
+
+import nl.group3.techlab.helpers.BitmapHelper;
 
 public class Item implements Serializable {
     //TODO: CLEANUP / Create missing models
@@ -13,6 +19,8 @@ public class Item implements Serializable {
     int borrowDays;
     String description;
     URL imageUrl;
+    byte[] image;
+
 
     @Deprecated
     String productId;
@@ -39,6 +47,14 @@ public class Item implements Serializable {
         this.description = description;
         this.borrowDays = borrowDays;
         this.imageUrl = imageUrl;
+        if(imageUrl != null){
+            Bitmap bmp = BitmapHelper.LoadImageFromWebURL(imageUrl);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            this.image = stream.toByteArray();
+        } else {
+            this.image = null;
+        }
     }
 
     public Item(String name, String description){
@@ -85,5 +101,15 @@ public class Item implements Serializable {
     @Deprecated
     public int getQuantity() {
         return quantity;
+    }
+
+    public URL getImageUrl() {
+        return imageUrl;
+    }
+
+    public Bitmap getImage() {
+        if (image == null)
+            return null;
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 }

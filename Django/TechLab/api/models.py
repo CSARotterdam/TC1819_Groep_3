@@ -46,7 +46,7 @@ class Item(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     borrow_days = models.IntegerField(default=0)
     description = models.CharField(max_length=2048, default="")
-    image = models.ImageField(blank=True, upload_to='static') # TODO: Return a valid abs url
+    image = models.ImageField(blank=True, upload_to='TechLab/static') # TODO: Return a valid abs url
 
     def save(self, *args, **kwargs):
         self.type = type(self).__name__
@@ -60,6 +60,10 @@ class Item(models.Model):
                 if field.name not in exclude_vars:
                     if str(type(getattr(self, field.name))).find('api') != -1:
                         item.update({field.name: getattr(self, field.name).to_json()})
+                    elif str(type(getattr(self, field.name))).find("ImageFieldFile") != -1:
+                        url = None if str(getattr(self, field.name)) == "" else \
+                            (settings.BASE_URL + getattr(self, field.name).name.replace('TechLab/static', 'static'))
+                        item.update({field.name: url})
                     else:
                         item.update({field.name: str(getattr(self, field.name))})
             except:

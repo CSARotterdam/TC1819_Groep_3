@@ -39,6 +39,7 @@ import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -142,7 +143,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             thread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/");
+                        String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET");
                         Log.d("JSON", jsonString);
 
                         JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
@@ -172,6 +173,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
             nav_Menu.findItem(R.id.statistieken).setVisible(false);
             nav_Menu.findItem(R.id.beheerders).setVisible(false);
+
+
 
             List<String> list = Arrays.asList(arrayManagers);
             isManager = list.contains("\"" + personEmail + "\"");
@@ -203,15 +206,15 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         toggle.syncState();
 
         // dit is voor de items en het lenen
-        db = new BorrowDatabase(this);
-
-        myDB = new DatabaseHelper(this);
-
-        Cursor data = myDB.getListContents();
-        int numRows = data.getCount();
-        if (numRows == 0) {
-//            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
-        } else {
+//        db = new BorrowDatabase(this);
+//
+//        myDB = new DatabaseHelper(this);
+//
+//        Cursor data = myDB.getListContents();
+//        int numRows = data.getCount();
+//        if (numRows == 0) {
+////            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
+//        } else {
 //            while (data.moveToNext()) {
 //                item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));
 //                itemList.add(item);
@@ -249,7 +252,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 //                    }
 //                }
 //            });
-        }
+//        }
 
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,7 +267,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 1000, "GET");
+                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET");
                     Log.d("JSON", jsonString);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
@@ -289,7 +292,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                                     obj.get("id").getAsString(),
                                     obj.get("description").getAsString().replace("\\n", System.getProperty ("line.separator")),
                                     obj.get("borrow_days").getAsInt(),
-                                    null, // new URL(obj.get("image").toString())
+                                    (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
                                     obj.get("title").getAsString(),
                                     writers,
                                     obj.get("isbn").getAsString(),
@@ -315,7 +318,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         // Join the thread when it's done, meaning that the application will wait untill the
         // thread is done.
         try {
-            thread.join();
+            thread.join(1000);
         }catch(Exception ex){ ex.printStackTrace();}
 
         ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);

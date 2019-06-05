@@ -16,4 +16,4 @@ class Publishers(View):
 
         return JsonResponse(json.loads(
             json.dumps([publisher.to_json('_state') for publisher in allPublishers]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')

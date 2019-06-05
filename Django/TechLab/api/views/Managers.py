@@ -14,7 +14,7 @@ class Managers(View):
 
         managers = User.objects.filter(is_manager=True)
 
-        return JsonResponse(json.loads(json.dumps([manager.to_json('_state') for manager in managers])), safe=False)
+        return JsonResponse(json.loads(json.dumps([manager.to_json('_state') for manager in managers])), safe=False, content_type='application/json')
 
 class Manager(View):
     def get(self, request, pk, *args, **kwargs):
@@ -29,7 +29,7 @@ class Manager(View):
             return JsonResponse(json.loads(json.dumps(json_dict)), safe=False)
         manager = get_object_or_404(User, id=pk, is_manager=True)
 
-        return JsonResponse(json.loads(json.dumps(manager.to_json('_state'))), safe=False)
+        return JsonResponse(json.loads(json.dumps(manager.to_json('_state'))), safe=False, content_type='application/json')
 
     def put(self, request, pk, *args, **kwargs):
         manager = get_object_or_404(User, id=pk)
@@ -37,7 +37,7 @@ class Manager(View):
         manager.is_manager = True
         manager.save()
 
-        return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'), safe=False)
+        return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'), safe=False, content_type='application/json')
 
     def post(self, request, *args, **kwargs):
         if not (i in request.POST for i in ['email']):
@@ -53,7 +53,7 @@ class Manager(View):
         manager.save()
 
         return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'),
-                            safe=False)
+                            safe=False, content_type='application/json')
 
     def delete(self, request, pk, *args, **kwargs):
         manager = get_object_or_404(User, id=pk)
@@ -61,4 +61,4 @@ class Manager(View):
         manager.is_manager = False
         manager.save()
 
-        return JsonResponse(json.loads('{"success": "true", "message": "The user has been removed as Manager. "}'), safe=False)
+        return JsonResponse(json.loads('{"success": "true", "message": "The user has been removed as Manager. "}'), safe=False, content_type='application/json')

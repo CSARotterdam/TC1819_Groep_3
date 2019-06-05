@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -28,7 +30,7 @@ import nl.group3.techlab.models.BorrowItem;
 public class ReturnItemActivity extends AppCompatActivity {
     //TODO: Connect to API
 
-    ArrayList<BorrowItem> borrowedItems;
+    ArrayList<JsonObject> borrowedItems;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -49,8 +51,42 @@ public class ReturnItemActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_hand_in);
         setTitle(R.string.terugnemen);
+        borrowedItems = new ArrayList<>();
 
-        LoadDatabaseData();
+
+
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+
+                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/?email=%s", acct.getEmail()), null, 1000, "GET");
+
+                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+                    for(JsonElement elem : jsonArray){
+                        JsonObject obj = elem.getAsJsonObject();
+                        borrowedItems.add(obj);
+                    }
+//                    String json = new Gson().toJson(books.get(0));
+//                    Log.d("Found book:", json);
+
+                }catch(Exception ex){ ex.printStackTrace();}
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+
+        } catch (Exception ex){}
+
+
+
 
         ListView lv = findViewById(R.id.listViewBorrowItem);
         lv.setAdapter(new ReturnItemAdapter(getBaseContext(), borrowedItems));
@@ -63,7 +99,6 @@ public class ReturnItemActivity extends AppCompatActivity {
 
 
 
-        borrowedItems = new ArrayList<BorrowItem>();
 //        for(BorrowItem item : borrowedItems){
 //            ArrayList<StockItem> stock = new ArrayList<StockItem>(Arrays.asList(myDB.getStockItem(item.getItem())));
 //            Log.d("ReturnItemActivity", stock.get(0).getItem().getName() + " - " + stock.get(0).getStock() + " - " + stock.get(0).getBroken());
@@ -76,7 +111,7 @@ public class ReturnItemActivity extends AppCompatActivity {
             String name = data.getString(1);
             String desc = data.getString(2);
 
-            borrowedItems.add(new BorrowItem(id, name, desc));
+           // borrowedItems.add(new BorrowItem(id, name, desc));
         }
 
 
