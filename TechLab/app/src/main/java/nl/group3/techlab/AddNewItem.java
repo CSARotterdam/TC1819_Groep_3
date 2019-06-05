@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import nl.group3.techlab.databases.DatabaseHelper;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
+import nl.group3.techlab.models.Writer;
 
 public class AddNewItem extends AppCompatActivity {
     EditText productName, productCategory, ProductDescription, productQuantity, productBorrowDays, productIdISBN;
@@ -42,7 +49,11 @@ public class AddNewItem extends AppCompatActivity {
     Button button;
     private static final int PICK_IMAGE=100;
     Uri imageUri;
-    public String[] writersArray, publishersArray, manufacturersArray, categoryArray ,array;
+    public String[] writersArray, publishersArray, manufacturersArray, categoryArray ,array, arrayWriters;
+    Writer[] writers;
+    Writer writer;
+    int writerID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +173,7 @@ public class AddNewItem extends AppCompatActivity {
         writersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/writers/");
         publishersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/publishers/");
 
-        Spinner bookWriters = (Spinner) findViewById(R.id.writers_spinner);
+        final Spinner bookWriters = (Spinner) findViewById(R.id.writers_spinner);
         ArrayAdapter<String> adapterWriters = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, writersArray);
         adapterWriters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -180,6 +191,40 @@ public class AddNewItem extends AppCompatActivity {
 
         myDB = new DatabaseHelper(this);
 
+        writers = new Writer[1];
+
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/writers/");
+                    Log.d("JSON", jsonString);
+
+                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+                    arrayWriters = new String[jsonArray.size()];
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        arrayWriters[i] = jsonArray.get(i).getAsJsonObject().get("name").toString();
+                        Log.d("JSON", arrayWriters[i]);
+                            if (arrayWriters[i].equals(bookWriters.getSelectedItem().toString())) {
+                                writerID = Integer.parseInt(jsonArray.get(i).getAsJsonObject().get("id").getAsString()); }
+                    }
+//                    writerID = jsonArray.size() + 1;
+
+
+                }catch(Exception ex){ ex.printStackTrace();}
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        }catch(Exception ex){ ex.printStackTrace();}
+        writer = new Writer(writerID, bookWriters.getSelectedItem().toString());
+        writers[0] = writer;
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -196,12 +241,16 @@ public class AddNewItem extends AppCompatActivity {
                                     productName.getText().toString(),
                                     null,
                                     productIdISBN.getText().toString(),
-                                    bookPublisher.getSelectedItem().toString(),
+                                    "1",
                                     Integer.parseInt(productQuantity.getText().toString()))).getAsJsonObject();
-//                            String jsonString = JSONHelper.postJSONStringFromURL("http://84.86.201.7:8000/admin/", json);
-
-//                            Log.d("JSON", jsonString);
+                            json.addProperty("username", "admin");
+                            json.addProperty("isbn", "123abc");
+                            json.addProperty("borrow_days", 2);
                             Log.d("JSON", json.toString());
+
+                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/", json.toString(), 15000, "POST");
+
+                            Log.d("JSON", jsonString);
 
                         }catch(Exception ex){ ex.printStackTrace();}
                     }

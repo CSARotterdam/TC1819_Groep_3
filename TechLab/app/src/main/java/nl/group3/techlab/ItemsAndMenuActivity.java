@@ -57,7 +57,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button sign_out;
     GoogleSignInClient mGoogleSignInClient;
-    TextView emailTV;
+    static TextView emailTV;
     static TextView rolTV;
     String personEmail;
     BorrowDatabase db;
