@@ -80,4 +80,5 @@
     <string name="product_id">Product ID</string>
     <string name="beheerder">Manager</string>
     <string name="gebruiker">User</string>
+    <string name="image_uploaden">Upload image</string>
 </resources>
