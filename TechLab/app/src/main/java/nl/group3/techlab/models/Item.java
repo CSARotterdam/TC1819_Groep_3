@@ -19,7 +19,6 @@ public class Item implements Serializable {
     int borrowDays;
     String description;
     URL imageUrl;
-    byte[] image;
 
 
     @Deprecated
@@ -47,14 +46,6 @@ public class Item implements Serializable {
         this.description = description;
         this.borrowDays = borrowDays;
         this.imageUrl = imageUrl;
-        if(imageUrl != null){
-            Bitmap bmp = BitmapHelper.LoadImageFromWebURL(imageUrl);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            this.image = stream.toByteArray();
-        } else {
-            this.image = null;
-        }
     }
 
     public Item(String name, String description){
@@ -108,8 +99,29 @@ public class Item implements Serializable {
     }
 
     public Bitmap getImage() {
-        if (image == null)
-            return null;
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
+        final Bitmap[] bmpf = new Bitmap[1];
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try{
+                    if(imageUrl != null){
+                        Bitmap bmp = BitmapHelper.LoadImageFromWebURL(imageUrl);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        bmpf[0] = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.toByteArray().length);
+                    }
+                }catch(Exception ex){ ex.printStackTrace();}
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        } catch (Exception ex){}
+
+        return bmpf[0];
     }
 }

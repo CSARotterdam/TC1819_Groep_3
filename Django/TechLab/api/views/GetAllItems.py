@@ -21,32 +21,35 @@ class GetAllItems(View):
             json.dumps([book.to_json('item_ptr', 'borrow_item_item') for book in allBooks] +
                        [electronic.to_json('item_ptr', 'borrow_item_item') for electronic in allElectronics]))),
                             safe=False, content_type='application/json')
+
 class GetAllBooks(View):
     def get(self, request, *args, **kwargs):
         allBooks = Book.objects.all()
-        return JsonResponse(json.loads(json.dumps([book.to_json('_state', 'item_ptr', 'borrow_item_item') for
-                                                   book in allBooks])), safe=False, content_type='application/json')
+        return JsonResponse(
+            json.loads(json.dumps([book.to_json('_state', 'item_ptr', 'borrow_item_item') for book in allBooks])),
+            safe=False, content_type='application/json')
 
     def post(self, request, *args, **kwargs):
-        put = json.loads(request.body)
-        print(put)
-        if 'username' in put:
-            admin = AuthUser.objects.filter(username=put.get('username')).first() if \
-                AuthUser.objects.filter(username=put.get('username')).count() > 0 else None
+        if 'username' in request.POST:
+            admin = AuthUser.objects.filter(username=request.POST.get('username')).first() if \
+                AuthUser.objects.filter(username=request.POST.get('username')).count() > 0 else None
 
             if admin is not None:
-                book = Book.objects.create(borrow_days=put.get('borrow_days'),
-                                           description=put.get('description'),
-                                           title=put.get('title'),
-                                           isbn=put.get('isbn'),
-                                           publisher=Publisher.objects.get(id=put.get('publisher')),
-                                           stock=put.get('stock'),)
+                book = Book.objects.create(borrow_days=int(request.POST.get('borrow_days')),
+                                           description=request.POST.get('description'),
+                                           title=request.POST.get('title'),
+                                           isbn=request.POST.get('isbn'),
+                                           publisher=Publisher.objects.get(id=request.POST.get('publisher')),
+                                           stock=int(request.POST.get('stock')), )
+                if 'image' in request.FILES:
+                    book.image = request.FILES['image']
+                    pass
                 book.save()
 
                 return JsonResponse('{"success": "true", "message": "The item has been created."}',
                                     safe=False, status=200, content_type='application/json')
 
-        return JsonResponse('', safe=False, status=401, content_type='application/json')
+        return JsonResponse('', safe=False, status=401)
 
 class GetAllElectronics(View):
     def get(self, request, *args, **kwargs):

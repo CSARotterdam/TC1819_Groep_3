@@ -45,7 +45,7 @@ public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Ele
                 Intent editScreenIntent = new Intent(getContext(), ItemEdit.class);
                 editScreenIntent.putExtra("item", item);
                 getContext().startActivity(editScreenIntent);
-                ((Activity) getContext()).finish();
+                 ((Activity) getContext()).finish();
             }
         });
 

@@ -1,10 +1,16 @@
 package nl.group3.techlab;
 
+import android.Manifest;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -23,7 +29,9 @@ import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,6 +57,7 @@ public class AddNewItem extends AppCompatActivity {
     Button button;
     private static final int PICK_IMAGE=100;
     Uri imageUri;
+    String imageUrl;
     public String[] writersArray, publishersArray, manufacturersArray, categoryArray ,array, arrayWriters;
     Writer[] writers;
     Writer writer;
@@ -109,6 +118,15 @@ public class AddNewItem extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE ){
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+
+            String[] projection = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getBaseContext().getContentResolver().query(imageUri, projection, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            imageUrl = cursor.getString(column_index);
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+
         }
     }
 
@@ -232,25 +250,51 @@ public class AddNewItem extends AppCompatActivity {
                 thread = new Thread(new Runnable() {
                     public void run() {
                         try {
-                            JsonObject json = new Gson().toJsonTree(new Book(
-                                    "Book",
-                                    UUID.randomUUID().toString(),
-                                    ProductDescription.getText().toString(),
-                                    Integer.parseInt(productBorrowDays.getText().toString()),
-                                    null,
-                                    productName.getText().toString(),
-                                    null,
-                                    productIdISBN.getText().toString(),
-                                    "1",
-                                    Integer.parseInt(productQuantity.getText().toString()))).getAsJsonObject();
-                            json.addProperty("username", "admin");
-                            json.addProperty("isbn", "123abc");
-                            json.addProperty("borrow_days", 2);
-                            Log.d("JSON", json.toString());
+//                            JsonObject json = new Gson().toJsonTree(new Book(
+//                                    "Book",
+//                                    UUID.randomUUID().toString(),
+//                                    ProductDescription.getText().toString(),
+//                                    Integer.parseInt(productBorrowDays.getText().toString()),
+//                                    null,
+//                                    productName.getText().toString(),
+//                                    null,
+//                                    productIdISBN.getText().toString(),
+//                                    "1",
+//                                    Integer.parseInt(productQuantity.getText().toString()))).getAsJsonObject();
+//                            json.addProperty("username", "admin");
+//                            json.addProperty("isbn", "123abc");
+//                            json.addProperty("borrow_days", 2);
+//                            Log.d("JSON", json.toString());
+                            if(imageUrl != null && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/",
+                                        new HashMap<String, String>(){{
+                                            put("username", "admin"); // TODO: Replace
+                                            put("borrow_days",productBorrowDays.getText().toString());
+                                            put("description",ProductDescription.getText().toString());
+                                            put("title",productName.getText().toString());
+                                            put("writers", writer.getId() + ""); //TODO: faster way to get the correct writer?
+                                            put("publisher", "1"); //TODO: get publisher
+                                            put("isbn", productIdISBN.getText().toString());
+                                            put("stock", productQuantity.getText().toString()); }}
 
-                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/", json.toString(), 15000, "POST");
+                                        , 15000, "POST", imageUrl);
+                                Log.d("JSON", jsonString);
+                            } else {
+                                String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/",
+                                    new HashMap<String, String>(){{
+                                        put("username", "admin"); // TODO: Replace
+                                        put("borrow_days",productBorrowDays.getText().toString());
+                                        put("description",ProductDescription.getText().toString());
+                                        put("title",productName.getText().toString());
+                                        put("writers", writer.getId() + "");
+                                        put("publisher", "1");
+                                        put("isbn", productIdISBN.getText().toString());
+                                        put("stock", productQuantity.getText().toString()); }}
 
-                            Log.d("JSON", jsonString);
+                                    , 15000, "POST", null);
+                                Log.d("JSON", jsonString);
+                            }
+
 
                         }catch(Exception ex){ ex.printStackTrace();}
                     }

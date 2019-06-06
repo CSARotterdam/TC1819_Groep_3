@@ -74,6 +74,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
     private static final String TAG = "ProductListAdapter";
     SharedPreferences sharedPreferences;
+    ProductListAdapter productListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +144,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             thread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET");
+                        String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET", null);
                         Log.d("JSON", jsonString);
 
                         JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
@@ -267,7 +268,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET");
+                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
                     Log.d("JSON", jsonString);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
@@ -298,15 +299,16 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                                     obj.get("isbn").getAsString(),
                                     obj.get("publisher").getAsJsonObject().get("name").getAsString(),
                                     obj.get("stock").getAsInt()));
-                    } else {
+
                         Log.d("Books", "Failed to find a book");
+                        }
                     }
-
-                        Log.d("JSON", obj.get("type").toString());
-                    }
-//                    String json = new Gson().toJson(books.get(0));
-//                    Log.d("Found book:", json);
-
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            if(productListAdapter != null)
+                                productListAdapter.notifyDataSetChanged();
+                        }
+                    });
                     Log.d("Found books:", books.size() + "");
 
                 }catch(Exception ex){ ex.printStackTrace();}
@@ -318,13 +320,16 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         // Join the thread when it's done, meaning that the application will wait untill the
         // thread is done.
         try {
-            thread.join(1000);
-        }catch(Exception ex){ ex.printStackTrace();}
+            thread.join();
 
-        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
-        listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+            productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
 
+            listView = findViewById(R.id.listView);
+            listView.setAdapter(productListAdapter);
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void setLocale(String lang) {

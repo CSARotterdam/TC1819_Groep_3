@@ -38,6 +38,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ItemEdit extends AppCompatActivity {
@@ -162,35 +164,11 @@ public class ItemEdit extends AppCompatActivity {
 
         }
 
+
         {
             if(book.getImage() != null)
                 ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage());
         }
-
-
-
-//        delButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                myDB.deleteName(selectedID, selectedName);
-//                eItem.setText("");
-//                AddNewItem.totalQuantity -= selectedquan;
-//                editor.putInt("AV", intAV-=selectedquan);
-//                editor.apply();
-//                toastMessage(getString(R.string.product_verwijderd));
-//                Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
-
-//        vBorrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ItemEdit.this, ViewBorrowedItem.class);
-//                startActivity(intent);
-//            }
-//        });
 
 
         Borrow.setOnClickListener(new View.OnClickListener() {
@@ -203,8 +181,12 @@ public class ItemEdit extends AppCompatActivity {
                     public void run() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         try {
-                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/", String.format("{\"email\": \"%s\", \"item_id\": \"%s\", \"borrow_date\": \"%s\" }",
-                                acct.getEmail(), book.getId(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())), 1000, "PUT");
+                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/",
+                                    new HashMap<String, String>(){{
+                                        put("email",acct.getEmail());
+                                        put("item_id", book.getId());
+                                        put("borrow_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); }}
+                                        , 1000, "PUT", null);
 
                             Log.d("JSON", jsonString);
 
@@ -265,7 +247,7 @@ public class ItemEdit extends AppCompatActivity {
 
     }
     public void onBackPressed() {
-        Intent intent = new Intent(ItemEdit.this, ItemsAndMenuActivity.class);
+        Intent intent = new Intent(this, ItemsAndMenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
