@@ -61,7 +61,6 @@ class ReturnItems(View):
 
     def put(self, request, pk, *args, **kwargs):
         put = json.loads(request.body.decode('UTF-8'))
-        print(put)
 
         borrowItem = get_object_or_404(BorrowItem, id=pk)
 

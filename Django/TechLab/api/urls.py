@@ -26,7 +26,7 @@ def function():
 
 urlpatterns = [
     url(r'^items/$', GetAllItems.GetAllItems.as_view()),
-    url(r'^items/(?P<pk>[0-9a-f-]+)/$', GetAllItems.GetItem.as_view()),
+    url(r'^items/(?P<pk>[0-9a-f-]+)/$', csrf_exempt(GetAllItems.GetItem.as_view())),
     url('items/filtered/', GetFilteredItems.GetFilteredItems.as_view()),
     url(r'^electronics/$', csrf_exempt(GetAllItems.GetAllElectronics.as_view())),
     url(r'^electronics/(?P<pk>[0-9a-f-]+)/$', GetFilteredItems.GetFilteredElectronics.as_view()),

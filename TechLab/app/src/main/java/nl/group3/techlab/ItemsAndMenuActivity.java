@@ -137,9 +137,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
-//        deleteProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
-        if (!(personEmail.equals("techlabapp00@gmail.com")) && !(personEmail.equals("Techlabapp00@gmail.com"))) {
+        if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
             Thread thread;
             thread = new Thread(new Runnable() {
                 public void run() {
@@ -264,6 +263,18 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             }
         });
 
+        loadItems();
+
+        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+
+        listView = findViewById(R.id.listView);
+        listView.setAdapter(productListAdapter);
+
+
+    }
+
+    public void loadItems(){
+
         Thread thread;
         thread = new Thread(new Runnable() {
             public void run() {
@@ -299,9 +310,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                                     obj.get("isbn").getAsString(),
                                     obj.get("publisher").getAsJsonObject().get("name").getAsString(),
                                     obj.get("stock").getAsInt()));
-
-                        Log.d("Books", "Failed to find a book");
-                        }
+                            }
                     }
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -321,14 +330,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         // thread is done.
         try {
             thread.join();
-
-            productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
-
-            listView = findViewById(R.id.listView);
-            listView.setAdapter(productListAdapter);
-
         }catch(Exception ex){
-            ex.printStackTrace();
+            loadItems();
         }
     }
 

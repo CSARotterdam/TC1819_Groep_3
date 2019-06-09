@@ -50,7 +50,7 @@ public class ItemEdit extends AppCompatActivity {
     public static FloatingActionButton delButton;
     private TextView eItem, eItemD, Bsk;
     private TextView ID;
-    EditText eItemdes,eItemcat;
+    EditText eItemdes, eItemcat;
     DatabaseHelper myDB;
     private String selectedName;
     private int selectedID;
@@ -87,7 +87,7 @@ public class ItemEdit extends AppCompatActivity {
         setTitle(R.string.lenen);
 //        vBorrow = (Button) findViewById(R.id.vBorrow);
 
-        sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         intAV = sharedPreferences.getInt("AV", 0);
         intLE = sharedPreferences.getInt("LE", 0);
@@ -102,20 +102,65 @@ public class ItemEdit extends AppCompatActivity {
         eItemD = (TextView) findViewById(R.id.eItemD);
         Bsk = (TextView) findViewById(R.id.Bsk);
 
+        Intent receivedIntent = getIntent();
+
+        final Book book = (Book) receivedIntent.getSerializableExtra("item");
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
-        if (ItemsAndMenuActivity.rolTV.getText() == "User"){
+        if (ItemsAndMenuActivity.rolTV.getText() == "User") {
             delButton.hide();
         } else {
             delButton.show();
-        }
+            delButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
+                    Thread thread;
+                    thread = new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", book.getId()),
+                                        new HashMap<String, String>() {{
+                                            put("username", acct.getEmail());
+                                        }}
+                                        , 1000, "DELETE", null);
+
+                                Log.d("JSON", jsonString);
+
+                                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+                                Log.d("JSON", obj.toString());
+                                obj.get("success").getAsBoolean();
+                                Log.d("JSON", obj.get("success").getAsString() + "");
+                                if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                    onBackPressed();
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+
+                    });
+
+                    // Start the new thread and run the code.
+                    thread.start();
+
+                    // Join the thread when it's done, meaning that the application will wait untill the
+                    // thread is done.
+                    try {
+                        thread.join();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            });
+        }
 
         myDB = new DatabaseHelper(this);
         ID = (TextView) findViewById(R.id.ID);
-
-        Intent receivedIntent = getIntent();
-
-        final Book book = (Book)receivedIntent.getSerializableExtra("item");
 
         selectedID = receivedIntent.getIntExtra("id", -1);
         selectedName = receivedIntent.getStringExtra("ITEM");
@@ -130,20 +175,19 @@ public class ItemEdit extends AppCompatActivity {
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             eItemD.setLayoutParams(params); // this call is what you need to add
         }
-        if (book.getStock() > 0){
+        if (book.getStock() > 0) {
             Bsk.setText(R.string.beschikbaar);
-        }
-        else {
+        } else {
             Bsk.setText(R.string.niet_beshikbaar);
         }
 
         {
             String writers = "";
-            if(book.getWriters() != null){
-                for(Writer writer : book.getWriters()){
+            if (book.getWriters() != null) {
+                for (Writer writer : book.getWriters()) {
                     writers += writer.getName() + ", ";
                 }
-                if(writers.length() > 0)
+                if (writers.length() > 0)
                     writers = writers.substring(0, writers.length() - 2);
             }
 
@@ -166,7 +210,7 @@ public class ItemEdit extends AppCompatActivity {
 
 
         {
-            if(book.getImage() != null)
+            if (book.getImage() != null)
                 ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage());
         }
 
@@ -180,38 +224,41 @@ public class ItemEdit extends AppCompatActivity {
                 thread = new Thread(new Runnable() {
                     public void run() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        try {
-                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/",
-                                    new HashMap<String, String>(){{
-                                        put("email",acct.getEmail());
-                                        put("item_id", book.getId());
-                                        put("borrow_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); }}
+                            try {
+                                String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/",
+                                        new HashMap<String, String>() {{
+                                            put("email", acct.getEmail());
+                                            put("item_id", book.getId());
+                                            put("borrow_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                                        }}
                                         , 1000, "PUT", null);
 
-                            Log.d("JSON", jsonString);
+                                Log.d("JSON", jsonString);
 
-                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+                                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
-                            Log.d("JSON", obj.toString());
-                            obj.get("success").getAsBoolean();
-                            Log.d("JSON", obj.get("success").getAsString() + "");
-                            if(obj.get("success").getAsString().equalsIgnoreCase("true")) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        toastMessage(getString(R.string.product_geleend));
-                                    }
-                                });
-                                onBackPressed();
-                            } else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        toastMessage(getString(R.string.product_niet_beschikbaar));
-                                    }
-                                });
+                                Log.d("JSON", obj.toString());
+                                obj.get("success").getAsBoolean();
+                                Log.d("JSON", obj.get("success").getAsString() + "");
+                                if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            toastMessage(getString(R.string.product_geleend));
+                                        }
+                                    });
+                                    onBackPressed();
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            toastMessage(getString(R.string.product_niet_beschikbaar));
+                                        }
+                                    });
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
-                        } catch (Exception ex){ex.printStackTrace();}
                         }
 
 
@@ -224,7 +271,9 @@ public class ItemEdit extends AppCompatActivity {
                 // thread is done.
                 try {
                     thread.join();
-                }catch(Exception ex){ ex.printStackTrace();}
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
 
 //                if (selectedquan >= 1 ) {
@@ -246,6 +295,7 @@ public class ItemEdit extends AppCompatActivity {
         });
 
     }
+
     public void onBackPressed() {
         Intent intent = new Intent(this, ItemsAndMenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -253,7 +303,7 @@ public class ItemEdit extends AppCompatActivity {
         finish();
     }
 
-    private void toastMessage(String message){
+    private void toastMessage(String message) {
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
