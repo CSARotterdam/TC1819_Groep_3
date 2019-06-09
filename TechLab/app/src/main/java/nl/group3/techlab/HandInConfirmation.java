@@ -15,6 +15,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.HashMap;
+
 import nl.group3.techlab.database.ItemDatabaseHelper;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.BorrowItem;
@@ -37,22 +39,41 @@ public class HandInConfirmation extends AppCompatActivity {
 
         final JsonObject borrowedItem = (JsonObject) new JsonParser().parse(getIntent().getStringExtra("BorrowedItemObject")).getAsJsonObject();
 
-        TextView tvBorrowedBy = (TextView)findViewById(R.id.borrowedBy);
-        TextView tvItemName = (TextView)findViewById(R.id.itemName);
+        TextView tvBorrowedBy = (TextView) findViewById(R.id.borrowedBy);
+        final TextView tvItemName = (TextView) findViewById(R.id.itemName);
 
-        Button bCancelAction = (Button)findViewById(R.id.cancelAction);
-        Button bReturnedAction = (Button)findViewById(R.id.returnAction);
-        Button bBrokenAction = (Button)findViewById(R.id.brokenAction);
+        final Button bCancelAction = (Button) findViewById(R.id.cancelAction);
+        Button bReturnedAction = (Button) findViewById(R.id.returnAction);
+        final Button bBrokenAction = (Button) findViewById(R.id.brokenAction);
 
         tvBorrowedBy.setText(String.format(tvBorrowedBy.getText().toString(),
                 borrowedItem.get("user").getAsJsonObject().get("email")));
 
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
 
-        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/items/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "GET", null);
-        JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+                    String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "GET", null);
+                    JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
 
-        tvItemName.setText(String.format(obj.get("title").getAsString()));
+                    tvItemName.setText(String.format(obj.get("title").getAsString()));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        } catch (Exception ex) {
+        }
 
         bCancelAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,18 +91,41 @@ public class HandInConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
 
-                String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "PUT", null);
-                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()),  new HashMap<String, String>(){{put("broken", "True");}}, 1000, "PUT", null);
+                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
 
-                if (obj.get("success").getAsString().equalsIgnoreCase("true")){
-                    Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                            if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
-                    Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                    startActivity(i);
+                                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                                startActivity(i);
 
-                    finish();
+                                finish();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                } catch (Exception ex) {
                 }
 
             }
@@ -91,18 +135,41 @@ public class HandInConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
 
-                String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "PUT", null);
-                JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()), new HashMap<String, String>(){{put("broken", "False");}}, 1000, "PUT", null);
+                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
 
-                if (obj.get("success").getAsString().equalsIgnoreCase("true")){
-                    Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                            if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
-                    Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                    startActivity(i);
+                                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                                startActivity(i);
 
-                    finish();
+                                finish();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                } catch (Exception ex) {
                 }
 
             }

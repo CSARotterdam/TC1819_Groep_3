@@ -61,7 +61,7 @@ public class ReturnItemActivity extends AppCompatActivity {
                 try {
                     final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
-                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/?email=%s", acct.getEmail()), null, 1000, "GET", null);
+                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
 
@@ -69,8 +69,6 @@ public class ReturnItemActivity extends AppCompatActivity {
                         JsonObject obj = elem.getAsJsonObject();
                         borrowedItems.add(obj);
                     }
-//                    String json = new Gson().toJson(books.get(0));
-//                    Log.d("Found book:", json);
 
                 }catch(Exception ex){ ex.printStackTrace();}
             }

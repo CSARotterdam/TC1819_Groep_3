@@ -205,8 +205,11 @@ class BorrowItem(models.Model):
             # try:
             if field.name not in exclude_vars:
                 print("field", field.name)
+                print("field_type", str(type(getattr(self, field.name))))
                 if str(type(getattr(self, field.name))).find('api') != -1:
                     item.update({field.name: getattr(self, field.name).to_json('borrow_item_item')})
+                elif str(type(getattr(self, field.name))).find('datetime.datetime') != -1:
+                    item.update({field.name: getattr(self, field.name).strftime("%Y-%m-%d %H:%M:%S")})
                 else:
                     item.update({field.name: str(getattr(self, field.name))})
             # except:

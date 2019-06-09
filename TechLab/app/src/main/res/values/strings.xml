@@ -74,6 +74,7 @@
     <string name="uitgelogd">Uitgelogd</string>
     <string name="geschreven_door">Geschreven door: %s</string>
     <string name="uitgegeven_door">Uitgegeven door: %s</string>
+    <string name="geleend_door">Geleend door:</string>
     <string name="ja">Ja</string>
     <string name="nee">Nee</string>
     <string name="leendagen">Leendagen</string>

@@ -60,7 +60,9 @@ public class JSONHelper {
 
             MultipartUtility multipart = new MultipartUtility(url, charset, method);
 
-            if(formFields != null){
+            if(method.equals("PUT") || method.equals("DELETE")){
+                multipart.addJsonFormFields(formFields);
+            } else if(formFields != null){
                 multipart.addFormFields(formFields);
             }
 
@@ -73,130 +75,4 @@ public class JSONHelper {
         }
         return null;
     }
-
-//    public static String JSONStringFromURL(String url, String json, int timeout, String method, String fileUrl) {
-//        HttpURLConnection connection = null;
-//        try {
-//
-//            URL u = new URL(url);
-//            connection = (HttpURLConnection) u.openConnection();
-//
-//            //set the sending type and receiving type to json
-//            connection.setRequestProperty("Accept", "application/json");
-//            connection.setRequestProperty("Connection", "Keep-Alive");
-//
-//            connection.setAllowUserInteraction(false);
-//            connection.setConnectTimeout(timeout);
-//            connection.setReadTimeout(timeout);
-//            connection.setRequestMethod(method);
-//
-//
-//            if (json != null) {
-//                //set the content length of the body
-////                connection.setRequestProperty("Content-length", json.getBytes().length + "");
-//                connection.setDoInput(true);
-//                connection.setDoOutput(true);
-//                connection.setUseCaches(false);
-//
-//                String boundary = "SwA" + Long.toString(System.currentTimeMillis()) + "SwA";
-//                connection.addRequestProperty("content-type", "multipart/form-data; boundary=" + boundary);
-//
-//                if(fileUrl != null){
-//
-//                    byte[] buffer;
-//                    int bytesRead, bytesAvailable, bufferSize;
-//
-//                    DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-//
-//                    String lineEnd = "\r\n";
-//                    String twoHyphens = "--";
-//                    outputStream.writeBytes((twoHyphens + boundary + "\r\n"));
-//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"reference\""+ lineEnd);
-//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + fileUrl + "\"\r\n");
-//                    outputStream.writeBytes("Content-Type: mimetype\r\n");
-//                    outputStream.writeBytes("Content-Transfer-Encoding: UTF-8\r\n\r\n");
-//                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-//
-////                    outputStream.writeBytes("Content-Disposition: form-data; name=\"uploadFile\";filename=\"" + imagePath +"\"" + lineEnd);
-//                    outputStream.writeBytes(lineEnd);
-//
-//
-//
-//
-//                    FileInputStream fileInputStream = new FileInputStream(fileUrl);
-//                    bytesAvailable = fileInputStream.available();
-//                    bufferSize = Math.min(bytesAvailable, 1024 * 1024);
-//                    buffer = new byte[bufferSize];
-//
-//                    // Read file
-//                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-//
-//                    while (bytesRead > 0) {
-//                        outputStream.write(buffer, 0, bufferSize);
-//                        bytesAvailable = fileInputStream.available();
-//                        bufferSize = Math.min(bytesAvailable, 1024 * 1024);
-//                        bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-//                    }
-//
-//                    outputStream.writeBytes(lineEnd);
-//                    outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-//                    outputStream.write(json.getBytes("UTF-8"));
-//                    outputStream.close();
-//
-//                } else {
-//
-//                    OutputStream outputStream = connection.getOutputStream();
-//                    outputStream.write(json.getBytes("UTF-8"));
-//                    outputStream.close();
-//
-//                    //Connect to the server
-//                    connection.connect();
-//                }
-//                //send the json as body of the request
-//            }
-//
-//
-//            //Connect to the server
-//            connection.connect();
-//
-//            int status = connection.getResponseCode();
-//            Log.i("HTTP Client", "HTTP status code : " + status);
-//            switch (status) {
-//                case 200:
-//                case 201:
-//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                    StringBuilder sb = new StringBuilder();
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        sb.append(line);
-//                    }
-//                    bufferedReader.close();
-//                    Log.i("HTTP Client", "Received String : " + sb.toString());
-//
-//                    //return received string
-//                    return sb.toString();
-//            }
-//
-//        } catch (MalformedURLException ex) {
-//            ex.printStackTrace();
-//            Log.e("HTTP Client", "Error in http connection" + ex.toString());
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//            Log.e("HTTP Client", "Error in http connection" + ex.toString());
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            Log.e("HTTP Client", "Error in http connection" + ex.toString());
-//        } finally {
-//            if (connection != null) {
-//                try{
-//                    connection.disconnect();
-//
-//                } catch (Exception ex){
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }
-//        return null;
-//    }
-
 }

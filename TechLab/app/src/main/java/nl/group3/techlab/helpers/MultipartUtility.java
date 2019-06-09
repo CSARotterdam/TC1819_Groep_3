@@ -56,6 +56,10 @@ public class MultipartUtility {
             outputStream = httpConn.getOutputStream();
             writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
                     true);
+
+            if(method == "PUT" || method == "DELETE") {
+                writer.append("{");
+            }
         }
     }
 
@@ -77,11 +81,25 @@ public class MultipartUtility {
      * Adds multipe form fields to the request
      */
     public void addFormFields(HashMap<String, String> values) {
+        if(values != null)
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                addFormField(entry.getKey(), entry.getValue());
+            }
+    }
 
-        for (Map.Entry<String, String> entry : values.entrySet()) {
-            addFormField(entry.getKey(), entry.getValue());
-        }
+    public void addJsonFormField(String name, String value, boolean addLineBreak){
+        writer.flush();
+        writer.append(String.format("\"%s\": \"%s\"%s", name, value, addLineBreak ? ", " : ""));
 
+    }
+
+    public void addJsonFormFields(HashMap<String, String> values){
+        int i = 1;
+        if(values != null)
+            for (Map.Entry<String, String> entry : values.entrySet()) {
+                addJsonFormField(entry.getKey(), entry.getValue(), values.size() == i ? false : true);
+                i++;
+            }
     }
 
     /*
@@ -130,9 +148,13 @@ public class MultipartUtility {
     public String finish() throws IOException {
         StringBuffer response = new StringBuffer();
 
-        if(method == "POST" || method == "PUT" || method == "DELETE") {
+        if(method == "POST") {
             writer.flush();
             writer.append("--" + boundary + "--").append(LINE_FEED);
+            writer.close();
+        } else if (method == "PUT" || method == "DELETE") {
+            writer.flush();
+            writer.append("}");
             writer.close();
         }
         // checks server's status code first
