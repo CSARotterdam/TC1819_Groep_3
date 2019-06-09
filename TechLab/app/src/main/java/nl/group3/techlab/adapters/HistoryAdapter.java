@@ -1,6 +1,7 @@
 package nl.group3.techlab.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -18,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import nl.group3.techlab.R;
+import nl.group3.techlab.helpers.BitmapHelper;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
@@ -40,6 +43,7 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
         final TextView item_name = convertView.findViewById(R.id.item_name);
         TextView returned = convertView.findViewById(R.id.returned);
         TextView borrowedAt = convertView.findViewById(R.id.borrowedAt);
+        final ImageView itemImage = convertView.findViewById(R.id.imageView);
         final JsonObject item = getItem(position);
 
 
@@ -55,6 +59,8 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
                     String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/items/%s/", item.get("item").getAsJsonObject().get("id").getAsString()),
                             null, 1000, "GET", null);
 
+                    if(!item.get("item").getAsJsonObject().get("image").isJsonNull())
+                        itemImage.setImageBitmap(BitmapHelper.LoadImageFromWebURL(item.get("item").getAsJsonObject().get("image").getAsString()));
 
                     JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
                     item_name.setText(obj.get("title").getAsString());
