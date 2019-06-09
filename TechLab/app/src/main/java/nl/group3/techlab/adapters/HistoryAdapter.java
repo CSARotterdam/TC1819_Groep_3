@@ -38,8 +38,8 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
         }
 
         final TextView item_name = convertView.findViewById(R.id.item_name);
-        TextView description = convertView.findViewById(R.id.description);
         TextView returned = convertView.findViewById(R.id.returned);
+        TextView borrowedAt = convertView.findViewById(R.id.borrowedAt);
         final JsonObject item = getItem(position);
 
 
@@ -72,8 +72,8 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
         } catch (Exception ex){}
 
 
-        description.setText("desc");
         returned.setText(getContext().getString(R.string.teruggebracht) + " " + (item.get("hand_in_date").getAsString().equalsIgnoreCase("none") ? getContext().getString(R.string.nee) : getContext().getString(R.string.ja)));
+        borrowedAt.setText(item.get("borrow_date").getAsString());
         return convertView;
     }
 }
