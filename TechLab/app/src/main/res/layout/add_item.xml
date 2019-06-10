@@ -71,29 +71,57 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/titel" />
 
-            <Spinner
-                android:id="@+id/writers_spinner"
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
 
-            <Spinner
-                android:id="@+id/publisher_spinner"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
+                <Spinner
+                    android:id="@+id/writers_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/category_spinner"
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
 
-            <Spinner
-                android:id="@+id/manufacturers_spinner"
-                android:layout_width="fill_parent"
+                <Spinner
+                    android:id="@+id/publisher_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
+
+                <Spinner
+                    android:id="@+id/category_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
+
+                    <Spinner
+                        android:id="@+id/manufacturers_spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/book_ISBN"

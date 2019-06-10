@@ -108,7 +108,7 @@ public class ItemEdit extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
-        if (ItemsAndMenuActivity.rolTV.getText() == "User") {
+        if (ItemsAndMenuActivity.rolTV.getText() == getString(R.string.gebruiker)) {
             delButton.hide();
         } else {
             delButton.show();
