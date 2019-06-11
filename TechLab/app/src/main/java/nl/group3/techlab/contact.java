@@ -61,7 +61,8 @@ public class contact extends AppCompatActivity {
         adress.setText(R.string.adres);
         contactinfo.setText(R.string.contactgegevens);
         namecontact.setText("Maurice van Veen");
-        infocontact.setText(Html.fromHtml ("<a href=\"mailto:0921718@hr.nl\">✉ 0921718@hr.nl</a>"));
+        infocontact.setTextColor(getResources().getColor(R.color.white));
+        infocontact.setText(Html.fromHtml ("<a href=\"mailto:0921718@hr.nl\">0921718@hr.nl</a>"));
         infocontact.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
