@@ -3,23 +3,21 @@ import nl.group3.techlab.AddNewItem;
 import nl.group3.techlab.ItemEdit;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
-
-import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import java.util.ArrayList;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
-
-import java.util.ArrayList;
 
 
 public class statistic extends AppCompatActivity {
@@ -58,6 +56,8 @@ public class statistic extends AppCompatActivity {
         setContentView(R.layout.statistic_layout1);
         setTitle(R.string.statistieken);
 
+
+
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();
         intAV = sharedPreferences.getInt("AV", 0);
@@ -79,13 +79,6 @@ public class statistic extends AppCompatActivity {
             editor.putInt("TOT", inttot+totalPro);
             editor.apply();
         }*/
-
-
-        /*
-
-        ItemsAndMenuActivity stockTotal = new ItemsAndMenuActivity();
-        stockTotal.loadItems();
-        books = new ArrayList<Book>();  */
 
         Thread thread;
         thread = new Thread(new Runnable() {
@@ -123,9 +116,6 @@ public class statistic extends AppCompatActivity {
 
 
 
-
-
-
         lendPer = (TextView) findViewById(R.id.lendPercent);
         availabilityPer = (TextView) findViewById(R.id.availabilityPercent);
         lendPer.setText(String.valueOf(lendsize));
@@ -149,9 +139,6 @@ public class statistic extends AppCompatActivity {
 
         Pie.applyConfig(chart);
         Pie.start();
-
-
-
 
 
     }
