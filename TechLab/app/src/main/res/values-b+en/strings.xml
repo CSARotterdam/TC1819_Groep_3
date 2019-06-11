@@ -72,7 +72,7 @@
     <string name="openingstijden">Visiting hours</string>
     <string name="tijden">"Monday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \nTuesday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \nWednesday&#160;&#160;&#160;10.30 &#8211; 15.50 \nThursday&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \nFriday&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;closed"</string>
     <!-- <string name="contact_titel">For questions and/or uncertainties you can contact the following people:</string> !-->
-    <string name="uitgelogd">Succesfully signed out</string>
+    <string name="uitgelogd">Successfully signed out</string>
     <string name="leendagen">Borrow days</string>
     <string name="boek">Book</string>
     <string name="elektronica">Electronic</string>
@@ -81,4 +81,5 @@
     <string name="beheerder">Manager</string>
     <string name="gebruiker">User</string>
     <string name="image_uploaden">Upload image</string>
+    <string name="thuis">Home</string>
 </resources>
