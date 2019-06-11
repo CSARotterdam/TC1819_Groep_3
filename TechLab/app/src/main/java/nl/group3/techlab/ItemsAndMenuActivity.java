@@ -286,8 +286,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
 
-                    books = new ArrayList<Book>();
-
                     for(JsonElement elem : jsonArray){
                         JsonObject obj = elem.getAsJsonObject();
                         Writer[] writers = null;

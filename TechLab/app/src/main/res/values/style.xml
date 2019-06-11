@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="theme1">
-        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:windowBackground">@drawable/ic_drawable_background_dark</item>
         <item name="android:buttonStyle">@style/b_style2</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
@@ -20,6 +20,7 @@
         <item name="android:textSize">18dp</item>
     </style>
     <style name="theme2">
+        <item name="android:windowBackground">@drawable/ic_drawable_background</item>
         <item name="android:colorBackground">@color/grijs</item>
         <item name="android:buttonStyle">@style/b_style1</item>
         <item name="android:textColorPrimary">@android:color/black</item>
