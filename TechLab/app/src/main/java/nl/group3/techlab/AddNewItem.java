@@ -104,8 +104,6 @@ public class AddNewItem extends AppCompatActivity {
                 openGallery();
             }
         });
-        findViewById(R.id.book_button).setVisibility(View.INVISIBLE);
-        findViewById(R.id.electronic_button).setVisibility(View.INVISIBLE);
     }
 
     private void openGallery() {
@@ -193,15 +191,15 @@ public class AddNewItem extends AppCompatActivity {
 
         final Spinner bookWriters = (Spinner) findViewById(R.id.writers_spinner);
         ArrayAdapter<String> adapterWriters = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, writersArray);
-        adapterWriters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                (this, R.layout.crimson_spinner_item, writersArray);
+        adapterWriters.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         bookWriters.setPopupBackgroundResource(R.color.colorPrimary);
         bookWriters.setAdapter(adapterWriters);
 
         final Spinner bookPublisher = (Spinner) findViewById(R.id.publisher_spinner);
         ArrayAdapter<String> adapterPublishers = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, publishersArray);
-        adapterPublishers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                (this, R.layout.crimson_spinner_item, publishersArray);
+        adapterPublishers.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         bookPublisher.setPopupBackgroundResource(R.color.colorPrimary);
         bookPublisher.setAdapter(adapterPublishers);
 
@@ -327,15 +325,15 @@ public class AddNewItem extends AppCompatActivity {
 
         Spinner Manufacturers = (Spinner) findViewById(R.id.manufacturers_spinner);
         ArrayAdapter<String> adapterWriters = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, manufacturersArray);
-        adapterWriters.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                (this, R.layout.crimson_spinner_item, manufacturersArray);
+        adapterWriters.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         Manufacturers.setPopupBackgroundResource(R.color.colorPrimary);
         Manufacturers.setAdapter(adapterWriters);
 
         final Spinner Category = (Spinner) findViewById(R.id.category_spinner);
         ArrayAdapter<String> adapterPublishers = new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, categoryArray);
-        adapterPublishers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                (this,  R.layout.crimson_spinner_item, categoryArray);
+        adapterPublishers.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         Category.setPopupBackgroundResource(R.color.colorPrimary);
         Category.setAdapter(adapterPublishers);
 
