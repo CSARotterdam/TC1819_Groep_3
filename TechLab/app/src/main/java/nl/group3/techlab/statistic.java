@@ -1,7 +1,13 @@
 package nl.group3.techlab;
 import nl.group3.techlab.AddNewItem;
 import nl.group3.techlab.ItemEdit;
-
+import nl.group3.techlab.helpers.JSONHelper;
+import nl.group3.techlab.models.Book;
+import android.content.Intent;
+import android.util.Log;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -28,6 +34,8 @@ public class statistic extends AppCompatActivity {
     int intAV;
     int intLE;
     int inttot;
+    ArrayList<Book> books;
+    int lendsize;
 
 
     @Override
@@ -47,6 +55,8 @@ public class statistic extends AppCompatActivity {
         }
         setContentView(R.layout.statistic_layout1);
         setTitle(R.string.statistieken);
+
+
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -70,14 +80,46 @@ public class statistic extends AppCompatActivity {
             editor.apply();
         }*/
 
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+
+                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/", null, 5000, "GET", null);
+                    Log.d("JSON", jsonString);
+
+                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+                    lendsize = jsonArray.size() +1;
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        final ItemsAndMenuActivity stockTotal = new ItemsAndMenuActivity();
+        stockTotal.loadItems();
+        books = new ArrayList<Book>();
+
 
 
 
 
         lendPer = (TextView) findViewById(R.id.lendPercent);
         availabilityPer = (TextView) findViewById(R.id.availabilityPercent);
-        lendPer.setText(String.valueOf(intLE));
-        availabilityPer.setText(String.valueOf(intAV));
+        lendPer.setText(String.valueOf(lendsize));
+        availabilityPer.setText(String.valueOf(stockTotal.books.size()));
 
         /*if (inttot>0) {
             int loanFormule = 100/inttot*intLE;
@@ -90,8 +132,8 @@ public class statistic extends AppCompatActivity {
 
         AnimatedPieView Pie = findViewById(R.id.pie);
         AnimatedPieViewConfig chart = new AnimatedPieViewConfig();
-        chart.addData(new SimplePieInfo(intAV, Color.parseColor("#FFFF00"), "A"));
-        chart.addData(new SimplePieInfo(intLE, Color.parseColor("#A80000"), "B"));
+        chart.addData(new SimplePieInfo(stockTotal.books.size(), Color.parseColor("#FFFF00"), "A"));
+        chart.addData(new SimplePieInfo(lendsize, Color.parseColor("#A80000"), "B"));
         chart.duration(1000);
         chart.strokeMode(false);
 
