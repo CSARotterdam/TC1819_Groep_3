@@ -248,21 +248,6 @@ public class AddNewItem extends AppCompatActivity {
                 thread = new Thread(new Runnable() {
                     public void run() {
                         try {
-//                            JsonObject json = new Gson().toJsonTree(new Book(
-//                                    "Book",
-//                                    UUID.randomUUID().toString(),
-//                                    ProductDescription.getText().toString(),
-//                                    Integer.parseInt(productBorrowDays.getText().toString()),
-//                                    null,
-//                                    productName.getText().toString(),
-//                                    null,
-//                                    productIdISBN.getText().toString(),
-//                                    "1",
-//                                    Integer.parseInt(productQuantity.getText().toString()))).getAsJsonObject();
-//                            json.addProperty("username", "admin");
-//                            json.addProperty("isbn", "123abc");
-//                            json.addProperty("borrow_days", 2);
-//                            Log.d("JSON", json.toString());
                             if(imageUrl != null && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                                 String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/",
                                         new HashMap<String, String>(){{

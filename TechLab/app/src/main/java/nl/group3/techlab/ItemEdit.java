@@ -210,8 +210,8 @@ public class ItemEdit extends AppCompatActivity {
 
 
         {
-            if (book.getImage() != null)
-                ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage());
+            if (book.getImage(getBaseContext()) != null)
+                ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage(getBaseContext()));
         }
 
 

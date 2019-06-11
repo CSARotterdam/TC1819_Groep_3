@@ -1,5 +1,6 @@
 package nl.group3.techlab.helpers;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MultipartUtility {
+public class MultipartUtility extends AsyncTask<String, Void, String> {
 
     private final String boundary;
     private static final String LINE_FEED = "\r\n";
@@ -43,7 +44,7 @@ public class MultipartUtility {
         URL url = new URL(requestURL);
         Log.e("URL", "URL : " + requestURL.toString());
         httpConn = (HttpURLConnection) url.openConnection();
-        if(method == "POST" || method == "PUT" || method == "DELETE"){
+        if (method == "POST" || method == "PUT" || method == "DELETE") {
             httpConn.setUseCaches(false);
             httpConn.setDoOutput(true); // indicates POST method
             httpConn.setDoInput(true);
@@ -57,7 +58,7 @@ public class MultipartUtility {
             writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
                     true);
 
-            if(method == "PUT" || method == "DELETE") {
+            if (method == "PUT" || method == "DELETE") {
                 writer.append("{");
             }
         }
@@ -81,21 +82,21 @@ public class MultipartUtility {
      * Adds multipe form fields to the request
      */
     public void addFormFields(HashMap<String, String> values) {
-        if(values != null)
+        if (values != null)
             for (Map.Entry<String, String> entry : values.entrySet()) {
                 addFormField(entry.getKey(), entry.getValue());
             }
     }
 
-    public void addJsonFormField(String name, String value, boolean addLineBreak){
+    public void addJsonFormField(String name, String value, boolean addLineBreak) {
         writer.flush();
         writer.append(String.format("\"%s\": \"%s\"%s", name, value, addLineBreak ? ", " : ""));
 
     }
 
-    public void addJsonFormFields(HashMap<String, String> values){
+    public void addJsonFormFields(HashMap<String, String> values) {
         int i = 1;
-        if(values != null)
+        if (values != null)
             for (Map.Entry<String, String> entry : values.entrySet()) {
                 addJsonFormField(entry.getKey(), entry.getValue(), values.size() == i ? false : true);
                 i++;
@@ -145,33 +146,49 @@ public class MultipartUtility {
     /*
      * Completes the request and receives the response from the server.
      */
-    public String finish() throws IOException {
-        StringBuffer response = new StringBuffer();
 
-        if(method == "POST") {
-            writer.flush();
-            writer.append("--" + boundary + "--").append(LINE_FEED);
-            writer.close();
-        } else if (method == "PUT" || method == "DELETE") {
-            writer.flush();
-            writer.append("}");
-            writer.close();
+    public String finish(){
+        try {
+            return this.execute().get();
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
-        // checks server's status code first
-        int status = httpConn.getResponseCode();
-        if (status == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    httpConn.getInputStream()));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
+        return null;
+    }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        try {
+            StringBuffer response = new StringBuffer();
+
+            if (method == "POST") {
+                writer.flush();
+                writer.append("--" + boundary + "--").append(LINE_FEED);
+                writer.close();
+            } else if (method == "PUT" || method == "DELETE") {
+                writer.flush();
+                writer.append("}");
+                writer.close();
             }
-            reader.close();
-            httpConn.disconnect();
-        } else {
-            throw new IOException("Server returned non-OK status: " + status);
+            // checks server's status code first
+            int status = httpConn.getResponseCode();
+            if (status == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        httpConn.getInputStream()));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                httpConn.disconnect();
+            } else {
+                //throw new IOException("Server returned non-OK status: " + status);
+            }
+            Log.d("Http-response", response.toString());
+            return response.toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        Log.d("Http-response", response.toString());
-        return response.toString();
+        return null;
     }
 }

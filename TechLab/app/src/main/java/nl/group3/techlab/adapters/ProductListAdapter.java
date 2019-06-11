@@ -57,8 +57,8 @@ public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Ele
 //          TextView ItemQuantity = (TextView) convertView.findViewById(R.id.eItemq);
 
         if(ItemImage != null) {
-            if(item.getImage() != null)
-                ItemImage.setImageBitmap(item.getImage());
+            if(item.getImage(getContext()) != null)
+                ItemImage.setImageBitmap(item.getImage(getContext()));
             else
                 ItemImage.setImageResource(R.drawable.ic_launcher_background);
         }

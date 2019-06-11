@@ -1,13 +1,17 @@
 package nl.group3.techlab;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -79,6 +83,15 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO: Check for storage permission on opening application.
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2000);
+//        }
+
+
+
         sharedPreferences = getSharedPreferences("Techlab", 0);
         int d_color = sharedPreferences.getInt("d_color", 1);
         switch (d_color) {
@@ -207,55 +220,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // dit is voor de items en het lenen
-//        db = new BorrowDatabase(this);
-//
-//        myDB = new DatabaseHelper(this);
-//
-//        Cursor data = myDB.getListContents();
-//        int numRows = data.getCount();
-//        if (numRows == 0) {
-////            Toast.makeText(ItemsAndMenuActivity.this, "Database is empty", Toast.LENGTH_LONG).show();
-//        } else {
-//            while (data.moveToNext()) {
-//                item = new Item(data.getString(1), data.getString(2), data.getString(3), data.getInt(4));
-//                itemList.add(item);
-//            }
-//            ProductListAdapter adapter = new ProductListAdapter(this, R.layout.content_adapter_view, itemList);
-//            listView = findViewById(R.id.listView);
-//            listView.setAdapter(adapter);
-
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-//                    Item item = (Item) adapterView.getItemAtPosition(i);
-//                    int quantity = item.getQuantity();
-//                    String itemText = item.getName();
-//                    String itemDesc = item.getDescription();
-//
-//                    Cursor data = myDB.getItemID(itemText);
-//                    int ID = -1;
-//
-//                    while (data.moveToNext()) {
-//                        ID = data.getInt(0);
-//                    }
-//                    if (ID > -1) {
-//                        Log.d(TAG, "onItemClick: The ID is: " + ID);
-//                        Intent editScreenIntent = new Intent(ItemsAndMenuActivity.this, ItemEdit.class);
-//                        editScreenIntent.putExtra("id", ID);
-//                        editScreenIntent.putExtra("quantity", quantity);
-//                        editScreenIntent.putExtra("ITEM", itemText);
-//                        editScreenIntent.putExtra("Description", itemDesc);
-//                        startActivity(editScreenIntent);
-//                        finish();
-////                    } else{
-////                        Toast.makeText(view.getContext(), "No ID associated with that name",
-////                                Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-//        }
-
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,63 +240,47 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     }
 
     public void loadItems(){
-
-        Thread thread;
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
-                    Log.d("JSON", jsonString);
-
-                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-
-                    for(JsonElement elem : jsonArray){
-                        JsonObject obj = elem.getAsJsonObject();
-                        Writer[] writers = null;
-                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
-                            if(obj.get("writers").getAsJsonArray().size() > 0){
-                                writers = new Writer[obj.get("writers").getAsJsonArray().size()];
-                                for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
-                                    JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
-                                    writers[i] = (new Writer(writerObj.get("id").getAsInt(),
-                                            writerObj.get("name").getAsString()));
-                                }
-                            }
-
-                            books.add(new Book(
-                                    obj.get("type").getAsString(),
-                                    obj.get("id").getAsString(),
-                                    obj.get("description").getAsString().replace("\\n", System.getProperty ("line.separator")),
-                                    obj.get("borrow_days").getAsInt(),
-                                    (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
-                                    obj.get("title").getAsString(),
-                                    writers,
-                                    obj.get("isbn").getAsString(),
-                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(),
-                                    obj.get("stock").getAsInt()));
-                            }
-                    }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            if(productListAdapter != null)
-                                productListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                    Log.d("Found books:", books.size() + "");
-
-                }catch(Exception ex){ ex.printStackTrace();}
-            }
-        });
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
         try {
-            thread.join();
-        }catch(Exception ex){
-            // loadItems();
-        }
+            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
+            Log.d("JSON", jsonString);
+
+            JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+            for (JsonElement elem : jsonArray) {
+                JsonObject obj = elem.getAsJsonObject();
+                Writer[] writers = null;
+                if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
+                    if (obj.get("writers").getAsJsonArray().size() > 0) {
+                        writers = new Writer[obj.get("writers").getAsJsonArray().size()];
+                        for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
+                            JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
+                            writers[i] = (new Writer(writerObj.get("id").getAsInt(),
+                                    writerObj.get("name").getAsString()));
+                        }
+                    }
+
+                    books.add(new Book(
+                            obj.get("type").getAsString(),
+                            obj.get("id").getAsString(),
+                            obj.get("description").getAsString().replace("\\n", System.getProperty("line.separator")),
+                            obj.get("borrow_days").getAsInt(),
+                            (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
+                            obj.get("title").getAsString(),
+                            writers,
+                            obj.get("isbn").getAsString(),
+                            obj.get("publisher").getAsJsonObject().get("name").getAsString(),
+                            obj.get("stock").getAsInt()));
+                }
+            }
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (productListAdapter != null)
+                        productListAdapter.notifyDataSetChanged();
+                }
+            });
+            Log.d("Found books:", books.size() + "");
+
+        } catch(Exception ex){ ex.printStackTrace();}
     }
 
     public void setLocale(String lang) {

@@ -1,10 +1,17 @@
 package nl.group3.techlab.models;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -98,19 +105,27 @@ public class Item implements Serializable {
         return imageUrl;
     }
 
-    public Bitmap getImage() {
+    public Bitmap getImage(final Context ctx) {
+
         final Bitmap[] bmpf = new Bitmap[1];
         Thread thread;
         thread = new Thread(new Runnable() {
             public void run() {
-                try{
-                    if(imageUrl != null){
-                        Bitmap bmp = BitmapHelper.LoadImageFromWebURL(imageUrl);
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        bmpf[0] = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.toByteArray().length);
+                if(imageUrl != null){
+                    if (loadImageFromStorage(imageUrl.getFile(), ctx) != null) {
+                        bmpf[0] = loadImageFromStorage(imageUrl.getFile(), ctx);
+                    } else {
+                        try {
+                            Bitmap bmp = BitmapHelper.LoadImageFromWebURL(imageUrl);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            bmpf[0] = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.toByteArray().length);
+                            saveToInternalStorage(bmpf[0], imageUrl.getFile(), ctx);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }catch(Exception ex){ ex.printStackTrace();}
+                }
             }
         });
         // Start the new thread and run the code.
@@ -123,5 +138,41 @@ public class Item implements Serializable {
         } catch (Exception ex){}
 
         return bmpf[0];
+    }
+
+    private void saveToInternalStorage(Bitmap bitmapImage, String name, Context ctx){
+        // Create imageDir
+        File file = new File(ctx.getFilesDir(),name);
+        file.getParentFile().mkdirs();
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(fos != null)
+                    fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Bitmap loadImageFromStorage(String name, Context ctx)
+    {
+        try {
+            File file = new File(ctx.getFilesDir(),name);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(file));
+            return b;
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
