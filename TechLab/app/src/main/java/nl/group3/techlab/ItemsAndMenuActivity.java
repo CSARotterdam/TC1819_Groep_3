@@ -138,6 +138,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         Menu nav_Menu = navigationView.getMenu();
         addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
+        books = new ArrayList<>();
+
         if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
             Thread thread;
             thread = new Thread(new Runnable() {
@@ -331,7 +333,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         try {
             thread.join();
         }catch(Exception ex){
-            loadItems();
+            // loadItems();
         }
     }
 

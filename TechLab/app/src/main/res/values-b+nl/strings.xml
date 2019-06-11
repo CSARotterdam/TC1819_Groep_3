@@ -67,9 +67,9 @@
     <string name="teruggebracht">Teruggebracht</string>
     <string name="contactgegevens">Contactgegevens</string>
     <string name="locatie">Locatie</string>
-    <string name="adres">WD.04.022 \n Wijnhaven 107 \n 3011 WN Rotterdam</string>
+    <string name="adres">WD.04.022 \nWijnhaven 107 \n3011 WN Rotterdam</string>
     <string name="openingstijden">Openingstijden</string>
-    <string name="tijden">"Maandag&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \n Dinsdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Woensdag&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \n Donderdag&#160;&#160;&#160;10.30 &#8211; 17.00 \n Vrijdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;gesloten"</string>
+    <string name="tijden">"Maandag&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \nDinsdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \nWoensdag&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \nDonderdag&#160;&#160;&#160;10.30 &#8211; 17.00 \nVrijdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;gesloten</string>
     <!--<string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string>!-->
     <string name="uitgelogd">Uitgelogd</string>
     <string name="leendagen">Leendagen</string>
