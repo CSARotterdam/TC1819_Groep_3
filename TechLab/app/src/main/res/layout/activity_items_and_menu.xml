@@ -23,6 +23,7 @@ tools:openDrawer="start">
     app:headerLayout="@layout/nav_header_items_and_menu"
     app:menu="@menu/activity_items_and_menu_drawer"
     app:itemTextColor="@color/white"
+    app:itemIconTint="#FFFFFF"
     android:padding="5dp"
     android:background="@color/colorPrimaryDark"/>
 
