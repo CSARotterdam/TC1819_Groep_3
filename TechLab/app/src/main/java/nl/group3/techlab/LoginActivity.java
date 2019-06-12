@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         Boolean AdminTrue = myDb.Rol(Email ,Admin);
         if (AdminTrue) {
             if (Email_Password){
-                startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             } else if (Password.equals("")){
                 Toast.makeText(LoginActivity.this, getString(R.string.wachtwoord_invoeren), Toast.LENGTH_SHORT).show();
@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
             if (personEmail != null && personEmail.endsWith("@hr.nl")) {
                 HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
-                startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             } else {
                 Toast.makeText(LoginActivity.this, getString(R.string.login_met_hr), Toast.LENGTH_SHORT).show();
@@ -193,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null && logged_in) {
 //        if (account != null) {
-            startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         } else {
             logged_in = false;

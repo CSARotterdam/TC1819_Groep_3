@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class settings extends AppCompatActivity {
+public class settings extends MenuActivity {
 
     Button language, theme, notification;
     SharedPreferences sharedPreferences;
@@ -29,6 +29,7 @@ public class settings extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_settings);
+        super.onCreateDrawer();
         setTitle(R.string.instellingen);
 
         language = (Button) findViewById(R.id.language);

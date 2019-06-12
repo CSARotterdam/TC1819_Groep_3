@@ -7,7 +7,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-public class contact extends AppCompatActivity {
+public class contact extends MenuActivity {
 
 //    TextView cTitle;
 //    TextView CP1,CP2,CP3,CP4,CP5;
@@ -31,6 +31,8 @@ public class contact extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_contact);
+        super.onCreateDrawer();
+        setTitle("Contact");
 
 /*        cTitle = (TextView) findViewById(R.id.contactTitle);
         CP1 = (TextView) findViewById(R.id.CPerson1);
