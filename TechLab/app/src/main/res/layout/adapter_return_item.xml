@@ -7,8 +7,9 @@
     android:paddingTop="8dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/productImage"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:padding="8dp"
         android:src="@drawable/ic_launcher_background" />
 

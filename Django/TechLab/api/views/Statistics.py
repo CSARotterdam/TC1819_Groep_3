@@ -20,11 +20,11 @@ class Statistics(View):
         # TODO: all lists of data that should be added.
         '''
         managers
-        list of currently borrowed items
         list of returned items
         list of available items
+        list of broken items
         list of different people that have borrowed an item.
-        
+        top 5 most borrowed items
         '''
 
         return JsonResponse(json.loads(json.dumps({
