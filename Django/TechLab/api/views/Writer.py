@@ -16,4 +16,4 @@ class Writers(View):
 
         return JsonResponse(json.loads(
             json.dumps([writer.to_json('_state') for writer in allWriters]),
-        ), safe=False)
+        ), safe=False, content_type='application/json')

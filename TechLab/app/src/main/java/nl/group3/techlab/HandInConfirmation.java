@@ -11,7 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.util.HashMap;
+
 import nl.group3.techlab.database.ItemDatabaseHelper;
+import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.BorrowItem;
 import nl.group3.techlab.models.StockItem;
 
@@ -27,22 +34,60 @@ public class HandInConfirmation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("Techlab", 0);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
+
+
         setContentView(R.layout.activity_hand_in_confirmation);
 
 
-        final BorrowItem borrowedItem = (BorrowItem)getIntent().getSerializableExtra("BorrowedItemObject");
+        final JsonObject borrowedItem = (JsonObject) new JsonParser().parse(getIntent().getStringExtra("BorrowedItemObject")).getAsJsonObject();
 
-        TextView tvBorrowedBy = (TextView)findViewById(R.id.borrowedBy);
-        TextView tvItemName = (TextView)findViewById(R.id.itemName);
+        TextView tvBorrowedBy = (TextView) findViewById(R.id.borrowedBy);
+        final TextView tvItemName = (TextView) findViewById(R.id.itemName);
 
-        Button bCancelAction = (Button)findViewById(R.id.cancelAction);
-        Button bReturnedAction = (Button)findViewById(R.id.returnAction);
-        Button bBrokenAction = (Button)findViewById(R.id.brokenAction);
+        final Button bCancelAction = (Button) findViewById(R.id.cancelAction);
+        Button bReturnedAction = (Button) findViewById(R.id.returnAction);
+        final Button bBrokenAction = (Button) findViewById(R.id.brokenAction);
 
         tvBorrowedBy.setText(String.format(tvBorrowedBy.getText().toString(),
-                borrowedItem.getUser().getFirstName() + " " + borrowedItem.getUser().getLastName()));
+                borrowedItem.get("user").getAsJsonObject().get("email")));
 
-        tvItemName.setText(String.format(borrowedItem.getItem().getName()));
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+
+
+                    String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "GET", null);
+                    JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+
+                    tvItemName.setText(String.format(obj.get("title").getAsString()));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        // Start the new thread and run the code.
+        thread.start();
+
+        // Join the thread when it's done, meaning that the application will wait untill the
+        // thread is done.
+        try {
+            thread.join();
+        } catch (Exception ex) {
+        }
 
         bCancelAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,21 +104,44 @@ public class HandInConfirmation extends AppCompatActivity {
         bBrokenAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), getString(R.string.product_teruggebracht), Toast.LENGTH_LONG).show();
-                ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
-                Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
-
-                borrowedItem.getUser().addBroken();
-
-                StockItem stockItem = myDB.getStockItem(borrowedItem.getItem());
-                stockItem.addOneBroken();
-                myDB.UpdateStockItem(stockItem);
-                setResult(Activity.RESULT_OK, new Intent());
-
-                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                startActivity(i);
-
                 finish();
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()),  new HashMap<String, String>(){{put("broken", "True");}}, 1000, "PUT", null);
+                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
+
+
+                            if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                                startActivity(i);
+
+                                finish();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                } catch (Exception ex) {
+                }
+
             }
         });
 
@@ -81,25 +149,42 @@ public class HandInConfirmation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
-                ItemDatabaseHelper myDB = new ItemDatabaseHelper(getBaseContext());
-                Log.d("Logger", myDB.UpdateBorrowedItem(borrowedItem) + "");
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
 
-                AddNewItem.totalQuantity += 1;
-                ItemEdit.loanQuantity -= 1;
-                editor.putInt("AV", intAV+=1);
-                editor.putInt("AV", intLE-=1);
-                editor.apply();
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()), new HashMap<String, String>(){{put("broken", "False");}}, 1000, "PUT", null);
+                            JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
-                StockItem stockItem = myDB.getStockItem(borrowedItem.getItem());
-                stockItem.addOneStock();
-                myDB.UpdateStockItem(stockItem);
-                setResult(Activity.RESULT_OK, new Intent());
 
-                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
-                startActivity(i);
+                            if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getBaseContext(), R.string.product_teruggebracht, Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
-                finish();
+                                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
+                                startActivity(i);
+
+                                finish();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                } catch (Exception ex) {
+                }
 
             }
         });

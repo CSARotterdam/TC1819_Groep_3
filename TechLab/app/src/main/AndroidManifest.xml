@@ -3,6 +3,7 @@
     package="nl.group3.techlab">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,8 @@
         android:label="TechLab"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".contact"
             android:label="Contact"/>
@@ -57,4 +59,5 @@
         <activity android:name=".HandInConfirmation" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

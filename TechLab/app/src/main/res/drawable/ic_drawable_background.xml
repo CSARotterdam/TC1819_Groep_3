@@ -8,9 +8,9 @@
 
     <path
         android:pathData="L100,0 L0,100 L0,0"
-        android:fillColor="#dee1e1" />
+        android:fillColor="#efefef" />
 
     <path
         android:pathData="M100,0 L100,100 L0,100"
-        android:fillColor="#babfbf" />
+        android:fillColor="#dfdfdf" />
 </vector>

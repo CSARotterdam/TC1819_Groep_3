@@ -11,7 +11,7 @@
     android:paddingBottom="10dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@drawable/ic_launcher_background"
@@ -19,25 +19,33 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/item_name"
             android:text="@string/naam"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="6dp"
-            android:paddingBottom="0dp"
+            android:layout_height="wrap_content"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/description"
-            android:text="@string/beschrijving"
+            android:id="@+id/returned"
+            android:text="@string/teruggebracht"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:padding="6dp"
-            android:paddingBottom="0dp"
+            android:layout_height="wrap_content"
             android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/geleend_op"/>
+
+        <TextView
+            android:id="@+id/borrowedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/geleend_op"/>
+
     </LinearLayout>
 </LinearLayout>

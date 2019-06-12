@@ -20,10 +20,10 @@ class Login(View):
                 user_api, created = API.objects.get_or_create(user=user)
 
                 return JsonResponse(json.loads('{"success": "success", "api_token":"%s"}' % user_api.api_key),
-                                    safe=False, status=200)
+                                    safe=False, status=200, content_type='application/json')
             else:
                 return JsonResponse(json.loads('{"success": "wrong_user_pass", "message":"Username or password invalid"}'),
-                                    safe=False, status=401)
+                                    safe=False, status=401, content_type='application/json')
 
         return JsonResponse(json.loads('{"success": "invalid_parameters", "message":"Missing username or password"}'),
-                            safe=False, status=403)
+                            safe=False, status=403, content_type='application/json')

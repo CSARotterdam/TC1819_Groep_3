@@ -19,7 +19,8 @@ class GetFilteredItems(View):
 
         return JsonResponse(json.loads('[{ "books": %s}, {"electronics" : %s}]' % (
             json.dumps([book.to_json('_state', 'item_ptr_id', 'writers') for book in allBooks]),
-            json.dumps([electronic.to_json('_state', 'item_ptr_id') for electronic in allElectronics]))), safe=False)
+            json.dumps([electronic.to_json('_state', 'item_ptr_id') for electronic in allElectronics]))),
+                            safe=False, content_type='application/json')
 
 
 class GetFilteredBooks(View):
@@ -28,7 +29,8 @@ class GetFilteredBooks(View):
 
         book = get_object_or_404(Book, id=pk)
 
-        return JsonResponse(json.loads(json.dumps(book.to_json('_state', 'item_ptr_id'))), safe=False)
+        return JsonResponse(json.loads(json.dumps(book.to_json('_state', 'item_ptr_id'))),
+                            safe=False, content_type='application/json')
 
 
 class GetFilteredElectronics(View):
@@ -36,4 +38,5 @@ class GetFilteredElectronics(View):
         print(pk)
         electronic = get_object_or_404(Electronic, id=pk)
 
-        return JsonResponse(json.loads(json.dumps(electronic.to_json('_state', 'item_ptr_id'))), safe=False)
+        return JsonResponse(json.loads(json.dumps(electronic.to_json('_state', 'item_ptr_id'))),
+                            safe=False, content_type='application/json')

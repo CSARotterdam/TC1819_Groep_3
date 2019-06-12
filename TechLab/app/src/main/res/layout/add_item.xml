@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AddNewItem">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/book_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/boek"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#CC0133"
+            android:onClick="AddBook"/>
+        <Button
+            android:id="@+id/electronic_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/elektronica"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#CC0133"
+            android:onClick="AddElectronic"/>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,58 +41,123 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageview1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/image_uploaden"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC0133" />
+
+
+            <Button
+                android:id="@+id/Uploadimage"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end|center_vertical"
+                android:text="Upload image"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC0133" />
+
+            <EditText
+                android:id="@+id/eItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/titel" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="-200dp"
-                android:layout_height="725dp">
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
 
-                <EditText
-                    android:id="@+id/eItem"
-                    android:layout_width="200dp"
+                <Spinner
+                    android:id="@+id/writers_spinner"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:hint="@string/naam" />
-
-                <EditText
-                    android:id="@+id/eItemcat"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/eItem"
-                    android:layout_centerHorizontal="true"
-                    android:hint="@string/categorie" />
-
-                <EditText
-                    android:id="@+id/eItemdes"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/eItemcat"
-                    android:layout_centerInParent="true"
-                    android:hint="@string/beschrijving" />
-
-                <EditText
-                    android:id="@+id/eItemq"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/eItemdes"
-                    android:layout_centerInParent="true"
-                    android:hint="@string/hoeveelheid"
-                    android:inputType="number" />
-
-                <Button
-                    android:id="@+id/btnAdd"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/eItemq"
-                    android:layout_centerInParent="true"
-                    android:text="@string/toevoegen"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#FFFFFF"
-                    app:backgroundTint="#CC0133" />
-
+                    android:spinnerMode="dropdown" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
+
+                <Spinner
+                    android:id="@+id/publisher_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
+
+                <Spinner
+                    android:id="@+id/category_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp">
+
+                    <Spinner
+                        android:id="@+id/manufacturers_spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/book_ISBN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/isbn" />
+
+            <EditText
+                android:id="@+id/eItemdes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/beschrijving" />
+
+            <EditText
+                android:id="@+id/eItemq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hoeveelheid"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/item_borrow_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/leendagen"
+                android:inputType="number" />
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/toevoegen"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#CC0133" />
+
         </LinearLayout>
     </ScrollView>
-
-    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
