@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nl.group3.techlab">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="TechLab"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".contact"
+            android:label="Contact"/>
+        <activity
+            android:name=".theme"
+            android:label="@string/thema" />
+        <activity
+            android:name=".language"
+            android:configChanges="locale|orientation"
+            android:label="@string/taal" />
+        <activity
+            android:name=".settings"
+            android:label="@string/instellingen" />
+        <activity
+            android:name=".statistic"
+            android:label="@string/statistieken" />
+        <activity
+            android:name=".Notifications"
+            android:label="@string/meldingen" />
+        <activity
+            android:name=".AddNewItem"
+            android:label="@string/product_toevoegen" />
+        <activity
+            android:name=".ItemsAndMenuActivity"
+            android:label="@string/Producten"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".History"
+            android:label="@string/geschiedenis" />
+        <activity android:name=".view.ViewBorrowedItem" />
+        <activity
+            android:name=".ItemEdit"
+            android:label="@string/lenen" />
+        <activity
+            android:name=".ReturnItemActivity"
+            android:label="@string/terugnemen" />
+        <activity android:name=".HandInConfirmation" />
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>

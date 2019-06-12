@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textQ1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/kies_je_thema"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="74dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="300dp"
+                android:layout_height="380dp"
+                android:layout_marginTop="250dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="right"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rectangle"
+                tools:ignore="MissingConstraints">
+
+                <RadioButton
+                    android:id="@+id/rbc1"
+                    android:layout_width="245dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="25dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:checked="false"
+                    android:text="@string/basis_thema"
+                    android:layoutDirection="ltr"
+                    android:background="@drawable/ic_drawable_background_dark"
+                    android:textColor="#ffffff"
+                    android:textAlignment="viewStart"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <RadioButton
+                    android:id="@+id/rbc2"
+                    android:layout_width="245dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="60dp"
+                    android:background="@color/grijs"
+                    android:layoutDirection="ltr"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="25dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/witte_thema"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="213dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/opslaan"
+                android:background="@drawable/button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="425dp"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

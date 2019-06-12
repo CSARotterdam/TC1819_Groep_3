@@ -19,7 +19,7 @@
             android:scaleType="fitCenter"
             android:textAlignment="center"
             android:text="Email: EMAIL HERE"
-            android:textColor="#860A0A"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_centerInParent="true"
             android:textAlignment="center"
             android:text="Je bent de admin"
-            android:textColor="#860A0A"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
 
         <Button
@@ -39,7 +39,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/admin"
             android:layout_marginTop="20dp"
-            android:background="#860A0A"
+            android:background="@color/colorPrimary"
             android:text="Sign out"
             android:textColor="#fff"/>
 

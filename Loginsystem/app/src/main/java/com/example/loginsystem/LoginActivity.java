@@ -22,12 +22,11 @@ public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
+    MyTechlab myDb;
     boolean HrEmail;
-    boolean adminEmail;
     View FindEmail;
     static String Email;
     View FindPassword;
-    String Password;
 
 
     @Override
@@ -53,36 +52,46 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
+        myDb = new MyTechlab(this);
+        myDb.insertData("0960882@hr.nl", "test123", "Gebruiker");
+        myDb.insertData("0961065@hr.nl", "test123", "Gebruiker");
+        myDb.insertData("0961988@hr.nl", "test123", "Gebruiker");
+        myDb.insertData("0965662@hr.nl", "test123", "Gebruiker");
+        myDb.insertData("0971084@hr.nl", "test123", "Gebruiker");
+        myDb.insertData("techlabapp00@gmail.com", "test123", "Admin");
+
+        myDb.getWritableDatabase();
     }
 
-    public void inloggen(View view) {
-        FindEmail = findViewById(R.id.editText);
-        Email = ((EditText) FindEmail).getText().toString();
-        FindPassword = findViewById(R.id.editText2);
-        Password = ((EditText) FindPassword).getText().toString();
+   public void inloggen(View view) {
+       myDb = new MyTechlab(this);
+       FindEmail = (EditText) findViewById(R.id.Gebruiksnaam);
+       Email = ((EditText) FindEmail).getText().toString();
+       FindPassword = (EditText) findViewById(R.id.Password);
+       String Password = ((EditText) FindPassword).getText().toString();
+       String Admin = "Admin";
+       Boolean Email_Password = myDb.Email_Password(Email, Password);
+       Boolean AdminTrue = myDb.Rol(Email ,Admin);
+       if (Email_Password == true) {
 
-        if ((Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("test123")) {
-            Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
-            signIn();
-        }
-        else if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
-            adminEmail = true;
-            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-        }
-        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("")) {
-            Toast.makeText(LoginActivity.this, "Voer uw wachtwoord in", Toast.LENGTH_SHORT).show();
-        }
-        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl"))) {
-            Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(LoginActivity.this, "Foute email", Toast.LENGTH_SHORT).show();
-        }
+           if (Email.endsWith("@hr.nl")){
+               Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
+               signIn();
+           }else if(AdminTrue){
+               startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+           }
+       }
+       else if (Email_Password == false) {
+           Toast.makeText(LoginActivity.this, "Fout wachtwoord of email", Toast.LENGTH_SHORT).show();
+
+       }
+
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     @Override
@@ -109,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                 HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
                 startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                finish();
             } else {
                 Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
@@ -129,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         the GoogleSignInAccount will be non-null
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null && HrEmail) {
+        if (account != null) {
             startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         super.onStart();

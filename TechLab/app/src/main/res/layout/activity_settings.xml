@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="nl.group3.techlab.settings">
+
+    <Button
+        android:id="@+id/language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/taal"
+        android:textAlignment="viewStart"
+        android:paddingTop="4dp"
+        android:drawableLeft="@drawable/ic_language_black_75dp"/>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp"
+        android:background="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_format_paint_black_75dp"
+        android:textAlignment="viewStart"
+        android:text="@string/thema"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:gravity="center" />
+
+    <View
+        android:id="@+id/divider2"
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp" />
+
+    <Button
+        android:id="@+id/notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/notification__img"
+        android:textAlignment="viewStart"
+        android:text="@string/notificatie"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:gravity="center" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="75dp" />
+
+</LinearLayout>
