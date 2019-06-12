@@ -26,11 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     MyTechlab myDb;
     boolean HrEmail;
     View FindEmail;
-    static String Email;
+    public static String Email;
     View FindPassword;
     View FindText;
     String personEmail;
-    static boolean logged_in;
+    public static boolean logged_in;
     boolean AdminClicked;
 
     @Override

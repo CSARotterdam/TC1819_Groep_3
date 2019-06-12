@@ -1,4 +1,4 @@
-package nl.group3.techlab;
+package nl.group3.techlab.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,18 +45,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import nl.group3.techlab.AddNewItem;
+import nl.group3.techlab.History;
+import nl.group3.techlab.ItemsAndMenuActivity;
+import nl.group3.techlab.LoginActivity;
+import nl.group3.techlab.Notifications;
+import nl.group3.techlab.R;
+import nl.group3.techlab.ReturnItemActivity;
 import nl.group3.techlab.adapters.ProductListAdapter;
+import nl.group3.techlab.contact;
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.databases.DatabaseHelper;
 import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 import nl.group3.techlab.models.Writer;
-import nl.group3.techlab.view.MenuActivity;
+import nl.group3.techlab.settings;
+import nl.group3.techlab.statistic;
 
-public class ItemsAndMenuActivity extends MenuActivity {
-//        implements NavigationView.OnNavigationItemSelectedListener {
-    Button sign_out;
+public class MenuActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     GoogleSignInClient mGoogleSignInClient;
     static TextView emailTV;
     static TextView rolTV;
@@ -70,9 +78,10 @@ public class ItemsAndMenuActivity extends MenuActivity {
     FloatingActionButton addProductButton;
     Menu nav_Menu;
 
-    ArrayList<Book> books;
-    public String[] arrayManagers;
 
+//    ArrayList<Book> books;
+    public String[] arrayManagers;
+//
     private static final String TAG = "ProductListAdapter";
     SharedPreferences sharedPreferences;
     ProductListAdapter productListAdapter;
@@ -81,39 +90,38 @@ public class ItemsAndMenuActivity extends MenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences("Techlab", 0);
-//        int d_color = sharedPreferences.getInt("d_color", 1);
-//        switch (d_color) {
-//            case 1:
-//                setTheme(R.style.theme1);
-//                break;
-//            case 2:
-//                setTheme(R.style.theme2);
-//                break;
-//            default:
-//                break;
-//        }
-////        int language = sharedPreferences.getInt("language", 1);
-//        int language = sharedPreferences.getInt("language", 0);
-//        switch (language) {
-//            case 1:
-//                setLocale("nl");
-//                break;
-//            case 2:
-//                setLocale("en");
-//                break;
-//            default:
-//                break;
-//        }
-        setContentView(R.layout.activity_items_and_menu);
+        int d_color = sharedPreferences.getInt("d_color", 1);
+        switch (d_color) {
+            case 1:
+                setTheme(R.style.theme1);
+                break;
+            case 2:
+                setTheme(R.style.theme2);
+                break;
+            default:
+                break;
+        }
+//        int language = sharedPreferences.getInt("language", 1);
+        int language = sharedPreferences.getInt("language", 0);
+        switch (language) {
+            case 1:
+                setLocale("nl");
+                break;
+            case 2:
+                setLocale("en");
+                break;
+            default:
+                break;
+        }
+        setContentView(R.layout.menuactivity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(R.string.Producten);
+//        setTitle(R.string.Producten);
 
-        LoginActivity.logged_in = true;
+//        LoginActivity.logged_in = true;
 
         // Dit zorgt ervoor dat de email in de header is.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         emailTV = (TextView) headerView.findViewById(R.id.emailtv);
@@ -123,8 +131,8 @@ public class ItemsAndMenuActivity extends MenuActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ItemsAndMenuActivity.this);
-
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+//
         if (acct != null){
             String personName = acct.getDisplayName();
             personEmail = acct.getEmail();
@@ -134,54 +142,52 @@ public class ItemsAndMenuActivity extends MenuActivity {
         emailTV.setText(personEmail);
 
         rolTV = (TextView) headerView.findViewById(R.id.rol);
-//
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
-        addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+//        addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
-        books = new ArrayList<>();
+//        books = new ArrayList<>();
 
-        if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
-            Thread thread;
-            thread = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET", null);
-                        Log.d("JSON", jsonString);
-
-                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-
-                        arrayManagers = new String[jsonArray.size()];
-                        for (int i = 0; i < jsonArray.size(); i++) {
-                            arrayManagers[i] = jsonArray.get(i).getAsJsonObject().get("email").toString();
-                            Log.d("JSON", arrayManagers[i]);
-//                            if (arrayManagers[i].equals(personEmail)) { isManager = true; }
-                        }
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
-            // Start the new thread and run the code.
-            thread.start();
-
-            // Join the thread when it's done, meaning that the application will wait untill the
-            // thread is done.
-            try {
-                thread.join();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+//        if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
+//            Thread thread;
+//            thread = new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET", null);
+//                        Log.d("JSON", jsonString);
+//
+//                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+//
+//                        arrayManagers = new String[jsonArray.size()];
+//                        for (int i = 0; i < jsonArray.size(); i++) {
+//                            arrayManagers[i] = jsonArray.get(i).getAsJsonObject().get("email").toString();
+//                            Log.d("JSON", arrayManagers[i]);
+////                            if (arrayManagers[i].equals(personEmail)) { isManager = true; }
+//                        }
+//
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            });
+//             Start the new thread and run the code.
+//            thread.start();
+////
+////             Join the thread when it's done, meaning that the application will wait untill the
+////             thread is done.
+//            try {
+//                thread.join();
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
 
 //            nav_Menu.findItem(R.id.statistieken).setVisible(false);
 //            nav_Menu.findItem(R.id.beheerders).setVisible(false);
-
-
-
-            List<String> list = Arrays.asList(arrayManagers);
-            isManager = list.contains("\"" + personEmail + "\"");
-            Log.d("JSON", personEmail);
+//
+//            List<String> list = Arrays.asList(arrayManagers);
+//            isManager = list.contains("\"" + personEmail + "\"");
+//            Log.d("JSON", personEmail);
 //            if (isManager) {
 //                rolTV.setText(getString(R.string.beheerder));
 //                nav_Menu.findItem(R.id.terugnemen).setVisible(true);
@@ -190,11 +196,10 @@ public class ItemsAndMenuActivity extends MenuActivity {
 //            } else {
 //                rolTV.setText(getString(R.string.gebruiker));
 //                nav_Menu.findItem(R.id.terugnemen).setVisible(false);
-//                addProductButton.hide();
+////                addProductButton.hide();
 ////                ItemEdit.delButton.hide();
 //            }
-      }
-//        else {
+//        } else {
 //            rolTV.setText(getString(R.string.admin));
 //            nav_Menu.findItem(R.id.statistieken).setVisible(true);
 //            nav_Menu.findItem(R.id.beheerders).setVisible(true);
@@ -203,11 +208,11 @@ public class ItemsAndMenuActivity extends MenuActivity {
 ////            ItemEdit.delButton.show();
 //        }
         // Dit is voor de menu-button.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
         // dit is voor de items en het lenen
 //        db = new BorrowDatabase(this);
@@ -258,84 +263,84 @@ public class ItemsAndMenuActivity extends MenuActivity {
 //            });
 //        }
 
-        addProductButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ItemsAndMenuActivity.this, AddNewItem.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        addProductButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MenuActivity.this, AddNewItem.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
-        loadItems();
+//        loadItems();
 
-        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
-
-        listView = findViewById(R.id.listView);
-        listView.setAdapter(productListAdapter);
+//        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+//
+//        listView = findViewById(R.id.listView);
+//        listView.setAdapter(productListAdapter);
 
 
     }
 
-    public void loadItems(){
-
-        Thread thread;
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
-                    Log.d("JSON", jsonString);
-
-                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-
-                    for(JsonElement elem : jsonArray){
-                        JsonObject obj = elem.getAsJsonObject();
-                        Writer[] writers = null;
-                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
-                            if(obj.get("writers").getAsJsonArray().size() > 0){
-                                writers = new Writer[obj.get("writers").getAsJsonArray().size()];
-                                for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
-                                    JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
-                                    writers[i] = (new Writer(writerObj.get("id").getAsInt(),
-                                            writerObj.get("name").getAsString()));
-                                }
-                            }
-
-                            books.add(new Book(
-                                    obj.get("type").getAsString(),
-                                    obj.get("id").getAsString(),
-                                    obj.get("description").getAsString().replace("\\n", System.getProperty ("line.separator")),
-                                    obj.get("borrow_days").getAsInt(),
-                                    (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
-                                    obj.get("title").getAsString(),
-                                    writers,
-                                    obj.get("isbn").getAsString(),
-                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(),
-                                    obj.get("stock").getAsInt()));
-                            }
-                    }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            if(productListAdapter != null)
-                                productListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                    Log.d("Found books:", books.size() + "");
-
-                }catch(Exception ex){ ex.printStackTrace();}
-            }
-        });
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
-        try {
-            thread.join();
-        }catch(Exception ex){
-            // loadItems();
-        }
-    }
+//    public void loadItems(){
+//
+//        Thread thread;
+//        thread = new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
+//                    Log.d("JSON", jsonString);
+//
+//                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+//
+//                    for(JsonElement elem : jsonArray){
+//                        JsonObject obj = elem.getAsJsonObject();
+//                        Writer[] writers = null;
+//                        if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
+//                            if(obj.get("writers").getAsJsonArray().size() > 0){
+//                                writers = new Writer[obj.get("writers").getAsJsonArray().size()];
+//                                for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
+//                                    JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
+//                                    writers[i] = (new Writer(writerObj.get("id").getAsInt(),
+//                                            writerObj.get("name").getAsString()));
+//                                }
+//                            }
+//
+//                            books.add(new Book(
+//                                    obj.get("type").getAsString(),
+//                                    obj.get("id").getAsString(),
+//                                    obj.get("description").getAsString().replace("\\n", System.getProperty ("line.separator")),
+//                                    obj.get("borrow_days").getAsInt(),
+//                                    (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
+//                                    obj.get("title").getAsString(),
+//                                    writers,
+//                                    obj.get("isbn").getAsString(),
+//                                    obj.get("publisher").getAsJsonObject().get("name").getAsString(),
+//                                    obj.get("stock").getAsInt()));
+//                        }
+//                    }
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//                            if(productListAdapter != null)
+//                                productListAdapter.notifyDataSetChanged();
+//                        }
+//                    });
+//                    Log.d("Found books:", books.size() + "");
+//
+//                }catch(Exception ex){ ex.printStackTrace();}
+//            }
+//        });
+//        // Start the new thread and run the code.
+//        thread.start();
+//
+//        // Join the thread when it's done, meaning that the application will wait untill the
+//        // thread is done.
+//        try {
+//            thread.join();
+//        }catch(Exception ex){
+//            // loadItems();
+//        }
+//    }
 
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
@@ -373,17 +378,17 @@ public class ItemsAndMenuActivity extends MenuActivity {
             LoginActivity.logged_in = false;
             signOut();
         } else if(id == R.id.geschiedenis){
-            startActivity(new Intent(ItemsAndMenuActivity.this, History.class));
+            startActivity(new Intent(MenuActivity.this, History.class));
         } else if(id == R.id.meldingen){
-            startActivity(new Intent(ItemsAndMenuActivity.this, Notifications.class));
+            startActivity(new Intent(MenuActivity.this, Notifications.class));
         } else if (id == R.id.terugnemen) {
-            startActivity(new Intent(ItemsAndMenuActivity.this, ReturnItemActivity.class));
+            startActivity(new Intent(MenuActivity.this, ReturnItemActivity.class));
         } else if(id == R.id.statistieken){
-            startActivity(new Intent(ItemsAndMenuActivity.this, statistic.class));
+            startActivity(new Intent(MenuActivity.this, statistic.class));
         } else if(id == R.id.instellingen){
-            startActivity(new Intent(ItemsAndMenuActivity.this, settings.class));
+            startActivity(new Intent(MenuActivity.this, settings.class));
         } else if(id == R.id.contact){
-            startActivity(new Intent(ItemsAndMenuActivity.this, contact.class));
+            startActivity(new Intent(MenuActivity.this, contact.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -391,11 +396,11 @@ public class ItemsAndMenuActivity extends MenuActivity {
         return true;
     }
 
-    public void AddNewProduct(View view){
-        Intent intent = new Intent(ItemsAndMenuActivity.this, AddNewItem.class);
-        startActivity(intent);
-        finish();
-    }
+//    public void AddNewProduct(View view){
+//        Intent intent = new Intent(MenuActivity.this, AddNewItem.class);
+//        startActivity(intent);
+//        finish();
+//    }
     private void signOut() {
         // Dit zorgt ervoor dat je uitlogt, een toast krijgt na het uitloggen en dat je terug gaat naar het loginscherm
         mGoogleSignInClient.signOut()
@@ -403,8 +408,8 @@ public class ItemsAndMenuActivity extends MenuActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         LoginActivity.logged_in = false;
-                        Toast.makeText(ItemsAndMenuActivity.this, getString(R.string.uitgelogd), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ItemsAndMenuActivity.this, LoginActivity.class));
+                        Toast.makeText(MenuActivity.this, getString(R.string.uitgelogd), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MenuActivity.this, LoginActivity.class));
                         finish();
                     }
                 });

@@ -25,7 +25,8 @@
             android:label="@string/taal" />
         <activity
             android:name=".settings"
-            android:label="@string/instellingen" />
+            android:label="@string/instellingen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".statistic"
             android:label="@string/statistieken" />
@@ -36,10 +37,14 @@
             android:name=".AddNewItem"
             android:label="@string/product_toevoegen" />
         <activity
+            android:name=".view.MenuActivity"
+            android:label="@string/Producten"/>
+        <activity
             android:name=".ItemsAndMenuActivity"
             android:label="@string/Producten"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginActivity">
+            android:theme="@style/AppTheme.NoActionBar"  />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
