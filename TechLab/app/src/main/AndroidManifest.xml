@@ -65,6 +65,12 @@
             android:name=".ReturnItemActivity"
             android:label="@string/terugnemen" />
         <activity android:name=".HandInConfirmation" />
+        <activity
+            android:name=".Managers"
+            android:label="@string/title_activity_managers"/>
+        <activity
+            android:name=".AddNewManager"
+            android:label="@string/title_activity_managers"/>
     </application>
 
 </manifest>
