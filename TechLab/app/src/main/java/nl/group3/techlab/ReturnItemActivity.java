@@ -27,7 +27,7 @@ import nl.group3.techlab.helpers.JSONHelper;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.BorrowItem;
 
-public class ReturnItemActivity extends AppCompatActivity {
+public class ReturnItemActivity extends MenuActivity {
     //TODO: Connect to API
 
     ArrayList<JsonObject> borrowedItems;
@@ -50,6 +50,7 @@ public class ReturnItemActivity extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_hand_in);
+        super.onCreateDrawer();
         setTitle(R.string.terugnemen);
         borrowedItems = new ArrayList<>();
 

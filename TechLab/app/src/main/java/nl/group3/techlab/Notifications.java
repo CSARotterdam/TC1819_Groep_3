@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import java.util.PriorityQueue;
 
-public class Notifications extends AppCompatActivity {
+public class Notifications extends MenuActivity {
 private EditText editTextTitle;
 private EditText editTextDescription;
 private Button notify;
@@ -32,6 +32,7 @@ private  NotificationHelper mNotificationHelper;
                 break;
         }
         setContentView(R.layout.activity_notifications);
+        super.onCreateDrawer();
         setTitle(R.string.meldingen);
         editTextTitle = (EditText)findViewById(R.id.editTextTitle);
         editTextDescription = (EditText) findViewById(R.id.editTextDescription);

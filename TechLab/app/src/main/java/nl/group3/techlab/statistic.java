@@ -20,7 +20,7 @@ import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 
 
-public class statistic extends AppCompatActivity {
+public class statistic extends MenuActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -58,9 +58,8 @@ public class statistic extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.statistic_layout1);
+        super.onCreateDrawer();
         setTitle(R.string.statistieken);
-
-
 
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         editor = sharedPreferences.edit();

@@ -5,25 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".History"
+    tools:context=".ReturnItemActivity"
     tools:showIn="@layout/app_bar_home">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".History">
-
-        <ListView
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_weight="100"
+        tools:context=".ReturnItemActivity">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/List_view"/>
+            android:fillViewport="true">
+            <ListView
+                android:id="@+id/listViewBorrowItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </ScrollView>
+
+
 
 
     </LinearLayout>
