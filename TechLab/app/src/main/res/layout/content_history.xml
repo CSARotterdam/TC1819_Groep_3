@@ -23,6 +23,8 @@
                 android:id="@+id/history_switch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:switchMinWidth="55dp"
