@@ -45,8 +45,12 @@ class Item(models.Model):
     type = models.CharField(max_length=256, null=True, blank=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     borrow_days = models.IntegerField(default=0)
-    description = models.CharField(max_length=2048, default="")
-    image = models.ImageField(blank=True, upload_to='TechLab/static') # TODO: Return a valid abs url
+    description = models.TextField(default="")
+    name = models.CharField(max_length=2048, default="")
+    image = models.ImageField(blank=True, upload_to='TechLab/static')
+    stock = models.IntegerField(default=0)
+    broken = models.IntegerField(default=0)
+
 
     def save(self, *args, **kwargs):
         self.type = type(self).__name__
@@ -165,11 +169,9 @@ class Publisher(models.Model):
 
 
 class Book(Item):
-    title = models.CharField(max_length=128)
     writers = models.ManyToManyField(Writer, blank=True)
     isbn = models.CharField(max_length=128)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
-    stock = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -179,9 +181,6 @@ class Electronic(Item):
     product_id = models.CharField(max_length=64, default="")
     manufacturer = models.ManyToManyField(Manufacturer, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=128, default="")
-    stock = models.IntegerField(default=0)
-    broken = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -190,6 +189,11 @@ class Electronic(Item):
 class BorrowItem(models.Model):
     item = models.ForeignKey(Item, related_name="borrow_item_item", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="borrow_item_item", on_delete=models.CASCADE)
+    return_state = models.CharField(blank=True, null=True, max_length=64, choices=(
+        ('as_borrowed', 'As Borrowed'),
+        ('damaged', 'Damaged'),
+        ('broken', 'Broken')))
+
     borrow_date = models.DateTimeField(default=datetime.now())
     return_date = models.DateTimeField(default=datetime.now())
     hand_in_date = models.DateTimeField(blank=True, null=True)
