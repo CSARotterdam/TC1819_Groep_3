@@ -63,31 +63,7 @@ public class HandInConfirmation extends AppCompatActivity {
         tvBorrowedBy.setText(String.format(tvBorrowedBy.getText().toString(),
                 borrowedItem.get("user").getAsJsonObject().get("email")));
 
-        Thread thread;
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-
-
-                    String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", borrowedItem.get("item").getAsJsonObject().get("id").getAsString()), null, 1000, "GET", null);
-                    JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
-
-
-                    tvItemName.setText(String.format(obj.get("title").getAsString()));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
-        try {
-            thread.join();
-        } catch (Exception ex) {
-        }
+        tvItemName.setText(borrowedItem.get("item").getAsJsonObject().get("name").getAsString());
 
         bCancelAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +86,8 @@ public class HandInConfirmation extends AppCompatActivity {
                     public void run() {
                         try {
 
-                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()),  new HashMap<String, String>(){{put("broken", "True");}}, 1000, "PUT", null);
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()),
+                                    new HashMap<String, String>(){{put("broken", "True");}}, 1000, "PUT", null);
                             JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
 
@@ -154,7 +131,8 @@ public class HandInConfirmation extends AppCompatActivity {
                     public void run() {
                         try {
 
-                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()), new HashMap<String, String>(){{put("broken", "False");}}, 1000, "PUT", null);
+                            String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/returnitems/%s/", borrowedItem.get("id").getAsString()),
+                                    new HashMap<String, String>(){{put("broken", "False");}}, 1000, "PUT", null);
                             JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
 
 

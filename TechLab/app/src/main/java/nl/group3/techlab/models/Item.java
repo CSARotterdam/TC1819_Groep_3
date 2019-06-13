@@ -23,8 +23,11 @@ public class Item implements Serializable {
 
     String type;
     String id;
-    int borrowDays;
+    String name;
     String description;
+    int borrowDays;
+    int stock;
+    int broken;
     URL imageUrl;
 
 
@@ -34,8 +37,6 @@ public class Item implements Serializable {
     String manufacturer;
     @Deprecated
     String category;
-    @Deprecated
-    String name;
     @Deprecated
     int quantity;
 
@@ -47,9 +48,12 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public Item(String type, String id, String description, int borrowDays, URL imageUrl){
+    public Item(String type, String id, String name, String description, int borrowDays, URL imageUrl, int stock, int broken){
         this.type = type;
         this.id = id;
+        this.name = name;
+        this.stock = stock;
+        this.broken = broken;
         this.description = description;
         this.borrowDays = borrowDays;
         this.imageUrl = imageUrl;
@@ -87,7 +91,6 @@ public class Item implements Serializable {
         return category;
     }
 
-    @Deprecated
     public String getName() {
         return name;
     }
@@ -95,6 +98,8 @@ public class Item implements Serializable {
     public String getDescription() {
         return description;
     }
+
+    public int getStock() { return stock; }
 
     @Deprecated
     public int getQuantity() {
