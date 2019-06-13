@@ -3,7 +3,8 @@
     package="nl.group3.techlab">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".contact"
-            android:label="Contact"/>
+            android:label="Contact" />
         <activity
             android:name=".theme"
             android:label="@string/thema" />
@@ -57,7 +58,12 @@
             android:name=".ReturnItemActivity"
             android:label="@string/terugnemen" />
         <activity android:name=".HandInConfirmation" />
+        <activity
+            android:name=".Managers"
+            android:label="@string/title_activity_managers"/>
+        <activity
+            android:name=".AddNewManager"
+            android:label="@string/title_activity_managers"/>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -72,7 +72,7 @@
     <string name="adres">WD.04.022 \nWijnhaven 107 \n3011 WN Rotterdam</string>
     <string name="openingstijden">Openingstijden</string>
     <string name="tijden">"Maandag&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 17.00 \nDinsdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \nWoensdag&#160;&#160;&#160;&#160;10.30 &#8211; 15.50 \nDonderdag&#160;&#160;&#160;10.30 &#8211; 17.00 \nVrijdag&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;gesloten</string>
-  <!--  <string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string> !-->
+    <!--  <string name="contact_titel">Voor vragen en/of onduidelijkheden kan je contact opnemen met de volgende personen:</string> !-->
     <string name="uitgelogd">Uitgelogd</string>
     <string name="geschreven_door">Geschreven door: %s</string>
     <string name="uitgegeven_door">Uitgegeven door: %s</string>
@@ -89,4 +89,6 @@
     <string name="gebruiker">Gebruiker</string>
     <string name="image_uploaden">Foto uploaden</string>
     <string name="thuis">Thuis</string>
+    <string name="title_activity_managers">Beheerders</string>
+    <string name="verwijderen">Verwijderen</string>
 </resources>
