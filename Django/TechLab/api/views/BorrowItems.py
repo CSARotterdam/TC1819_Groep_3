@@ -34,17 +34,17 @@ class BorrowItems(View):
             user.save()
 
         item = get_object_or_404(Item, id=put.get('item_id'))
-        model_item = apps.get_model(app_label='api', model_name=item.type).objects.get(id=item.id)
+        # model_item = apps.get_model(app_label='api', model_name=item.type).objects.get(id=item.id)
 
-        if model_item.stock > 0:
+        if item.stock > 0:
             borrowItem = BorrowItem.objects.create(user=user, item=item, borrow_date=put.get('borrow_date'))
             borrowItem.save()
             borrowItem.return_date = datetime.datetime.strptime(borrowItem.borrow_date, '%Y-%m-%d %H:%M:%S') + \
                                      datetime.timedelta(days=item.borrow_days)
             borrowItem.save()
 
-            model_item.stock -= 1
-            model_item.save()
+            item.stock -= 1
+            item.save()
 
             return JsonResponse(json.loads('{"success": "true"}'), safe=False)
         return JsonResponse(json.loads('{"success": "false", "message": "No item available"}'), safe=False)
@@ -65,18 +65,17 @@ class ReturnItems(View):
         borrowItem = get_object_or_404(BorrowItem, id=pk)
 
         borrowItem.hand_in_date = datetime.datetime.now()
+        model_item = apps.get_model(app_label='api', model_name=borrowItem.item.type).objects.get(id=borrowItem.item.id)
+
+        if put['broken'] == 'True':
+            model_item.broken += 1
+            borrowItem.return_state = 'broken'
+        else:
+            model_item.stock += 1
+            borrowItem.return_state = 'as_borrowed'
+
         borrowItem.save()
-        try:
-            model_item = apps.get_model(app_label='api', model_name=item.type).objects.get(id=borrowItem.item.id)
-
-            if put['broken'] == 'True':
-                model_item.broken += 1
-            else:
-                model_item.stock += 1
-
-            model_item.save()
-        except:
-            pass
+        model_item.save()
 
         return JsonResponse(json.loads('{"success": "true"}'), safe=False)
 

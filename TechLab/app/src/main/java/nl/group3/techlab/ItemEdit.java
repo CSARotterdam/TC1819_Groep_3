@@ -168,7 +168,7 @@ public class ItemEdit extends AppCompatActivity {
         selectedDesc = receivedIntent.getStringExtra("Description");
 
 
-        eItem.setText(book.getTitle());
+        eItem.setText(book.getName());
         eItemD.setText(book.getDescription());
         {
             ViewGroup.LayoutParams params = eItemD.getLayoutParams();
@@ -244,7 +244,7 @@ public class ItemEdit extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            toastMessage(getString(R.string.product_geleend));
+                                            Toast.makeText(getBaseContext(), R.string.product_geleend, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                     onBackPressed();
@@ -252,7 +252,7 @@ public class ItemEdit extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            toastMessage(getString(R.string.product_niet_beschikbaar));
+                                            Toast.makeText(getBaseContext(), R.string.product_niet_beschikbaar, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }

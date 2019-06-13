@@ -78,10 +78,10 @@ class GetAllElectronics(View):
                                                        category=Category.objects.get(id=request.POST['category']),
                                                        stock=request.POST['stock'],
                                                        broken=request.POST['broken'])
-                electronic.save()
+            electronic.save()
 
-                return JsonResponse('{"success": "true", "message": "The item has been created."}',
-                                    safe=False, status=200, content_type='application/json')
+            return JsonResponse('{"success": "true", "message": "The item has been created."}',
+                                safe=False, status=200, content_type='application/json')
 
         return JsonResponse('', safe=False, status=401, content_type='application/json')
 

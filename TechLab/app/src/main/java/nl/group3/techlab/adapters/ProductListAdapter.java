@@ -63,7 +63,7 @@ public class ProductListAdapter extends ArrayAdapter<Book> /* , ArrayAdapter<Ele
                 ItemImage.setImageResource(R.drawable.ic_launcher_background);
         }
         if(ItemName != null){
-            ItemName.setText((item.getTitle()));
+            ItemName.setText((item.getName()));
         }
         if(ItemDescription != null){
             ItemDescription.setText(item.getStock() > 0 ? R.string.beschikbaar : R.string.niet_beshikbaar);
