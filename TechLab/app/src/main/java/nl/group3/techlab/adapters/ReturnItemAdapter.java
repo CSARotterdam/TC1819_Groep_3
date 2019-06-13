@@ -76,7 +76,6 @@ public class ReturnItemAdapter extends ArrayAdapter<JsonObject> {
                 i.putExtras(bundle);
                 getContext().startActivity(i);
                 ((Activity)reloadView.getContext()).finish();
-
             }
         });
 

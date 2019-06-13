@@ -245,6 +245,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MenuActivity.this, settings.class));
             } else if(id == R.id.contact){
                 startActivity(new Intent(MenuActivity.this, contact.class));
+            } else if(id == R.id.beheerders) {
+                startActivity(new Intent(MenuActivity.this, Managers.class));
             }
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
