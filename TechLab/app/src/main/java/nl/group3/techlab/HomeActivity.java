@@ -123,8 +123,15 @@ public class HomeActivity extends MenuActivity {
 //        setSupportActionBar(toolbar);
         setTitle(R.string.thuis);
 
-//        LoginActivity.logged_in = true;
+        LoginActivity.logged_in = true;
 
+        addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+
+        if (MenuActivity.rolTV.getText() == getString(R.string.gebruiker)) {
+            addProductButton.hide();
+        } else {
+            addProductButton.show();
+        }
         // Dit zorgt ervoor dat de email in de header is.
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 ////        navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -151,7 +158,7 @@ public class HomeActivity extends MenuActivity {
 //
 //        navigationView = (NavigationView) findViewById(R.id.nav_view);
 //        Menu nav_Menu = navigationView.getMenu();
-        addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
+
 
         books = new ArrayList<>();
 
@@ -187,12 +194,12 @@ public class HomeActivity extends MenuActivity {
 //            } catch (Exception ex) {
 //                ex.printStackTrace();
 //            }
-
+//
 //            nav_Menu.findItem(R.id.statistieken).setVisible(false);
 //            nav_Menu.findItem(R.id.beheerders).setVisible(false);
-
-
-
+//
+//
+//
 //            List<String> list = Arrays.asList(arrayManagers);
 //            isManager = list.contains("\"" + personEmail + "\"");
 //            Log.d("JSON", personEmail);
@@ -231,7 +238,8 @@ public class HomeActivity extends MenuActivity {
             }
         });
 
-        loadItems();
+        while(books.size() == 0)
+            loadItems();
 
         productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
 
@@ -267,11 +275,12 @@ public class HomeActivity extends MenuActivity {
                             obj.get("description").getAsString().replace("\\n", System.getProperty("line.separator")),
                             obj.get("borrow_days").getAsInt(),
                             (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
-                            obj.get("title").getAsString(),
+                            obj.get("name").getAsString(),
                             writers,
                             obj.get("isbn").getAsString(),
                             obj.get("publisher").getAsJsonObject().get("name").getAsString(),
-                            obj.get("stock").getAsInt()));
+                            obj.get("stock").getAsInt(),
+                            obj.get("broken").getAsInt()));
                 }
             }
             runOnUiThread(new Runnable() {

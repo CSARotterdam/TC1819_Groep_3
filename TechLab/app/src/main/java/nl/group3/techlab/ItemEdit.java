@@ -108,7 +108,7 @@ public class ItemEdit extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
-        if (ItemsAndMenuActivity.rolTV.getText() == getString(R.string.gebruiker)) {
+        if (MenuActivity.rolTV.getText() == getString(R.string.gebruiker)) {
             delButton.hide();
         } else {
             delButton.show();
@@ -297,7 +297,7 @@ public class ItemEdit extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(this, ItemsAndMenuActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

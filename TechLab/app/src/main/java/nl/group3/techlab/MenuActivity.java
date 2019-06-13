@@ -128,7 +128,66 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 //            addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
 //            books = new ArrayList<>();
+            if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET", null);
+                            Log.d("JSON", jsonString);
 
+                            JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+
+                            arrayManagers = new String[jsonArray.size()];
+                            for (int i = 0; i < jsonArray.size(); i++) {
+                                arrayManagers[i] = jsonArray.get(i).getAsJsonObject().get("email").toString();
+                                Log.d("JSON", arrayManagers[i]);
+//                            if (arrayManagers[i].equals(personEmail)) { isManager = true; }
+                            }
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                nav_Menu.findItem(R.id.statistieken).setVisible(false);
+                nav_Menu.findItem(R.id.beheerders).setVisible(false);
+
+
+
+                List<String> list = Arrays.asList(arrayManagers);
+                isManager = list.contains("\"" + personEmail + "\"");
+                Log.d("JSON", personEmail);
+                if (isManager) {
+                    rolTV.setText(getString(R.string.beheerder));
+                    nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+//                    addProductButton.show();
+//                ItemEdit.delButton.show();
+                } else {
+                    rolTV.setText(getString(R.string.gebruiker));
+                    nav_Menu.findItem(R.id.terugnemen).setVisible(false);
+//                    addProductButton.hide();
+//                ItemEdit.delButton.hide();
+                }
+            } else {
+                rolTV.setText(getString(R.string.admin));
+                nav_Menu.findItem(R.id.statistieken).setVisible(true);
+                nav_Menu.findItem(R.id.beheerders).setVisible(true);
+                nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+                addProductButton.show();
+//            ItemEdit.delButton.show();
+            }
             // Dit is voor de menu-button.
 //            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

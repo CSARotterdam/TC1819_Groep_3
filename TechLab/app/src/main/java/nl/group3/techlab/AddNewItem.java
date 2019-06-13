@@ -144,7 +144,7 @@ public class AddNewItem extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AddNewItem.this, ItemsAndMenuActivity.class));
+        startActivity(new Intent(AddNewItem.this, HomeActivity.class));
         finish();
     }
 
@@ -291,7 +291,7 @@ public class AddNewItem extends AppCompatActivity {
                     thread.join();
                 }catch(Exception ex){ ex.printStackTrace();}
 
-                Intent intent = new Intent(AddNewItem.this, ItemsAndMenuActivity.class);
+                Intent intent = new Intent(AddNewItem.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -62,7 +62,7 @@ public class language extends AppCompatActivity {
                 }
 
                 editor.apply();
-                Intent intent = new Intent(v.getContext(), ItemsAndMenuActivity.class);
+                Intent intent = new Intent(v.getContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
