@@ -83,4 +83,6 @@
     <string name="gebruiker">Gebruiker</string>
     <string name="image_uploaden">Foto uploaden</string>
     <string name="thuis">Thuis</string>
+    <string name="geschiedenis_iedereen">Iedereens geschiedenis zien</string>
+    <string name="geschiedenis_jij">Alleen je eigen geschiedenis zien</string>
 </resources>

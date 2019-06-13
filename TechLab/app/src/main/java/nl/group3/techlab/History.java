@@ -2,7 +2,9 @@ package nl.group3.techlab;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,6 +43,18 @@ public class History extends MenuActivity {
         setContentView(R.layout.activity_history);
         super.onCreateDrawer();
         setTitle(R.string.geschiedenis);
+
+        // code voor de switch
+        final Switch switchHistory = (Switch) findViewById(R.id.history_switch);
+        switchHistory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    switchHistory.setText(getString(R.string.geschiedenis_iedereen));
+                } else {
+                    switchHistory.setText(getString(R.string.geschiedenis_jij));
+                }
+            }
+        });
 
         ListView listView = (ListView)findViewById(R.id.List_view);
 

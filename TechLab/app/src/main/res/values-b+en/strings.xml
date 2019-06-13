@@ -84,4 +84,6 @@
     <string name="gebruiker">User</string>
     <string name="image_uploaden">Upload image</string>
     <string name="thuis">Home</string>
+    <string name="geschiedenis_iedereen">See everyone\'s history</string>
+    <string name="geschiedenis_jij">See only your history</string>
 </resources>

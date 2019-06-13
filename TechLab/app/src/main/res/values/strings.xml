@@ -91,4 +91,6 @@
     <string name="thuis">Thuis</string>
     <string name="title_activity_managers">Beheerders</string>
     <string name="verwijderen">Verwijderen</string>
+    <string name="geschiedenis_iedereen">Iedereens geschiedenis zien</string>
+    <string name="geschiedenis_jij">Alleen je eigen geschiedenis zien</string>
 </resources>
