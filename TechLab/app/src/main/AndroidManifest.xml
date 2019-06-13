@@ -56,7 +56,8 @@
         </activity>
         <activity
             android:name=".History"
-            android:label="@string/geschiedenis" />
+            android:label="@string/geschiedenis"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.ViewBorrowedItem" />
         <activity
             android:name=".ItemEdit"

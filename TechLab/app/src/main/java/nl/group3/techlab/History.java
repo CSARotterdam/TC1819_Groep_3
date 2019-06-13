@@ -1,10 +1,7 @@
 package nl.group3.techlab;
 
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -17,14 +14,11 @@ import com.google.gson.JsonParser;
 import nl.group3.techlab.databases.BorrowDatabase;
 import nl.group3.techlab.adapters.HistoryAdapter;
 import nl.group3.techlab.helpers.JSONHelper;
-import nl.group3.techlab.models.Book;
-import nl.group3.techlab.models.RowListItem;
-import nl.group3.techlab.models.Writer;
 
 import java.util.ArrayList;
 
 
-public class History extends AppCompatActivity {
+public class History extends MenuActivity {
     BorrowDatabase mydb;
     SharedPreferences sharedPreferences;
 
@@ -44,7 +38,8 @@ public class History extends AppCompatActivity {
             default:
                 break;
         }
-        setContentView(R.layout.borrow_list);
+        setContentView(R.layout.activity_history);
+        super.onCreateDrawer();
         setTitle(R.string.geschiedenis);
 
         ListView listView = (ListView)findViewById(R.id.List_view);
