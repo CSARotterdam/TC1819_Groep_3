@@ -36,6 +36,7 @@ public class statistic extends AppCompatActivity {
     int inttot;
     ArrayList<Book> books;
     int lendsize;
+    int size;
 
 
     @Override
@@ -86,11 +87,15 @@ public class statistic extends AppCompatActivity {
                 try {
 
                     String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/", null, 5000, "GET", null);
+                    String jsonString2 = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/items/", null, 5000, "GET", null);
                     Log.d("JSON", jsonString);
+                    Log.d("JSON", jsonString2);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+                    JsonArray jsonArray2 = new JsonParser().parse(jsonString2).getAsJsonArray();
 
                     lendsize = jsonArray.size() +1;
+                    size = books.size();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -108,9 +113,9 @@ public class statistic extends AppCompatActivity {
             ex.printStackTrace();
         }
 
-        final ItemsAndMenuActivity stockTotal = new ItemsAndMenuActivity();
-        stockTotal.loadItems();
-        books = new ArrayList<Book>();
+        //final ItemsAndMenuActivity stockTotal = new ItemsAndMenuActivity();
+        //stockTotal.loadItems();
+        //books = new ArrayList<>();
 
 
 
@@ -119,7 +124,8 @@ public class statistic extends AppCompatActivity {
         lendPer = (TextView) findViewById(R.id.lendPercent);
         availabilityPer = (TextView) findViewById(R.id.availabilityPercent);
         lendPer.setText(String.valueOf(lendsize));
-        availabilityPer.setText(String.valueOf(stockTotal.books.size()));
+        availabilityPer.setText(String.valueOf(size));
+        // availabilityPer.setText(String.valueOf(stockTotal.books.size()));
 
         /*if (inttot>0) {
             int loanFormule = 100/inttot*intLE;
@@ -132,7 +138,8 @@ public class statistic extends AppCompatActivity {
 
         AnimatedPieView Pie = findViewById(R.id.pie);
         AnimatedPieViewConfig chart = new AnimatedPieViewConfig();
-        chart.addData(new SimplePieInfo(stockTotal.books.size(), Color.parseColor("#FFFF00"), "A"));
+        //chart.addData(new SimplePieInfo(stockTotal.books.size(), Color.parseColor("#FFFF00"), "A"));
+        chart.addData(new SimplePieInfo(size, Color.parseColor("#FFFF00"), "A"));
         chart.addData(new SimplePieInfo(lendsize, Color.parseColor("#A80000"), "B"));
         chart.duration(1000);
         chart.strokeMode(false);
