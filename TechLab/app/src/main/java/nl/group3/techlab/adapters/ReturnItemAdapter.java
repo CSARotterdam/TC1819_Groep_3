@@ -37,6 +37,7 @@ public class ReturnItemAdapter extends ArrayAdapter<JsonObject> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         final JsonObject borrowItem = getItem(position);
+
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_return_item, parent, false);
@@ -71,6 +72,7 @@ public class ReturnItemAdapter extends ArrayAdapter<JsonObject> {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("BorrowedItemObject", borrowItem.toString());
                 Intent i = new Intent(getContext(), HandInConfirmation.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtras(bundle);
                 getContext().startActivity(i);
                 ((Activity)reloadView.getContext()).finish();
