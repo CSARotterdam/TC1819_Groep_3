@@ -107,16 +107,20 @@ public class AddNewItem extends AppCompatActivity {
     }
 
     private void openGallery() {
+        // Call the image gallery
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+        // To recognize when the user comes back from the image gallery and to display an error
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE ){
+            // Getting image
             imageUri = data.getData();
+            // Set the image in an image view
             imageView.setImageURI(imageUri);
-
+            // To allow the user to use any gallery apps he might have installed
             String[] projection = { MediaStore.Images.Media.DATA };
             Cursor cursor = getBaseContext().getContentResolver().query(imageUri, projection, null, null, null);
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -124,7 +128,6 @@ public class AddNewItem extends AppCompatActivity {
             imageUrl = cursor.getString(column_index);
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
-
         }
     }
 
