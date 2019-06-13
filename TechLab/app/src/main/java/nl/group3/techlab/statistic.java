@@ -30,13 +30,16 @@ public class statistic extends AppCompatActivity {
     /*int available = AddNewItem.getTotalQuantity();
     int lend = ItemEdit.loanQuantity;
     int totalPro = available + lend;*/
-    private TextView lendPer, availabilityPer;
+    private TextView lendPer, availabilityPer, brokenint, unbrokenint;
     int intAV;
     int intLE;
     int inttot;
     ArrayList<Book> books;
+    String[] arrayStocks;
     int lendsize;
     int size;
+    int brokenproducts;
+    int unbrokenproducts;
 
 
     @Override
@@ -94,8 +97,16 @@ public class statistic extends AppCompatActivity {
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
                     JsonArray jsonArray2 = new JsonParser().parse(jsonString2).getAsJsonArray();
 
-                    lendsize = jsonArray.size() +1;
-                    size = books.size();
+                    //arrayStocks = new String[jsonArray2.size()];
+
+                    for (int i=0; i < jsonArray2.size();i++ ){
+                        size += jsonArray2.get(i).getAsJsonObject().get("stock").getAsInt();
+                        brokenproducts += jsonArray2.get(i).getAsJsonObject().get("broken").getAsInt();
+                    }
+
+                    lendsize = jsonArray.size();
+                    unbrokenproducts = size + lendsize - brokenproducts;
+
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -123,8 +134,13 @@ public class statistic extends AppCompatActivity {
 
         lendPer = (TextView) findViewById(R.id.lendPercent);
         availabilityPer = (TextView) findViewById(R.id.availabilityPercent);
+        brokenint = (TextView) findViewById(R.id.broken);
+        unbrokenint = (TextView) findViewById(R.id.unbroken);
+
         lendPer.setText(String.valueOf(lendsize));
         availabilityPer.setText(String.valueOf(size));
+        brokenint.setText(String.valueOf(brokenproducts));
+        unbrokenint.setText(String.valueOf(unbrokenproducts));
         // availabilityPer.setText(String.valueOf(stockTotal.books.size()));
 
         /*if (inttot>0) {
@@ -137,15 +153,25 @@ public class statistic extends AppCompatActivity {
 
 
         AnimatedPieView Pie = findViewById(R.id.pie);
+        AnimatedPieView Pie2 = findViewById(R.id.pie2);
+
         AnimatedPieViewConfig chart = new AnimatedPieViewConfig();
         //chart.addData(new SimplePieInfo(stockTotal.books.size(), Color.parseColor("#FFFF00"), "A"));
-        chart.addData(new SimplePieInfo(size, Color.parseColor("#FFFF00"), "A"));
-        chart.addData(new SimplePieInfo(lendsize, Color.parseColor("#A80000"), "B"));
+        chart.addData(new SimplePieInfo(size, Color.parseColor("#FFFF00"), "beschikbaar"));
+        chart.addData(new SimplePieInfo(lendsize, Color.parseColor("#A80000"), "uitgeleend"));
         chart.duration(1000);
         chart.strokeMode(false);
 
+        AnimatedPieViewConfig chart2 = new AnimatedPieViewConfig();
+        chart2.addData(new SimplePieInfo(unbrokenproducts, Color.parseColor("#3333FF"), "onbeschadigd"));
+        chart2.addData(new SimplePieInfo(brokenproducts, Color.parseColor("#99FF33"), "beschadigd"));
+        chart2.duration(1000);
+        chart2.strokeMode(false);
+
         Pie.applyConfig(chart);
+        Pie2.applyConfig(chart2);
         Pie.start();
+        Pie2.start();
 
 
     }

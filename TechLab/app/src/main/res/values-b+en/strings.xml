@@ -31,8 +31,10 @@
     <string name="beschikbaarheid">Availability</string>
     <string name="beschikbaar">Available</string>
     <string name="admin">Admin</string>
-    <string name="_1_beschikbare_producten">1. Available products:</string>
-    <string name="_2_uitgeleende_producten">2. Loaned products:</string>
+    <string name="beschikbare_producten">Available products:</string>
+    <string name="uitgeleende_producten">Loaned products:</string>
+    <string name="beschadigde_producten">Broken products:</string>
+    <string name="onbeschadigde_producten">Unbroken products:</string>
     <string name="_0">0</string>
     <string name="meldingen">Notifications</string>
     <string name="contact">Contact</string>
