@@ -24,7 +24,7 @@ import nl.group3.techlab.adapters.ManagerAdapter;
 import nl.group3.techlab.adapters.ReturnItemAdapter;
 import nl.group3.techlab.helpers.JSONHelper;
 
-public class Managers extends AppCompatActivity {
+public class Managers extends MenuActivity {
     SharedPreferences sharedPreferences;
     ArrayList<JsonObject> managers;
 
@@ -46,6 +46,7 @@ public class Managers extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_managers);
+        super.onCreateDrawer();
         setTitle(R.string.title_activity_managers);
 
         managers = new ArrayList<>();

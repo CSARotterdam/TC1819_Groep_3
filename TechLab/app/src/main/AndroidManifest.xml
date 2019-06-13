@@ -71,7 +71,8 @@
         <activity android:name=".HandInConfirmation" />
         <activity
             android:name=".Managers"
-            android:label="@string/title_activity_managers"/>
+            android:label="@string/title_activity_managers"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".AddNewManager"
             android:label="@string/title_activity_managers"/>
