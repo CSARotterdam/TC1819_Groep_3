@@ -42,11 +42,11 @@ class API(models.Model):
 
 
 class Item(models.Model):
+    name = models.CharField(max_length=2048, default="")
     type = models.CharField(max_length=256, null=True, blank=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     borrow_days = models.IntegerField(default=0)
     description = models.TextField(default="")
-    name = models.CharField(max_length=2048, default="")
     image = models.ImageField(blank=True, upload_to='TechLab/static')
     stock = models.IntegerField(default=0)
     broken = models.IntegerField(default=0)
@@ -174,7 +174,7 @@ class Book(Item):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Electronic(Item):
