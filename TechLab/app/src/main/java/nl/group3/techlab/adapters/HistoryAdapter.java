@@ -26,6 +26,7 @@ import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 import nl.group3.techlab.models.RowListItem;
 
+import java.net.URL;
 import java.util.List;
 
 
@@ -40,42 +41,18 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_layout, parent,false);
         }
 
-        final TextView item_name = convertView.findViewById(R.id.item_name);
+        TextView item_name = convertView.findViewById(R.id.item_name);
         TextView returned = convertView.findViewById(R.id.returned);
         TextView borrowedAt = convertView.findViewById(R.id.borrowedAt);
         final ImageView itemImage = convertView.findViewById(R.id.imageView);
-        final JsonObject item = getItem(position);
+        JsonObject item = getItem(position);
 
-
-
-
-        // TODO: change the getting of itemname, this is NOT the right way to do this, maybe review the models on client and server
-        Thread thread;
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Log.d("Item", item.toString());
-
-                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/items/%s/", item.get("item").getAsJsonObject().get("id").getAsString()),
-                            null, 1000, "GET", null);
-
-                    if(!item.get("item").getAsJsonObject().get("image").isJsonNull())
-                        itemImage.setImageBitmap(BitmapHelper.LoadImageFromWebURL(item.get("item").getAsJsonObject().get("image").getAsString()));
-
-                    JsonObject obj = new JsonParser().parse(jsonString).getAsJsonObject();
-                    item_name.setText(obj.get("title").getAsString());
-
-                }catch(Exception ex){ ex.printStackTrace();}
-            }
-        });
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
-        try {
-            thread.join();
+        try{
+            if(!item.get("item").getAsJsonObject().get("image").isJsonNull())
+                itemImage.setImageBitmap(new Item("", "", "", "", 0, new URL(item.get("item").getAsJsonObject().get("image").getAsString()), 0, 0).getImage(getContext()));
         } catch (Exception ex){}
+
+        item_name.setText(item.get("item").getAsJsonObject().get("name").getAsString());
 
 
         returned.setText(getContext().getString(R.string.teruggebracht) + " " + (item.get("hand_in_date").getAsString().equalsIgnoreCase("none") ? getContext().getString(R.string.nee) : getContext().getString(R.string.ja)));

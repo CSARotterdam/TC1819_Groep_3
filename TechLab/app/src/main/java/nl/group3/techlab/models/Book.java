@@ -7,24 +7,16 @@ import nl.group3.techlab.models.Item;
 
 public class Book extends Item implements Serializable {
 
-    private String title;
     private Writer[] writers;
     private String ISBN;
     private String publisher;
-    private int stock;
 
     public Book(String type, String id, String description, int borrowDays, URL imageUrl,
-                String title, Writer[] writers, String ISBN, String publisher, int stock){
-        super(type, id, description, borrowDays, imageUrl);
-        this.title = title;
+                String title, Writer[] writers, String ISBN, String publisher, int stock, int broken){
+        super(type, id, title,description, borrowDays, imageUrl, stock, broken);
         this.writers = writers;
         this.ISBN = ISBN;
         this.publisher = publisher;
-        this.stock = stock;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Writer[] getWriters() {

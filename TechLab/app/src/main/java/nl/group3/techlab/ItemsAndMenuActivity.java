@@ -229,7 +229,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             }
         });
 
-        loadItems();
+        while(books.size() == 0)
+            loadItems();
 
         productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
 
@@ -265,11 +266,12 @@ public class ItemsAndMenuActivity extends AppCompatActivity
                             obj.get("description").getAsString().replace("\\n", System.getProperty("line.separator")),
                             obj.get("borrow_days").getAsInt(),
                             (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
-                            obj.get("title").getAsString(),
+                            obj.get("name").getAsString(),
                             writers,
                             obj.get("isbn").getAsString(),
                             obj.get("publisher").getAsJsonObject().get("name").getAsString(),
-                            obj.get("stock").getAsInt()));
+                            obj.get("stock").getAsInt(),
+                            obj.get("broken").getAsInt()));
                 }
             }
             runOnUiThread(new Runnable() {
