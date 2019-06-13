@@ -65,16 +65,17 @@ class ReturnItems(View):
         borrowItem = get_object_or_404(BorrowItem, id=pk)
 
         borrowItem.hand_in_date = datetime.datetime.now()
-        # model_item = apps.get_model(app_label='api', model_name=item.type).objects.get(id=borrowItem.item.id)
+        model_item = apps.get_model(app_label='api', model_name=borrowItem.item.type).objects.get(id=borrowItem.item.id)
 
         if put['broken'] == 'True':
-            borrowItem.item.broken += 1
-            borrowItem.item.return_state = 'broken'
+            model_item.broken += 1
+            borrowItem.return_state = 'broken'
         else:
-            borrowItem.item.stock += 1
-            borrowItem.item.return_state = 'as_borrowed'
+            model_item.stock += 1
+            borrowItem.return_state = 'as_borrowed'
 
         borrowItem.save()
+        model_item.save()
 
         return JsonResponse(json.loads('{"success": "true"}'), safe=False)
 

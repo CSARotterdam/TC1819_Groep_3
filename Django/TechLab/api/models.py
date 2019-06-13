@@ -53,7 +53,8 @@ class Item(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.type = type(self).__name__
+        if type(self).__name__ != "Item":
+            self.type = type(self).__name__
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
     def to_json(self, *exclude_vars):
@@ -187,12 +188,14 @@ class Electronic(Item):
 
 
 class BorrowItem(models.Model):
-    item = models.ForeignKey(Item, related_name="borrow_item_item", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name="borrow_item_item", on_delete=models.CASCADE)
-    return_state = models.CharField(blank=True, null=True, max_length=64, choices=(
+    BROKEN_STATES = (
         ('as_borrowed', 'As Borrowed'),
         ('damaged', 'Damaged'),
-        ('broken', 'Broken')))
+        ('broken', 'Broken'))
+
+    item = models.ForeignKey(Item, related_name="borrow_item_item", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="borrow_item_item", on_delete=models.CASCADE)
+    return_state = models.CharField(blank=True, null=True, max_length=64, choices=BROKEN_STATES)
 
     borrow_date = models.DateTimeField(default=datetime.now())
     return_date = models.DateTimeField(default=datetime.now())
