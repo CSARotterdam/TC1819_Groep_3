@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^borrowitems/$', csrf_exempt(BorrowItems.BorrowItems.as_view())),
     url(r'^returnitems/$', BorrowItems.ReturnItems.as_view()),
     url(r'^returnitems/(?P<pk>[0-9a-f-]+)/$', csrf_exempt(BorrowItems.ReturnItems.as_view())),
-    url(r'managers/$', Managers.Managers.as_view()),
+    url(r'managers/$', csrf_exempt(Managers.Managers.as_view())),
     url(r'managers/(?P<pk>[0-9a-f-]+)/$', csrf_exempt(Managers.Manager.as_view())),
     # TODO: contact -> POST{user, issue, message} WOULD
     # url(r'^contact/', ),

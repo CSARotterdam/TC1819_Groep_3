@@ -185,7 +185,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 nav_Menu.findItem(R.id.statistieken).setVisible(true);
                 nav_Menu.findItem(R.id.beheerders).setVisible(true);
                 nav_Menu.findItem(R.id.terugnemen).setVisible(true);
-                addProductButton.show();
+//                addProductButton.show();
 //            ItemEdit.delButton.show();
             }
             // Dit is voor de menu-button.

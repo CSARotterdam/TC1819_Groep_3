@@ -53,8 +53,6 @@ public class ReturnItemActivity extends AppCompatActivity {
         setTitle(R.string.terugnemen);
         borrowedItems = new ArrayList<>();
 
-
-
         Thread thread;
         thread = new Thread(new Runnable() {
             public void run() {

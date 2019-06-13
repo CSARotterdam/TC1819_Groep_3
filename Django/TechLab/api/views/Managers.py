@@ -11,10 +11,26 @@ import json
 
 class Managers(View):
     def get(self, request, *args, **kwargs):
-
         managers = User.objects.filter(is_manager=True)
 
         return JsonResponse(json.loads(json.dumps([manager.to_json('_state') for manager in managers])), safe=False, content_type='application/json')
+
+    def post(self, request, *args, **kwargs):
+        if not (i in request.POST for i in ['email']):
+            return JsonResponse(json.loads('{"success": "false", "message": "Missing argument email. "}'),
+                                safe=False, status=400)
+
+        manager, created = User.objects.get_or_create(
+            email=request.POST.get('email'),
+            defaults={'is_manager': True},
+        )
+
+        if not created:
+            manager.is_manager = True
+            manager.save()
+
+        return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'),
+                            safe=False, content_type='application/json')
 
 class Manager(View):
     def get(self, request, pk, *args, **kwargs):
@@ -38,22 +54,6 @@ class Manager(View):
         manager.save()
 
         return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'), safe=False, content_type='application/json')
-
-    def post(self, request, *args, **kwargs):
-        if not (i in request.POST for i in ['email']):
-            return JsonResponse(json.loads('{"success": "false", "message": "Missing argument email. "}'),
-                                safe=False, status=400)
-
-        manager = User.objects.get_or_create(
-            email=request.POST.get('email'),
-            defaults={'is_manager': True},
-        )
-
-        manager.is_manager = True
-        manager.save()
-
-        return JsonResponse(json.loads('{"success": "true", "message": "The user has been added as Manager. "}'),
-                            safe=False, content_type='application/json')
 
     def delete(self, request, pk, *args, **kwargs):
         manager = get_object_or_404(User, id=pk)

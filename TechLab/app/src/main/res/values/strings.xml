@@ -87,4 +87,6 @@
     <string name="gebruiker">Gebruiker</string>
     <string name="image_uploaden">Foto uploaden</string>
     <string name="thuis">Thuis</string>
+    <string name="title_activity_managers">Beheerders</string>
+    <string name="verwijderen">Verwijderen</string>
 </resources>
