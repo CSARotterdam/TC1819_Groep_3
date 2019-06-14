@@ -93,4 +93,28 @@
     <string name="verwijderen">Verwijderen</string>
     <string name="geschiedenis_iedereen">Iedereens geschiedenis zien</string>
     <string name="geschiedenis_jij">Alleen je eigen geschiedenis zien</string>
+    <string name="handleiding">Handleiding</string>
+    <string name="handleidingGebruiker">
+Toegang tot zijpaneel
+\nSwipe van links naar rechts of tik op ☰ icon om het zijpaneel te openen. Hier vindt u de belangrijkste Techlabapp functies:
+\n1.	Thuis
+\n•	Hoofdpagina van de app. Hier bevinden de producten om uitgeleend te worden.
+\n2.	Meldingen
+\n•	Selecteer of u notificatie wilt ontvangen.
+\n3.	Geschiedenis
+\n•	Een overzicht van de tot nu toe uitgeleende producten.
+\n4.	Instellingen
+\n•	Hier kunt u de taal en het thema aanpassen.
+\n- Taal: selecteer de gewenste taal. Kies uit Nederlands of Engels.
+\n- Thema: selecteer uw thema. Kies uit zwart of wit.
+\n5.	Contact
+\n•	Voor eventuele vragen en/of onduidelijkheden kunt u contact opnemen per mail of kunt u  de locatie bezoeken.
+\n6.	Uitloggen
+\n
+\nProduct uitlenen
+\nOp de hoofdpagina van de app is er een lijst met producten die uitgeleend kunnen worden. Kies en tik op een product dat u wilt lenen. Tik vervolgens op ‘uitlenen’ om het product uit te lenen.
+\n
+\nProduct terugbrengen
+\nBreng het uitgeleende product terug naar het Techlab. Vervolgens geeft de beheerder of admin aan dat het product terug is gebracht.
+    </string>
 </resources>

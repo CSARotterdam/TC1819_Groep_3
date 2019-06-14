@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nl.group3.techlab.user_manual">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="731dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/handleidingG"
+                android:layout_width="310dp"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:autoSizeTextType="uniform"
+                android:background="#33D0D0D0"
+                android:text="@string/handleidingGebruiker"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/handleidingB"
+                android:layout_width="365dp"
+                android:layout_height="190dp"
+                android:layout_below="@+id/handleidingG"
+                android:layout_alignEnd="@+id/handleidingG"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="-2dp"
+                android:autoSizeTextType="uniform"
+                android:background="#33D0D0D0"
+                android:text="TextView"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/handleidingA"
+                android:layout_width="301dp"
+                android:layout_height="194dp"
+                android:layout_below="@+id/handleidingB"
+                android:layout_alignBottom="@+id/handleidingB"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="-257dp"
+                android:autoSizeTextType="uniform"
+                android:background="#33D0D0D0"
+                android:text="TextView"
+                android:textSize="22dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

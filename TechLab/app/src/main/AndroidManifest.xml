@@ -14,13 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".user_manual"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".contact"
             android:label="Contact"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".theme"
             android:label="@string/thema" />
@@ -31,17 +34,16 @@
         <activity
             android:name=".settings"
             android:label="@string/instellingen"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".MenuActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MenuActivity" />
         <activity
             android:name=".statistic"
             android:label="@string/statistieken"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Notifications"
             android:label="@string/meldingen"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNewItem"
             android:label="@string/product_toevoegen" />
@@ -59,7 +61,7 @@
         <activity
             android:name=".History"
             android:label="@string/geschiedenis"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.ViewBorrowedItem" />
         <activity
             android:name=".ItemEdit"
@@ -67,15 +69,15 @@
         <activity
             android:name=".ReturnItemActivity"
             android:label="@string/terugnemen"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HandInConfirmation" />
         <activity
             android:name=".Managers"
             android:label="@string/title_activity_managers"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNewManager"
-            android:label="@string/title_activity_managers"/>
+            android:label="@string/title_activity_managers" />
     </application>
 
 </manifest>

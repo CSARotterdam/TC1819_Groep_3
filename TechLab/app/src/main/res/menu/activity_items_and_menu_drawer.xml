@@ -46,6 +46,11 @@
             android:icon="@drawable/ic_mail_outline_white_24dp"
             android:title="@string/contact" />
         <item
+            android:id="@+id/handleiding"
+            android:checkable="false"
+            android:icon="@drawable/ic_stat_message"
+            android:title="@string/handleiding" />
+        <item
             android:id="@+id/uitloggen"
             android:checkable="false"
             android:icon="@drawable/ic_exit_to_app_white_24dp"
