@@ -16,10 +16,10 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".user_manual"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".contact"
             android:label="Contact"
