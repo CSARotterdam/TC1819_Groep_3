@@ -71,7 +71,7 @@ public class History extends MenuActivity {
             }
         });
 
-        if(rolTV.getText().toString().equalsIgnoreCase(getString(R.string.user))) {
+        if(rolTV.getText().toString().equalsIgnoreCase(getString(R.string.gebruiker))) {
             ((Switch)findViewById(R.id.history_switch)).setVisibility(View.GONE);
         }
 
