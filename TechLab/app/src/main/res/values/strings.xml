@@ -94,28 +94,63 @@
     <string name="geschiedenis_iedereen">Iedereens geschiedenis zien</string>
     <string name="geschiedenis_jij">Alleen je eigen geschiedenis zien</string>
     <string name="handleiding">Handleiding</string>
-    <string name="handleidingGebruiker">
-Toegang tot zijpaneel
+    <string name="handleidingGebruiker"><b><font size="22">Gebruiker</font></b>\n\n<b>Toegang tot zijpaneel</b>
 \nSwipe van links naar rechts of tik op ☰ icon om het zijpaneel te openen. Hier vindt u de belangrijkste Techlabapp functies:
+\n
 \n1.	Thuis
 \n•	Hoofdpagina van de app. Hier bevinden de producten om uitgeleend te worden.
+        \n
 \n2.	Meldingen
 \n•	Selecteer of u notificatie wilt ontvangen.
+        \n
 \n3.	Geschiedenis
 \n•	Een overzicht van de tot nu toe uitgeleende producten.
+        \n
 \n4.	Instellingen
 \n•	Hier kunt u de taal en het thema aanpassen.
 \n- Taal: selecteer de gewenste taal. Kies uit Nederlands of Engels.
 \n- Thema: selecteer uw thema. Kies uit zwart of wit.
+        \n
 \n5.	Contact
 \n•	Voor eventuele vragen en/of onduidelijkheden kunt u contact opnemen per mail of kunt u  de locatie bezoeken.
+        \n
 \n6.	Uitloggen
 \n
-\nProduct uitlenen
-\nOp de hoofdpagina van de app is er een lijst met producten die uitgeleend kunnen worden. Kies en tik op een product dat u wilt lenen. Tik vervolgens op ‘uitlenen’ om het product uit te lenen.
 \n
-\nProduct terugbrengen
+\n<b>Product uitlenen</b>
+\nOp de hoofdpagina van de app is er een lijst met producten die uitgeleend kunnen worden. Kies en tik op een product dat u wilt lenen. Tik vervolgens op "Lenen" om het product uit te lenen.
+\n
+\n
+\n<b>Product terugbrengen</b>
 \nBreng het uitgeleende product terug naar het Techlab. Vervolgens geeft de beheerder of admin aan dat het product terug is gebracht.
+    </string>
+    <string name="handleidingBeheerderAdmin"><b><font size="22">Beheerder/admin</font></b>\n
+\n
+Als beheerder/admin heeft u extra functies in het menu:
+\n
+\n1.	Terugnemen
+\n•	Overzicht van producten die uitgeleend zijn. Ook staat er aan wie het is uitgeleend. Daarnaast staat de inleverdatum weergegeven.
+\n
+\n2.	Statistieken
+\n•	Overzicht van beschikbare- en uitgeleende producten en beschadigde- en onbeschadigde producten.
+\n
+\n
+\n<b>Product terugnemen</b>
+\nTik op "Terugnemen" die in het menu staat. Zoek vervolgens het teruggebrachte product op en tik op "Terugnemen". Als het product beschadigd is, tik daarna op "Beschadigd". Zo niet, tik dan weer op "Terugnemen".
+    </string>
+    <string name="handleidingAdmin"><b><font size="22">Admin</font></b>\n
+\nAls admin kunt u beheerder aanwijzen en producten toevoegen/verwijderen.
+\n
+\n<b>Beheerder toevoegen/verwijderen</b>
+\nToevoegen: tik op "Beheerder" die in het menu staat. Tik vervolgens op + icoon. Vul het emailadres van de beheerder in en tik vervolgens op "Toevoegen".
+\n
+\nVerwijderen: tik op "Beheerder" die in het menu staat. Zoek de beheerder op die u wilt verwijderen. Tik vervolgens op "Verwijderen" om de beheerder te verwijderen.
+\n
+\n
+\n<b>Product toevoegen/verwijderen</b>
+\nToevoegen: ga naar de hoofdpagina van de app. Tik daarna op + icoon. Vul de gegevens in en tik vervolgens op "Toevoegen".
+\n
+\nVerwijderen: ga naar de hoofdpagina van de app. Tik op het product dat u wilt verwijderen. Rechtsonder is er een prullenbak-icoon te zien. Tik op dat icoon om het product te verwijderen.
     </string>
     <string name="lichte_thema">Lichte thema</string>
 </resources>

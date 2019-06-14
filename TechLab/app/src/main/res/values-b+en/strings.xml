@@ -87,28 +87,63 @@
     <string name="geschiedenis_iedereen">See everyone\'s history</string>
     <string name="geschiedenis_jij">See only your history</string>
     <string name="handleiding">User manual</string>
-    <string name="handleidingGebruiker">
-Toegang tot zijpaneel
-\nSwipe van links naar rechts of tik op ☰ icon om het zijpaneel te openen. Hier vindt u de belangrijkste Techlabapp functies:
-\n1.	Thuis
-\n•	Hoofdpagina van de app. Hier bevinden de producten om uitgeleend te worden.
-\n2.	Meldingen
-\n•	Selecteer of u notificatie wilt ontvangen.
-\n3.	Geschiedenis
-\n•	Een overzicht van de tot nu toe uitgeleende producten.
-\n4.	Instellingen
-\n•	Hier kunt u de taal en het thema aanpassen.
-\n- Taal: selecteer de gewenste taal. Kies uit Nederlands of Engels.
-\n- Thema: selecteer uw thema. Kies uit zwart of wit.
+    <string name="handleidingGebruiker"><b><font size="22">User</font></b>\n\n<b>Toegang tot zijpaneel</b>
+\nSwipe from left to right or tap on ☰ icon to open the side panel. Here you will find the most important Techlabapp functions:
+\n
+\n1.	Home
+\n•	Main page of the app. Here are the products to be borrowed.
+        \n
+\n2.	Notification
+\n•	Select whether you want to receive notification.
+        \n
+\n3.	History
+\n•	An overview of the products on loan so far.
+        \n
+\n4.	Settings
+\n•	Here you can adjust the language and theme.
+\n- Language: select the desired language. Choose Dutch or English.
+\n- Theme: select your theme. Choose black or white.
+        \n
 \n5.	Contact
-\n•	Voor eventuele vragen en/of onduidelijkheden kunt u contact opnemen per mail of kunt u  de locatie bezoeken.
-\n6.	Uitloggen
+\n•	For any questions and/or uncertainties you can contact us by mail or you can visit the location.
+        \n
+\n6.	Sign out
 \n
-\nProduct uitlenen
-\nOp de hoofdpagina van de app is er een lijst met producten die uitgeleend kunnen worden. Kies en tik op een product dat u wilt lenen. Tik vervolgens op ‘uitlenen’ om het product uit te lenen.
 \n
-\nProduct terugbrengen
-\nBreng het uitgeleende product terug naar het Techlab. Vervolgens geeft de beheerder of admin aan dat het product terug is gebracht.
+\n<b>Borrow product</b>
+\nOn the main page of the app there is a list of products that can be borrowed. Choose and tap on a product that you want to borrow. Then tap on "Borrow" to borrow the product.
+\n
+\n
+\n<b>Return product</b>
+\nReturn the borrowed product to the Techlab. The manager or admin indicates on the app that the product has been returned.
+    </string>
+    <string name="handleidingBeheerderAdmin"><b><font size="22">Manager/admin</font></b>\n
+\n
+As a manager / admin you have extra functions in the menu:
+\n
+\n1.	Return
+\n•	Overview of products that have been lent. It also states to whom it has been lent. In addition, the return date is displayed.
+\n
+\n2.	Statistics
+\n•	Overview of available products, loaned products, damaged and undamaged products.
+\n
+\n
+\n<b>Return Product</b>
+\nTap on "Return" which is in the menu. Then find the returned product and tap on  "Return". If the product is damaged, then tap on "Damaged". If not, tap on "Return" again.
+    </string>
+    <string name="handleidingAdmin"><b><font size="22">Admin</font></b>\n
+\nAs admin you can allocate manager and add/delete products.
+\n
+\n<b>Add/delete manager</b>
+\nAdd: tap on "Managers" in the menu. Then tap on + icon. Enter the manager\'s e-mail address and then tap on "Add".
+\n
+\nDelete: tap on "Managers" in the menu. Search for the manager you want to delete. Then tap on "Delete" to delete the manager.
+\n
+\n
+\n<b>Add/delete product</b>
+\nAdd: go to the main page of the app. Then tap on + icon. Enter the details and tap on "Add".
+\n
+\nDelete: go to the main page of the app. Tap on the product you want to delete. At the bottom right there is a recycle bin icon. Tap on that icon to delete the product.
     </string>
     <string name="lichte_thema">Light theme</string>
 </resources>
