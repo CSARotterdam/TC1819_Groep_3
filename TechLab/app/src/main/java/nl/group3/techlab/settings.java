@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.Switch;
 
 
 public class settings extends MenuActivity {
@@ -51,12 +54,30 @@ public class settings extends MenuActivity {
                 startActivity(intent);
             }
         });
-/*        notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(settings.this, notification.class);
-                startActivity(intent);
+        final Switch notificationSwitch = (Switch) findViewById(R.id.switch1);
+        int notifications = sharedPreferences.getInt("notifications", 1);
+        switch (notifications) {
+            case 1:
+                notificationSwitch.setChecked(true);
+                break;
+            case 2:
+                notificationSwitch.setChecked(false);
+                break;
+
+            default:
+                break;
+        }
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if (isChecked) {
+                    editor.putInt("notifications", 1);
+                } else {
+                    editor.putInt("notifications", 2);
+                }
+                editor.apply();
             }
-        });                     */
+
+        });
     }
 }
