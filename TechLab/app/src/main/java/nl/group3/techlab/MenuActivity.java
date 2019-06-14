@@ -52,6 +52,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         String personEmail;
         BorrowDatabase db;
         boolean isManager;
+        boolean failed = false;
 
         DatabaseHelper myDB;
         ListView listView;
@@ -165,28 +166,32 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 nav_Menu.findItem(R.id.beheerders).setVisible(false);
 
 
-
-                List<String> list = Arrays.asList(arrayManagers);
-                isManager = list.contains("\"" + personEmail + "\"");
-                Log.d("JSON", personEmail);
-                if (isManager) {
-                    rolTV.setText(getString(R.string.beheerder));
-                    nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+                if (arrayManagers == null) {
+                    failed = true;
+                } else {
+                    List<String> list = Arrays.asList(arrayManagers);
+                    isManager = list.contains("\"" + personEmail + "\"");
+                    Log.d("JSON", personEmail);
+                    if (isManager) {
+                        rolTV.setText(getString(R.string.beheerder));
+                        nav_Menu.findItem(R.id.terugnemen).setVisible(true);
 //                    addProductButton.show();
 //                ItemEdit.delButton.show();
-                } else {
-                    rolTV.setText(getString(R.string.gebruiker));
-                    nav_Menu.findItem(R.id.terugnemen).setVisible(false);
+                    } else {
+                        rolTV.setText(getString(R.string.gebruiker));
+                        nav_Menu.findItem(R.id.terugnemen).setVisible(false);
 //                    addProductButton.hide();
 //                ItemEdit.delButton.hide();
+                    }
                 }
             } else {
-                rolTV.setText(getString(R.string.admin));
-                nav_Menu.findItem(R.id.statistieken).setVisible(true);
-                nav_Menu.findItem(R.id.beheerders).setVisible(true);
-                nav_Menu.findItem(R.id.terugnemen).setVisible(true);
-//                addProductButton.show();
-//            ItemEdit.delButton.show();
+                if (!failed) {
+                    rolTV.setText(getString(R.string.admin));
+                    nav_Menu.findItem(R.id.statistieken).setVisible(true);
+                    nav_Menu.findItem(R.id.beheerders).setVisible(true);
+                    nav_Menu.findItem(R.id.terugnemen).setVisible(true);
+                }
+//
             }
             // Dit is voor de menu-button.
 //            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
