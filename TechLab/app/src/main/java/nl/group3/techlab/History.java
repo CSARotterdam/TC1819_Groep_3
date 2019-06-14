@@ -2,10 +2,13 @@ package nl.group3.techlab;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -47,6 +50,14 @@ public class History extends MenuActivity {
         super.onCreateDrawer();
         setTitle(R.string.geschiedenis);
 
+        // Dit zorgt ervoor dat de email in de header is.
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView rolTV = (TextView) headerView.findViewById(R.id.rol);
+
         // code voor de switch
         final Switch switchHistory = (Switch) findViewById(R.id.history_switch);
         switchHistory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -59,6 +70,10 @@ public class History extends MenuActivity {
                 getHistoryData(switchHistory.isChecked());
             }
         });
+
+        if(rolTV.getText().toString().equalsIgnoreCase(getString(R.string.user))) {
+            ((Switch)findViewById(R.id.history_switch)).setVisibility(View.GONE);
+        }
 
         ListView listView = (ListView)findViewById(R.id.List_view);
 
