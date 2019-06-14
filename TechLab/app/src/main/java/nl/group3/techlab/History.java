@@ -2,6 +2,7 @@ package nl.group3.techlab;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -18,11 +19,13 @@ import nl.group3.techlab.adapters.HistoryAdapter;
 import nl.group3.techlab.helpers.JSONHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class History extends MenuActivity {
     BorrowDatabase mydb;
     SharedPreferences sharedPreferences;
+    ArrayList<JsonObject> borrowedItemsList;
 
     private HistoryAdapter historyAdapter;
     @Override
@@ -53,14 +56,24 @@ public class History extends MenuActivity {
                 } else {
                     switchHistory.setText(getString(R.string.geschiedenis_jij));
                 }
+                getHistoryData(switchHistory.isChecked());
             }
         });
 
         ListView listView = (ListView)findViewById(R.id.List_view);
 
-        mydb=new BorrowDatabase(this);
-        final ArrayList<JsonObject> thelist = new ArrayList<>();
+//        mydb=new BorrowDatabase(this);
 
+        borrowedItemsList = new ArrayList<>();
+        getHistoryData(switchHistory.isChecked());
+
+        historyAdapter = new HistoryAdapter(this,borrowedItemsList);
+        listView.setAdapter(historyAdapter);
+
+    }
+
+    void getHistoryData(final boolean everyone) {
+        borrowedItemsList.clear();
 
         Thread thread;
         thread = new Thread(new Runnable() {
@@ -68,17 +81,31 @@ public class History extends MenuActivity {
                 try {
                     final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
-                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/?email=%s", acct.getEmail()), null, 1000, "GET", null);
+                    String jsonStringReturned;
+                    String jsonStringBorrowed;
 
-                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+                    jsonStringReturned = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/returnitems/?%s", acct != null ? !everyone ? "email=" + acct.getEmail() : "" : ""), null, 1000, "GET", null);
+                    jsonStringBorrowed = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/?%s", acct != null ? !everyone ? "email=" + acct.getEmail() : "" : ""), null, 1000, "GET", null);
 
-                    for(JsonElement elem : jsonArray){
+                    JsonArray jsonArrayReturned = new JsonParser().parse(jsonStringReturned).getAsJsonArray();
+                    JsonArray jsonArrayBorrowed = new JsonParser().parse(jsonStringBorrowed).getAsJsonArray();
+
+                    for(JsonElement elem : jsonArrayReturned){
                         JsonObject obj = elem.getAsJsonObject();
-                        thelist.add(obj);
+                        borrowedItemsList.add(obj);
                     }
-//                    String json = new Gson().toJson(books.get(0));
-//                    Log.d("Found book:", json);
+                    for(JsonElement elem : jsonArrayBorrowed){
+                        JsonObject obj = elem.getAsJsonObject();
+                        borrowedItemsList.add(obj);
+                    }
 
+                    Log.d("HISTORY", borrowedItemsList.size() + " items found");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            historyAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }catch(Exception ex){ ex.printStackTrace();}
             }
         });
@@ -91,21 +118,6 @@ public class History extends MenuActivity {
             thread.join();
 
         } catch (Exception ex){}
-
-
-//        Cursor data = mydb.getListContents();
-//        if (data.getCount() != 0 ){
-//            while (data.moveToNext())
-//            {
-//                String Itemname = (data.getString(1));
-//                String Description = (data.getString(2));
-//                thelist.add(new RowListItem(Itemname,Description));
-//            }
-//        }
-
-        historyAdapter = new HistoryAdapter(this,thelist);
-        listView.setAdapter(historyAdapter);
-
     }
 }
 

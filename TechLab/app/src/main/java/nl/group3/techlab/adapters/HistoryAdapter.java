@@ -38,7 +38,7 @@ public class HistoryAdapter extends ArrayAdapter<JsonObject> {
     @Override
     public View getView(int position, @Nullable View convertView, @Nullable ViewGroup parent) {
         if (convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_layout, parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_history_item, parent,false);
         }
 
         TextView item_name = convertView.findViewById(R.id.item_name);

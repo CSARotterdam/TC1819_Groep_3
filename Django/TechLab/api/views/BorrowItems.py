@@ -13,7 +13,14 @@ import json
 
 class BorrowItems(View):
     def get(self, request, *atgs, **kwargs):
-        email = request.GET.get('email', '*')
+        email = request.GET.get('email', None)
+        if email is not None:
+            allBorrowedItems = BorrowItem.objects.filter(hand_in_date=None, user__email=email)
+
+            return JsonResponse(json.loads(
+                json.dumps([borrowItem.to_json('_state', 'item_ptr_id', 'writers') for borrowItem in allBorrowedItems]),
+            ), safe=False)
+
         allBorrowedItems = BorrowItem.objects.filter(hand_in_date=None)
 
         return JsonResponse(json.loads(
@@ -52,7 +59,15 @@ class BorrowItems(View):
 
 class ReturnItems(View):
     def get(self, request, *atgs, **kwargs):
-        email = request.GET.get('email', '*')
+        email = request.GET.get('email', None)
+
+        if email is not None:
+            allBorrowedItems = BorrowItem.objects.exclude(hand_in_date=None).filter(user__email=email)
+
+            return JsonResponse(json.loads(
+                json.dumps([borrowItem.to_json('_state', 'item_ptr_id', 'writers') for borrowItem in allBorrowedItems]),
+            ), safe=False)
+
         allBorrowedItems = BorrowItem.objects.exclude(hand_in_date=None)
 
         return JsonResponse(json.loads(

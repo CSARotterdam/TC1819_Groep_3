@@ -30,7 +30,7 @@
                 android:textStyle="bold"
                 android:switchMinWidth="55dp"
                 android:text="@string/geschiedenis_iedereen"
-                android:checked="true" />
+                android:checked="false" />
 
         </LinearLayout>
 
