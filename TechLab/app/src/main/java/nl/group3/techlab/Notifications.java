@@ -31,6 +31,7 @@ public class Notifications extends MenuActivity {
     private EditText editTextTitle;
     private EditText editTextDescription;
     private Button notify;
+    Thread thread;
     private  NotificationHelper mNotificationHelper;
     SharedPreferences sharedPreferences;
     ArrayList<JsonObject> borrowedItems;
@@ -61,61 +62,39 @@ public class Notifications extends MenuActivity {
             default:
                 break;
         }
-
-
         borrowedItems = new ArrayList<>();
-
         mNotificationHelper = new NotificationHelper(this);
-
-
-        Thread thread;
         if (settings.notificationOn ){
             SendOnChannel("Return item tomorrow","t2");
-
-        }
-        else {
-            SendOnChannel("Return item tomorrow","tttttt");
-
-        }
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
-
-                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-
-                    final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
-
-
-                    for(JsonElement elem : jsonArray){
-                        JsonObject obj = elem.getAsJsonObject();
+            thread = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
+                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+                        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+                        for(JsonElement elem : jsonArray){
+                            JsonObject obj = elem.getAsJsonObject();
 //                        Log.d("?????????", "try again");
-
 //                        Log.d("ABCDEFG", obj.get("user").getAsJsonObject().get("email").getAsString());
-                        if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
-                            borrowedItems.add(obj);
+                            if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
+                                borrowedItems.add(obj);
 //                            if (obj.get("item").getAsJsonObject().get("name").getAsString());
+                            }
                         }
-                    }
+                    }catch(Exception ex){ ex.printStackTrace();}
+                }
+                
+            });
+            // Start the new thread and run the code.
+            thread.start();
+            // Join the thread when it's done, meaning that the application will wait untill the
+            // thread is done.
+            try {
+                thread.join();
 
-                }catch(Exception ex){ ex.printStackTrace();}
-            }
-        });
-
-
-
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
-        try {
-            thread.join();
-
-        } catch (Exception ex){}
-
+            } catch (Exception ex){}
+        }
         Log.d("Items", borrowedItems + "");
-
 //        Date currentTime = Calendar.getInstance().getTime();
 //        Time now = new Time();
 //        now.setToNow();
@@ -124,9 +103,7 @@ public class Notifications extends MenuActivity {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date dateBefore1Day = cal.getTime();
-
         Log.d("!!!!!!!!!!!!!", dateBefore1Day+"");
-
         setContentView(R.layout.activity_notifications);
         super.onCreateDrawer();
         setTitle(R.string.meldingen);
@@ -139,7 +116,6 @@ public class Notifications extends MenuActivity {
 //            }
 //        });
     }
-
     public void SendOnChannel(String title, String description) {
         NotificationCompat.Builder nb = mNotificationHelper.getCahnnelNotification(title, description);
         mNotificationHelper.getMAnager().notify(1,nb.build());
