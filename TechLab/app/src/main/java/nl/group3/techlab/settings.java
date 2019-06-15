@@ -15,6 +15,7 @@ public class settings extends MenuActivity {
 
     Button language, theme, notification;
     SharedPreferences sharedPreferences;
+    public static boolean notificationOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,34 @@ public class settings extends MenuActivity {
         setContentView(R.layout.activity_settings);
         super.onCreateDrawer();
         setTitle(R.string.instellingen);
+        final Switch notificationSwitch = (Switch) findViewById(R.id.switch1);
+        int notifications = sharedPreferences.getInt("notifications", 1);
+        switch (notifications) {
+            case 1:
+                notificationSwitch.setChecked(true);
+                break;
+            case 2:
+                notificationSwitch.setChecked(false);
+                break;
 
+            default:
+                break;
+        }
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if (isChecked) {
+                    editor.putInt("notifications", 1);
+                    notificationOn = true;
+
+                } else {
+                    editor.putInt("notifications", 2);
+                    notificationOn = false;
+                }
+                editor.apply();
+            }
+
+        });
         language = (Button) findViewById(R.id.language);
         theme = (Button) findViewById(R.id.theme);
         notification = (Button) findViewById(R.id.notification);
@@ -54,30 +82,8 @@ public class settings extends MenuActivity {
                 startActivity(intent);
             }
         });
-        final Switch notificationSwitch = (Switch) findViewById(R.id.switch1);
-        int notifications = sharedPreferences.getInt("notifications", 1);
-        switch (notifications) {
-            case 1:
-                notificationSwitch.setChecked(true);
-                break;
-            case 2:
-                notificationSwitch.setChecked(false);
-                break;
 
-            default:
-                break;
-        }
-        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                if (isChecked) {
-                    editor.putInt("notifications", 1);
-                } else {
-                    editor.putInt("notifications", 2);
-                }
-                editor.apply();
-            }
 
-        });
+
     }
 }

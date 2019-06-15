@@ -8,7 +8,10 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -50,6 +53,14 @@ public class Notifications extends MenuActivity {
         borrowedItems = new ArrayList<>();
 
         Thread thread;
+        if (settings.notificationOn ){
+            SendOnChannel("Return item tomorrow","t2");
+
+        }
+        else {
+            SendOnChannel("Return item tomorrow","tttttt");
+
+        }
         thread = new Thread(new Runnable() {
             public void run() {
                 try {
@@ -74,6 +85,7 @@ public class Notifications extends MenuActivity {
                 }catch(Exception ex){ ex.printStackTrace();}
             }
         });
+
 
 
         // Start the new thread and run the code.
