@@ -40,9 +40,11 @@ public class settings extends MenuActivity {
         switch (notifications) {
             case 1:
                 notificationSwitch.setChecked(true);
+                notificationOn = true;
                 break;
             case 2:
                 notificationSwitch.setChecked(false);
+                notificationOn = false;
                 break;
 
             default:

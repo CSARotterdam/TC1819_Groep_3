@@ -49,8 +49,24 @@ public class Notifications extends MenuActivity {
             default:
                 break;
         }
+        int notifications = sharedPreferences.getInt("notifications", 1);
+        switch (notifications) {
+            case 1:
+                settings.notificationOn = true;
+                break;
+            case 2:
+                settings.notificationOn = false;
+                break;
+
+            default:
+                break;
+        }
+
 
         borrowedItems = new ArrayList<>();
+
+        mNotificationHelper = new NotificationHelper(this);
+
 
         Thread thread;
         if (settings.notificationOn ){
@@ -115,13 +131,13 @@ public class Notifications extends MenuActivity {
         super.onCreateDrawer();
         setTitle(R.string.meldingen);
         notify = (Button)findViewById(R.id.notify);
-        mNotificationHelper = new NotificationHelper(this);
-        notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SendOnChannel("Return item tomorrow","t2");
-            }
-        });
+//        mNotificationHelper = new NotificationHelper(this);
+//        notify.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SendOnChannel("Return item tomorrow","t2");
+//            }
+//        });
     }
 
     public void SendOnChannel(String title, String description) {
