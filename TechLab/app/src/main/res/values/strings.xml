@@ -133,22 +133,22 @@ Als beheerder/admin heeft u extra functies in het menu:
 \n•	Overzicht van beschikbare- en uitgeleende producten en beschadigde- en onbeschadigde producten.
 \n
 \n
+\n<b>Product toevoegen/verwijderen</b>
+\nToevoegen: ga naar de hoofdpagina van de app. Tik daarna op + icoon. Vul de gegevens in en tik vervolgens op "Toevoegen".
+\n
+\nVerwijderen: ga naar de hoofdpagina van de app. Tik op het product dat u wilt verwijderen. Rechtsonder is er een prullenbak-icoon te zien. Tik op dat icoon om het product te verwijderen.
+\n
+\n
 \n<b>Product terugnemen</b>
 \nTik op "Terugnemen" die in het menu staat. Zoek vervolgens het teruggebrachte product op en tik op "Terugnemen". Als het product beschadigd is, tik daarna op "Beschadigd". Zo niet, tik dan weer op "Terugnemen".
     </string>
     <string name="handleidingAdmin"><b><font size="22">Admin</font></b>\n
-\nAls admin kunt u beheerder aanwijzen en producten toevoegen/verwijderen.
+\nAls admin kunt u ook beheerder aanwijzen.
 \n
 \n<b>Beheerder toevoegen/verwijderen</b>
 \nToevoegen: tik op "Beheerder" die in het menu staat. Tik vervolgens op + icoon. Vul het emailadres van de beheerder in en tik vervolgens op "Toevoegen".
 \n
 \nVerwijderen: tik op "Beheerder" die in het menu staat. Zoek de beheerder op die u wilt verwijderen. Tik vervolgens op "Verwijderen" om de beheerder te verwijderen.
-\n
-\n
-\n<b>Product toevoegen/verwijderen</b>
-\nToevoegen: ga naar de hoofdpagina van de app. Tik daarna op + icoon. Vul de gegevens in en tik vervolgens op "Toevoegen".
-\n
-\nVerwijderen: ga naar de hoofdpagina van de app. Tik op het product dat u wilt verwijderen. Rechtsonder is er een prullenbak-icoon te zien. Tik op dat icoon om het product te verwijderen.
     </string>
     <string name="lichte_thema">Lichte thema</string>
 </resources>
