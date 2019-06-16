@@ -69,7 +69,7 @@ public class theme extends AppCompatActivity {
 //
 //    @Override
 //    public void onBackPressed() {
-//        Intent intent = new Intent(theme.this, ItemsAndMenuActivity.class);
+//        Intent intent = new Intent(theme.this, HomeActivity.class);
 //        startActivity(intent);
 //    }
 }

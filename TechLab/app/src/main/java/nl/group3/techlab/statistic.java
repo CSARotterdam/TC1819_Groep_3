@@ -123,7 +123,7 @@ public class statistic extends MenuActivity {
             ex.printStackTrace();
         }
 
-        //final ItemsAndMenuActivity stockTotal = new ItemsAndMenuActivity();
+        //final HomeActivity stockTotal = new HomeActivity();
         //stockTotal.loadItems();
         //books = new ArrayList<>();
 

@@ -41,16 +41,8 @@
             android:label="@string/statistieken"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Notifications"
-            android:label="@string/meldingen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".AddNewItem"
             android:label="@string/product_toevoegen" />
-        <activity
-            android:name=".ItemsAndMenuActivity"
-            android:label="@string/Producten"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

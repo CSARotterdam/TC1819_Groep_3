@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 
 import nl.group3.techlab.ItemEdit;
-import nl.group3.techlab.ItemsAndMenuActivity;
+import nl.group3.techlab.HomeActivity;
 import nl.group3.techlab.R;
 import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;

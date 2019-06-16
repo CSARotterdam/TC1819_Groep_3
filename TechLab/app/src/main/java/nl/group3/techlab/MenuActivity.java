@@ -240,8 +240,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MenuActivity.this, HomeActivity.class));
             }else if(id == R.id.geschiedenis){
                 startActivity(new Intent(MenuActivity.this, History.class));
-            } else if(id == R.id.meldingen){
-                startActivity(new Intent(MenuActivity.this, Notifications.class));
             } else if (id == R.id.terugnemen) {
                 startActivity(new Intent(MenuActivity.this, ReturnItemActivity.class));
             } else if(id == R.id.statistieken){

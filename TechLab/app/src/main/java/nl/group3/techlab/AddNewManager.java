@@ -114,7 +114,7 @@ public class AddNewManager extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AddNewManager.this, ItemsAndMenuActivity.class));
+        startActivity(new Intent(AddNewManager.this, HomeActivity.class));
         finish();
     }
 }
