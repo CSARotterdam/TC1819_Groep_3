@@ -126,6 +126,12 @@ As a manager / admin you have extra functions in the menu:
 \n•	Overview of available products, loaned products, damaged and undamaged products.
 \n
 \n
+\n<b>Add/delete product</b>
+\nAdd: go to the main page of the app. Then tap on + icon. Enter the details and tap on "Add".
+\n
+\nDelete: go to the main page of the app. Tap on the product you want to delete. At the bottom right there is a recycle bin icon. Tap on that icon to delete the product.
+\n
+\n
 \n<b>Return Product</b>
 \nTap on "Return" which is in the menu. Then find the returned product and tap on  "Return". If the product is damaged, then tap on "Damaged". If not, tap on "Return" again.
     </string>
@@ -136,12 +142,6 @@ As a manager / admin you have extra functions in the menu:
 \nAdd: tap on "Managers" in the menu. Then tap on + icon. Enter the manager\'s e-mail address and then tap on "Add".
 \n
 \nDelete: tap on "Managers" in the menu. Search for the manager you want to delete. Then tap on "Delete" to delete the manager.
-\n
-\n
-\n<b>Add/delete product</b>
-\nAdd: go to the main page of the app. Then tap on + icon. Enter the details and tap on "Add".
-\n
-\nDelete: go to the main page of the app. Tap on the product you want to delete. At the bottom right there is a recycle bin icon. Tap on that icon to delete the product.
     </string>
     <string name="lichte_thema">Light theme</string>
 </resources>

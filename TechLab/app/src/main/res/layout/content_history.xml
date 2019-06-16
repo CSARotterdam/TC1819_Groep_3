@@ -29,7 +29,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:switchMinWidth="55dp"
-                android:text="@string/geschiedenis_iedereen"
+                android:text="@string/geschiedenis_jij"
                 android:checked="false" />
 
         </LinearLayout>
