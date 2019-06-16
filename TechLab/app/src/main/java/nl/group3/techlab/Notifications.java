@@ -64,21 +64,20 @@ public class Notifications extends MenuActivity {
                 break;
         }
         borrowedItems = new ArrayList<>();
+
         mNotificationHelper = new NotificationHelper(this);
         if (settings.notificationOn ){
-            Log.d("SEND MAIL", "in if statement");
             new Thread(new Runnable() {
                 public void run() {
                     try {
-                        Log.d("SEND MAIL", "in thread");
                         GMailSender sender = new GMailSender(
                                 "techlabapp00@gmail.com",
                                 "voordeapp");
 
 //                        sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
-                        sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
+                        sender.sendMail("Product geleend", "This email is translated to english below.\nU heeft een product geleend bij TechLab. Deze kunt u op de eerstvolgende werkdag ophalen op de vierde verdieping op het volgende adres:\nWijnhaven 107\n3011 WN Rotterdam\n\nAls u nog vragen heeft, stuur dan een email naar het volgende emailadres: Techlabapp00@gmail.com.\n\nMet vriendelijke groet,\n\nTechLab Team\n\n\nYou have lent a product from TechLab. You can pick it up on the next working day at the fifth floor at the following address: \nWijnhaven 107\n3011 WN Rotterdam\n\nIf you have any questions, you can send an email to the following email address: Techlabapp00@gmail.com.\n\nKind regards,\n\nTechLab Team",
                                 "techlabapp00@gmail.com",
-                                "0961065@hr.nl");
+                                MenuActivity.personEmail);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
 

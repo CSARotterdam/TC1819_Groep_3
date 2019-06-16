@@ -49,7 +49,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         GoogleSignInClient mGoogleSignInClient;
         static TextView emailTV;
         static TextView rolTV;
-        String personEmail;
+        public static String personEmail;
         BorrowDatabase db;
         boolean isManager;
         boolean failed = false;
@@ -134,7 +134,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 thread = new Thread(new Runnable() {
                     public void run() {
                         try {
-                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 5000, "GET", null);
+                            String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/managers/", null, 15000, "GET", null);
                             Log.d("JSON", jsonString);
 
                             JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
