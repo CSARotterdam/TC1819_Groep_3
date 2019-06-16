@@ -84,6 +84,19 @@ public class ItemEdit extends AppCompatActivity {
             default:
                 break;
         }
+        int notifications = sharedPreferences.getInt("notifications", 1);
+        switch (notifications) {
+            case 1:
+                settings.notificationOn = true;
+                break;
+            case 2:
+                settings.notificationOn = false;
+                break;
+
+            default:
+                settings.notificationOn = true;
+                break;
+        }
         setContentView(R.layout.borrow_item_layout);
         setTitle(R.string.lenen);
 //        vBorrow = (Button) findViewById(R.id.vBorrow);
@@ -280,39 +293,9 @@ public class ItemEdit extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getBaseContext(), R.string.product_geleend, Toast.LENGTH_LONG).show();
-                                            int notifications = sharedPreferences.getInt("notifications", 1);
-                                            switch (notifications) {
-                                                case 1:
-                                                    settings.notificationOn = true;
-                                                    break;
-                                                case 2:
-                                                    settings.notificationOn = false;
-                                                    break;
-
-                                                default:
-                                                    break;
-                                            }
-                                            if (settings.notificationOn ){
-                                                new Thread(new Runnable() {
-                                                    public void run() {
-                                                        try {
-                                                            GMailSender sender = new GMailSender(
-                                                                    "techlabapp00@gmail.com",
-                                                                    "voordeapp");
-
-//                        sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
-                                                            sender.sendMail("Product geleend", "This email is translated to english below.\nU heeft een product geleend bij TechLab. Deze kunt u op de eerstvolgende werkdag ophalen op de vierde verdieping op het volgende adres:\nWijnhaven 107\n3011 WN Rotterdam\n\nAls u nog vragen heeft, stuur dan een email naar het volgende emailadres: Techlabapp00@gmail.com.\n\nMet vriendelijke groet,\n\nTechLab Team\n\n\nYou have lent a product from TechLab. You can pick it up on the next working day at the fifth floor at the following address: \nWijnhaven 107\n3011 WN Rotterdam\n\nIf you have any questions, you can send an email to the following email address: Techlabapp00@gmail.com.\n\nKind regards,\n\nTechLab Team",
-                                                                    "techlabapp00@gmail.com",
-                                                                    MenuActivity.personEmail);
-                                                        } catch (Exception e) {
-                                                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-
-                                                        }
-                                                    }
-                                                }).start();
-                                            }
                                         }
                                     });
+                                    SendEmailNotification();
                                     onBackPressed();
                                 } else {
                                     runOnUiThread(new Runnable() {
@@ -355,5 +338,26 @@ public class ItemEdit extends AppCompatActivity {
 
     private void toastMessage(String message) {
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+    }
+    private void SendEmailNotification() {
+        if (settings.notificationOn ){
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        GMailSender sender = new GMailSender(
+                                "techlabapp00@gmail.com",
+                                "voordeapp");
+
+//                        sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
+                        sender.sendMail("Product geleend", "This email is translated to english below.\nU heeft een product geleend bij TechLab. Deze kunt u op de eerstvolgende werkdag ophalen op de vierde verdieping op het volgende adres:\nWijnhaven 107\n3011 WN Rotterdam\n\nAls u nog vragen heeft, stuur dan een email naar het volgende emailadres: Techlabapp00@gmail.com.\n\nMet vriendelijke groet,\n\nTechLab Team\n\n\nYou have lent a product from TechLab. You can pick it up on the next working day at the fifth floor at the following address: \nWijnhaven 107\n3011 WN Rotterdam\n\nIf you have any questions, you can send an email to the following email address: Techlabapp00@gmail.com.\n\nKind regards,\n\nTechLab Team",
+                                "techlabapp00@gmail.com",
+                                MenuActivity.personEmail);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }).start();
+        }
     }
 }
