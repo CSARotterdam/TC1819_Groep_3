@@ -25,7 +25,7 @@ public class HomeActivity extends MenuActivity {
     ListView listView;
     FloatingActionButton addProductButton;
 
-    ArrayList<Book> books;
+    ArrayList<JsonObject> items;
 
     SharedPreferences sharedPreferences;
     ProductListAdapter productListAdapter;
@@ -78,7 +78,7 @@ public class HomeActivity extends MenuActivity {
             addProductButton.show();
         }
 
-        books = new ArrayList<>();
+        items = new ArrayList<>();
 
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +89,9 @@ public class HomeActivity extends MenuActivity {
             }
         });
 
-        while(books.size() == 0)
-            loadItems();
+        loadItems();
 
-        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, items);
 
         listView = findViewById(R.id.listView);
         listView.setAdapter(productListAdapter);
@@ -109,30 +108,8 @@ public class HomeActivity extends MenuActivity {
 
             for (JsonElement elem : jsonArray) {
                 JsonObject obj = elem.getAsJsonObject();
-                Writer[] writers = null;
-                if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
-                    if (obj.get("writers").getAsJsonArray().size() > 0) {
-                        writers = new Writer[obj.get("writers").getAsJsonArray().size()];
-                        for (int i = 0; i < obj.get("writers").getAsJsonArray().size(); i++) {
-                            JsonObject writerObj = obj.get("writers").getAsJsonArray().get(i).getAsJsonObject();
-                            writers[i] = (new Writer(writerObj.get("id").getAsInt(),
-                                    writerObj.get("name").getAsString()));
-                        }
-                    }
 
-                    books.add(new Book(
-                            obj.get("type").getAsString(),
-                            obj.get("id").getAsString(),
-                            obj.get("description").getAsString().replace("\\n", System.getProperty("line.separator")),
-                            obj.get("borrow_days").getAsInt(),
-                            (obj.get("image").isJsonNull() ? null : new URL(obj.get("image").getAsString())), // new URL(obj.get("image").toString())
-                            obj.get("name").getAsString(),
-                            writers,
-                            obj.get("isbn").getAsString(),
-                            obj.get("publisher").getAsJsonObject().get("name").getAsString(),
-                            obj.get("stock").getAsInt(),
-                            obj.get("broken").getAsInt()));
-                }
+                items.add(obj);
             }
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -140,7 +117,6 @@ public class HomeActivity extends MenuActivity {
                         productListAdapter.notifyDataSetChanged();
                 }
             });
-            Log.d("Found books:", books.size() + "");
 
         } catch(Exception ex){ ex.printStackTrace();}
     }

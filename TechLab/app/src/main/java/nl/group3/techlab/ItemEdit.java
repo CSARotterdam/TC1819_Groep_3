@@ -34,6 +34,7 @@ import nl.group3.techlab.models.Book;
 import nl.group3.techlab.models.Item;
 import nl.group3.techlab.models.Writer;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class ItemEdit extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
 
-        final Book book = (Book) receivedIntent.getSerializableExtra("item");
+        final JsonObject item = new JsonParser().parse(receivedIntent.getSerializableExtra("item").toString()).getAsJsonObject();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
         delButton = (FloatingActionButton) findViewById(R.id.delButton);
@@ -121,7 +122,7 @@ public class ItemEdit extends AppCompatActivity {
                     thread = new Thread(new Runnable() {
                         public void run() {
                             try {
-                                String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", book.getId()),
+                                String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", item.get("id").getAsString()),
                                         new HashMap<String, String>() {{
                                             put("username", acct.getEmail());
                                         }}
@@ -168,51 +169,86 @@ public class ItemEdit extends AppCompatActivity {
         selectedDesc = receivedIntent.getStringExtra("Description");
 
 
-        eItem.setText(book.getName());
-        eItemD.setText(book.getDescription());
+        eItem.setText(item.get("name").getAsString());
+        eItemD.setText(item.get("description").getAsString());
         {
             ViewGroup.LayoutParams params = eItemD.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             eItemD.setLayoutParams(params); // this call is what you need to add
         }
-        if (book.getStock() > 0) {
+        if (item.get("stock").getAsInt() > 0) {
             Bsk.setText(R.string.beschikbaar);
         } else {
             Bsk.setText(R.string.niet_beshikbaar);
         }
 
-        {
-            String writers = "";
-            if (book.getWriters() != null) {
-                for (Writer writer : book.getWriters()) {
-                    writers += writer.getName() + ", ";
+        if(item.get("type").getAsString().contains("Book")){
+            ((TextView)findViewById(R.id.manufacturers)).setVisibility(TextView.GONE);
+            ((TextView)findViewById(R.id.category)).setVisibility(TextView.GONE);
+
+            {
+                String writers = "";
+                if (!item.get("writers").isJsonNull()) {
+                    for (JsonElement writer : item.get("writers").getAsJsonArray()) {
+                        JsonObject obj = writer.getAsJsonObject();
+                        writers += obj.get("name").getAsString() + ", ";
+                    }
+                    if (writers.length() > 0)
+                        writers = writers.substring(0, writers.length() - 2);
                 }
-                if (writers.length() > 0)
-                    writers = writers.substring(0, writers.length() - 2);
+
+                ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
+                ViewGroup.LayoutParams params = findViewById(R.id.writers).getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                findViewById(R.id.writers).setLayoutParams(params); // this call is what you need to add
             }
 
-            ((TextView) findViewById(R.id.writers)).setText(String.format(((TextView) findViewById(R.id.writers)).getText().toString(), writers));
-            ViewGroup.LayoutParams params = findViewById(R.id.writers).getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            findViewById(R.id.writers).setLayoutParams(params); // this call is what you need to add
-
-
+            {
+                ((TextView) findViewById(R.id.publisher)).setText(String.format(((TextView) findViewById(R.id.publisher)).getText().toString(), item.get("publisher").getAsJsonObject().get("name").getAsString()));
+                ViewGroup.LayoutParams params = findViewById(R.id.publisher).getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                findViewById(R.id.publisher).setLayoutParams(params); // this call is what you need to add
+            }
         }
 
-        {
-            ((TextView) findViewById(R.id.publisher)).setText(String.format(((TextView) findViewById(R.id.publisher)).getText().toString(), book.getPublisher()));
-            ViewGroup.LayoutParams params = findViewById(R.id.publisher).getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            findViewById(R.id.publisher).setLayoutParams(params); // this call is what you need to add
+        if(item.get("type").getAsString().contains("Electronic")){
+            ((TextView)findViewById(R.id.writers)).setVisibility(TextView.GONE);
+            ((TextView)findViewById(R.id.publisher)).setVisibility(TextView.GONE);
 
+//            RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+//            params.addRule(RelativeLayout.BELOW, R.id.below_id);
+//            viewToLayout.setLayoutParams(params);
+//
+//            ((TextView)findViewById(R.id.eItemD)).setLayoutParams(TextView.layout);
+            {
+                String manufacturers = "";
+                if (!item.get("manufacturer").isJsonNull()) {
+                    for (JsonElement writer : item.get("manufacturer").getAsJsonArray()) {
+                        JsonObject obj = writer.getAsJsonObject();
+                        manufacturers += obj.get("name").getAsString() + ", ";
+                    }
+                    if (manufacturers.length() > 0)
+                        manufacturers = manufacturers.substring(0, manufacturers.length() - 2);
+                }
 
+                ((TextView) findViewById(R.id.manufacturers)).setText(String.format(((TextView) findViewById(R.id.manufacturers)).getText().toString(), manufacturers));
+                ViewGroup.LayoutParams params = findViewById(R.id.manufacturers).getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                findViewById(R.id.manufacturers).setLayoutParams(params); // this call is what you need to add
+            }
+
+            {
+                ((TextView) findViewById(R.id.category)).setText(String.format(((TextView) findViewById(R.id.category)).getText().toString(), item.get("category").getAsJsonObject().get("name").getAsString()));
+                ViewGroup.LayoutParams params = findViewById(R.id.category).getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                findViewById(R.id.category).setLayoutParams(params); // this call is what you need to add
+            }
         }
 
-
-        {
-            if (book.getImage(getBaseContext()) != null)
-                ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(book.getImage(getBaseContext()));
-        }
+        try {
+            if (!item.get("image").isJsonNull())
+                ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(Item.getImage(getBaseContext(), new URL(item.get("image").getAsString())));
+        } catch (Exception ex) { ex.printStackTrace(); }
 
 
         Borrow.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +264,7 @@ public class ItemEdit extends AppCompatActivity {
                                 String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/",
                                         new HashMap<String, String>() {{
                                             put("email", acct.getEmail());
-                                            put("item_id", book.getId());
+                                            put("item_id", item.get("id").getAsString());
                                             put("borrow_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                                         }}
                                         , 1000, "PUT", null);
@@ -274,23 +310,6 @@ public class ItemEdit extends AppCompatActivity {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
-
-//                if (selectedquan >= 1 ) {
-//                    myDB.addBorrow(selectedID,selectedquan);
-//                    db.insertData(selectedName,selectedDesc);
-////                    toastMessage("Data added");
-//                    loanQuantity += 1;
-//                    AddNewItem.totalQuantity -= 1;
-//                    editor.putInt("LE", intLE+=1);
-//                    editor.putInt("AV", intAV-=1);
-//                    editor.apply();
-//                    toastMessage(getString(R.string.product_geleend));
-//                    startActivity(new Intent(ItemEdit.this, ItemsAndMenuActivity.class));
-//                    finish();
-//                } else {
-//                    toastMessage(getString(R.string.product_niet_beschikbaar));
-//                }
             }
         });
 

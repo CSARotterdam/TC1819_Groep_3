@@ -58,7 +58,8 @@ public class AddNewItem extends AppCompatActivity {
     private static final int PICK_IMAGE=100;
     Uri imageUri;
     String imageUrl;
-    public String[] writersArray, publishersArray, manufacturersArray, categoryArray ,array, arrayWriters;
+//    public String[] writersArray, publishersArray, manufacturersArray, categoryArray, arrayWriters;
+    HashMap<String, String> writersMap, publishersMap, manufacturersMap, categoriesMap;
     Writer[] writers;
     Writer writer;
     int writerID;
@@ -104,6 +105,13 @@ public class AddNewItem extends AppCompatActivity {
                 openGallery();
             }
         });
+
+
+        writersMap = new HashMap<>();
+        publishersMap = new HashMap<>();
+        manufacturersMap = new HashMap<>();
+        categoriesMap = new HashMap<>();
+
     }
 
     private void openGallery() {
@@ -151,19 +159,20 @@ public class AddNewItem extends AppCompatActivity {
         finish();
     }
 
-    public String[] getDataForSpinner(final String urlString){
+    public HashMap<String, String> getDataForSpinner(final String urlString){
+        final HashMap<String, String> array = new HashMap<>();
+
         Thread thread;
         thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    String jsonString = JSONHelper.getJSONStringFromURL(urlString);
+                    String jsonString = JSONHelper.JSONStringFromURL(urlString, null, 1000, "GET", null);
                     Log.d("JSON", jsonString);
 
                     JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
 
-                    array = new String[jsonArray.size()];
                     for (int i = 0; i < jsonArray.size(); i++) {
-                        array[i] = jsonArray.get(i).getAsJsonObject().get("name").toString();
+                        array.put(jsonArray.get(i).getAsJsonObject().get("name").getAsString(), jsonArray.get(i).getAsJsonObject().get("id").getAsString());
                     }
 
                 }catch(Exception ex){ ex.printStackTrace();}
@@ -189,19 +198,19 @@ public class AddNewItem extends AppCompatActivity {
         productName.setHint(getString(R.string.titel));
         productIdISBN.setHint(getString(R.string.isbn));
 
-        writersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/writers/");
-        publishersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/publishers/");
+        writersMap = getDataForSpinner("http://84.86.201.7:8000/api/v1/writers/");
+        publishersMap = getDataForSpinner("http://84.86.201.7:8000/api/v1/publishers/");
 
         final Spinner bookWriters = (Spinner) findViewById(R.id.writers_spinner);
         ArrayAdapter<String> adapterWriters = new ArrayAdapter<String>
-                (this, R.layout.crimson_spinner_item, writersArray);
+                (getBaseContext(), R.layout.crimson_spinner_item, writersMap.keySet().toArray(new String[writersMap.size()]));
         adapterWriters.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         bookWriters.setPopupBackgroundResource(R.color.colorPrimary);
         bookWriters.setAdapter(adapterWriters);
 
         final Spinner bookPublisher = (Spinner) findViewById(R.id.publisher_spinner);
         ArrayAdapter<String> adapterPublishers = new ArrayAdapter<String>
-                (this, R.layout.crimson_spinner_item, publishersArray);
+                (getBaseContext(), R.layout.crimson_spinner_item, publishersMap.keySet().toArray(new String[publishersMap.size()]));
         adapterPublishers.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         bookPublisher.setPopupBackgroundResource(R.color.colorPrimary);
         bookPublisher.setAdapter(adapterPublishers);
@@ -212,37 +221,8 @@ public class AddNewItem extends AppCompatActivity {
 
         writers = new Writer[1];
 
-        Thread thread;
-        thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String jsonString = JSONHelper.getJSONStringFromURL("http://84.86.201.7:8000/api/v1/writers/");
-                    Log.d("JSON", jsonString);
-
-                    JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-                    arrayWriters = new String[jsonArray.size()];
-                    for (int i = 0; i < jsonArray.size(); i++) {
-                        arrayWriters[i] = jsonArray.get(i).getAsJsonObject().get("name").toString();
-                        Log.d("JSON", arrayWriters[i]);
-                            if (arrayWriters[i].equals(bookWriters.getSelectedItem().toString())) {
-                                writerID = Integer.parseInt(jsonArray.get(i).getAsJsonObject().get("id").getAsString()); }
-                    }
-//                    writerID = jsonArray.size() + 1;
-
-
-                }catch(Exception ex){ ex.printStackTrace();}
-            }
-        });
-        // Start the new thread and run the code.
-        thread.start();
-
-        // Join the thread when it's done, meaning that the application will wait untill the
-        // thread is done.
-        try {
-            thread.join();
-        }catch(Exception ex){ ex.printStackTrace();}
-        writer = new Writer(writerID, bookWriters.getSelectedItem().toString());
-        writers[0] = writer;
+        final HashMap<String, String> finalWritersMap = new HashMap<>(writersMap);
+        final HashMap<String, String> finalPublishersMap = new HashMap<>(publishersMap);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,15 +231,38 @@ public class AddNewItem extends AppCompatActivity {
                 thread = new Thread(new Runnable() {
                     public void run() {
                         try {
+
+                            String w = "";
+                            String p = "";
+                            for (Map.Entry<String, String> item : finalWritersMap.entrySet()){
+                                if(((Spinner) findViewById(R.id.writers_spinner)).getSelectedItem().toString() == item.getKey().toString()){
+                                    w = item.getValue();
+                                    break;
+                                }
+                            }
+                            Log.d("AddNewItem w", w);
+
+                            for (Map.Entry<String, String> item : finalPublishersMap.entrySet()){
+                                if(((Spinner) findViewById(R.id.publisher_spinner)).getSelectedItem().toString() == item.getKey().toString()){
+                                    p = item.getValue();
+                                    break;
+                                }
+                            }
+                            Log.d("AddNewItem p", p);
+
+
+                            final String finalWriter = w;
+                            final String finalPublisher = p;
+
                             if(imageUrl != null && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                                 String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/books/",
                                         new HashMap<String, String>(){{
                                             put("username", "admin"); // TODO: Replace
                                             put("borrow_days",productBorrowDays.getText().toString());
                                             put("description",ProductDescription.getText().toString());
-                                            put("title",productName.getText().toString());
-                                            put("writers", writer.getId() + ""); //TODO: faster way to get the correct writer?
-                                            put("publisher", "1"); //TODO: get publisher
+                                            put("name",productName.getText().toString());
+                                            put("writers", finalWriter);
+                                            put("publisher", finalPublisher);
                                             put("isbn", productIdISBN.getText().toString());
                                             put("stock", productQuantity.getText().toString()); }}
 
@@ -271,9 +274,9 @@ public class AddNewItem extends AppCompatActivity {
                                         put("username", "admin"); // TODO: Replace
                                         put("borrow_days",productBorrowDays.getText().toString());
                                         put("description",ProductDescription.getText().toString());
-                                        put("title",productName.getText().toString());
-                                        put("writers", writer.getId() + "");
-                                        put("publisher", "1");
+                                        put("name",productName.getText().toString());
+                                        put("writers", finalWriter);
+                                        put("publisher", finalPublisher);
                                         put("isbn", productIdISBN.getText().toString());
                                         put("stock", productQuantity.getText().toString()); }}
 
@@ -308,66 +311,104 @@ public class AddNewItem extends AppCompatActivity {
         productName.setHint(getString(R.string.naam));
         productIdISBN.setHint(getString(R.string.product_id));
 
-        manufacturersArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/manufacturers/");
-        categoryArray = getDataForSpinner("http://84.86.201.7:8000/api/v1/categories/");
+        manufacturersMap = getDataForSpinner("http://84.86.201.7:8000/api/v1/manufacturers/");
+        categoriesMap = getDataForSpinner("http://84.86.201.7:8000/api/v1/categories/");
 
         Spinner Manufacturers = (Spinner) findViewById(R.id.manufacturers_spinner);
         ArrayAdapter<String> adapterWriters = new ArrayAdapter<String>
-                (this, R.layout.crimson_spinner_item, manufacturersArray);
+                (getBaseContext(), R.layout.crimson_spinner_item, manufacturersMap.keySet().toArray(new String[manufacturersMap.size()]));
         adapterWriters.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         Manufacturers.setPopupBackgroundResource(R.color.colorPrimary);
         Manufacturers.setAdapter(adapterWriters);
 
         final Spinner Category = (Spinner) findViewById(R.id.category_spinner);
         ArrayAdapter<String> adapterPublishers = new ArrayAdapter<String>
-                (this,  R.layout.crimson_spinner_item, categoryArray);
+                (getBaseContext(),  R.layout.crimson_spinner_item, categoriesMap.keySet().toArray(new String[categoriesMap.size()]));
         adapterPublishers.setDropDownViewResource(R.layout.crimson_spinner_dropdown_item);
         Category.setPopupBackgroundResource(R.color.colorPrimary);
         Category.setAdapter(adapterPublishers);
 
-//        productIdISBN = (EditText) findViewById(R.id.book_ISBN);
+        final HashMap<String, String> finalCategoriesMap = new HashMap<>(categoriesMap);
+        final HashMap<String, String> finalManufacturersMap = new HashMap<>(manufacturersMap);
 
-//        myDB = new DatabaseHelper(this);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Thread thread;
+                thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
 
-//        btnAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v){
-//                Thread thread;
-//                thread = new Thread(new Runnable() {
-//                    public void run() {
-//                        try {
-//                            JsonObject json = new Gson().toJsonTree(new Electronic(
-//                                    "Electronic",
-//                                    UUID.randomUUID().toString(),
-//                                    ProductDescription.getText().toString(),
-//                                    Integer.parseInt(productBorrowDays.getText().toString()),
-//                                    null,
-//                                    productName.getText().toString(),
-//                                    null,
-//                                    productIdISBN.getText().toString(),
-//                                    bookPublisher.getSelectedItem().toString(),
-//                                    Integer.parseInt(productQuantity.getText().toString()))).getAsJsonObject();
-////                            String jsonString = JSONHelper.postJSONStringFromURL("http://84.86.201.7:8000/admin/", json);
-//
-////                            Log.d("JSON", jsonString);
-//                            Log.d("JSON", json.toString());
-//
-//                        }catch(Exception ex){ ex.printStackTrace();}
-//                    }
-//                });
-//                // Start the new thread and run the code.
-//                thread.start();
-//
-//                // Join the thread when it's done, meaning that the application will wait untill the
-//                // thread is done.
-//                try {
-//                    thread.join();
-//                }catch(Exception ex){ ex.printStackTrace();}
+                            String c = "";
+                            String m = "";
 
-//        Intent intent = new Intent(AddNewItem.this, ItemsAndMenuActivity.class);
-//        startActivity(intent);
-//        finish();
-//            }
-//        });
+                            for (Map.Entry<String, String> item : finalCategoriesMap.entrySet()){
+                                if(((Spinner) findViewById(R.id.category_spinner)).getSelectedItem().toString() == item.getKey().toString()){
+                                    c = item.getValue();
+                                    break;
+                                }
+                            }
+                            Log.d("AddNewItem c", c);
+
+                            for (Map.Entry<String, String> item : finalManufacturersMap.entrySet()){
+                                if(((Spinner) findViewById(R.id.manufacturers_spinner)).getSelectedItem().toString() == item.getKey().toString()){
+                                    m = item.getValue();
+                                    break;
+                                }
+                            }
+                            Log.d("AddNewItem m", m);
+
+
+                            final String finalCategory = c;
+                            final String finalManufacturer = m;
+
+                            if(imageUrl != null && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/electronics/",
+                                        new HashMap<String, String>(){{
+                                            put("username", "admin"); // TODO: Replace
+                                            put("borrow_days",productBorrowDays.getText().toString());
+                                            put("description",ProductDescription.getText().toString());
+                                            put("name",productName.getText().toString());
+                                            put("product_id",productIdISBN.getText().toString());
+                                            put("stock", productQuantity.getText().toString());
+                                            put("manufacturer", finalManufacturer);
+                                            put("category", finalCategory);}}
+
+                                        , 15000, "POST", imageUrl);
+                                Log.d("JSON", jsonString);
+                            } else {
+                                String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/electronics/",
+                                        new HashMap<String, String>(){{
+                                            put("username", "admin"); // TODO: Replace
+                                            put("borrow_days",productBorrowDays.getText().toString());
+                                            put("description",ProductDescription.getText().toString());
+                                            put("name",productName.getText().toString());
+                                            put("product_id",productIdISBN.getText().toString());
+                                            put("stock", productQuantity.getText().toString());
+                                            put("manufacturer", finalManufacturer);
+                                            put("category", finalCategory);}}
+
+                                        , 15000, "POST", null);
+                                Log.d("JSON", jsonString);
+                            }
+
+
+                        }catch(Exception ex){ ex.printStackTrace();}
+                    }
+                });
+                // Start the new thread and run the code.
+                thread.start();
+
+                // Join the thread when it's done, meaning that the application will wait untill the
+                // thread is done.
+                try {
+                    thread.join();
+                }catch(Exception ex){ ex.printStackTrace();}
+
+                Intent intent = new Intent(AddNewItem.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

@@ -111,6 +111,10 @@ public class Item implements Serializable {
     }
 
     public Bitmap getImage(final Context ctx) {
+        return getImage(ctx, this.imageUrl);
+    }
+
+    public static Bitmap getImage(final Context ctx, final URL imageUrl) {
 
         final Bitmap[] bmpf = new Bitmap[1];
         Thread thread;
@@ -145,7 +149,7 @@ public class Item implements Serializable {
         return bmpf[0];
     }
 
-    private void saveToInternalStorage(Bitmap bitmapImage, String name, Context ctx){
+    private static void saveToInternalStorage(Bitmap bitmapImage, String name, Context ctx){
         // Create imageDir
         File file = new File(ctx.getFilesDir(),name);
         file.getParentFile().mkdirs();
@@ -167,7 +171,7 @@ public class Item implements Serializable {
         }
     }
 
-    private Bitmap loadImageFromStorage(String name, Context ctx)
+    private static Bitmap loadImageFromStorage(String name, Context ctx)
     {
         try {
             File file = new File(ctx.getFilesDir(),name);

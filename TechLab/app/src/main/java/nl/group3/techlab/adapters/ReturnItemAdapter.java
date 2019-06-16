@@ -63,7 +63,7 @@ public class ReturnItemAdapter extends ArrayAdapter<JsonObject> {
 
         tvObjectName.setText(borrowItem.get("item").getAsJsonObject().get("name").getAsString());
 
-        tvReturnDate.setText(borrowItem.get("borrow_date").getAsString());
+        tvReturnDate.setText(borrowItem.get("return_date").getAsString());
         tvBorrowedBy.setText(borrowItem.get("user").getAsJsonObject().get("email").getAsString());
 
         bReturnButton.setOnClickListener(new AdapterView.OnClickListener() {
