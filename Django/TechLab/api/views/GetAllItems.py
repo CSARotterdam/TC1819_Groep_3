@@ -6,7 +6,7 @@ from django.contrib.auth.models import User as AuthUser
 from django.shortcuts import get_object_or_404
 from django.db.models import prefetch_related_objects
 
-from api.models import (Book, Electronic, Writer, Category, Publisher, Item, User)
+from api.models import (Book, Electronic, Writer, Category, Publisher, Manufacturer, Item, User)
 
 import json
 
@@ -41,13 +41,17 @@ class GetAllBooks(View):
             if admin is not None or manager is not None:
                 book = Book.objects.create(borrow_days=int(request.POST.get('borrow_days')),
                                            description=request.POST.get('description'),
-                                           title=request.POST.get('title'),
+                                           name=request.POST.get('name'),
+                                           stock=int(request.POST.get('stock')),
                                            isbn=request.POST.get('isbn'),
-                                           publisher=Publisher.objects.get(id=request.POST.get('publisher')),
-                                           stock=int(request.POST.get('stock')), )
+                                           publisher=Publisher.objects.get(id=request.POST.get('publisher')),)
+
+                book.save()
+                book.writers=Writer.objects.get(id=request.POST.get('writers')),
+
                 if 'image' in request.FILES:
                     book.image = request.FILES['image']
-                    pass
+
                 book.save()
 
                 return JsonResponse('{"success": "true", "message": "The item has been created."}',
@@ -71,13 +75,18 @@ class GetAllElectronics(View):
             User.objects.filter(email=request.POST.get('username')).count() > 0 else None
 
         if admin is not None or manager is not None:
-            electronic = Electronic.objects.create(borrow_days=request.POST['borrow_days'],
-                                                       description=request.POST['description'],
-                                                       product_id=request.POST['product_id'],
-                                                       name=request.POST['name'],
-                                                       category=Category.objects.get(id=request.POST['category']),
-                                                       stock=request.POST['stock'],
-                                                       broken=request.POST['broken'])
+            electronic = Electronic.objects.create(borrow_days=int(request.POST.get('borrow_days')),
+                                           description=request.POST.get('description'),
+                                           name=request.POST.get('name'),
+                                           stock=int(request.POST.get('stock')),
+                                           product_id=int(request.POST.get('product_id')),
+                                           category=Category.objects.get(id=request.POST['category']),)
+            electronic.save()
+            electronic.manufacturer = Manufacturer.objects.get(id=request.POST['manufacturer']),
+
+            if 'image' in request.FILES:
+                electronic.image = request.FILES['image']
+
             electronic.save()
 
             return JsonResponse('{"success": "true", "message": "The item has been created."}',

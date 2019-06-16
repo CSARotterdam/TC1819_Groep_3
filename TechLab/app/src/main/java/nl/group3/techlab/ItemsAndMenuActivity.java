@@ -74,6 +74,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     Menu nav_Menu;
 
     ArrayList<Book> books;
+    ArrayList<JsonObject> items;
+
     public String[] arrayManagers;
 
     private static final String TAG = "ProductListAdapter";
@@ -152,6 +154,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         addProductButton = (FloatingActionButton) findViewById(R.id.addButton);
 
         books = new ArrayList<>();
+        items = new ArrayList<>();
 
         if (!(personEmail.equalsIgnoreCase("techlabapp00@gmail.com"))) {
             Thread thread;
@@ -232,7 +235,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         while(books.size() == 0)
             loadItems();
 
-        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, books);
+        productListAdapter = new ProductListAdapter(this, R.layout.content_adapter_view, items);
 
         listView = findViewById(R.id.listView);
         listView.setAdapter(productListAdapter);
@@ -247,8 +250,12 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
             JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
 
+
             for (JsonElement elem : jsonArray) {
                 JsonObject obj = elem.getAsJsonObject();
+
+                items.add(obj);
+
                 Writer[] writers = null;
                 if (obj.get("type").getAsString().equalsIgnoreCase("Book")) {
                     if (obj.get("writers").getAsJsonArray().size() > 0) {
@@ -276,11 +283,11 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             }
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (productListAdapter != null)
+                    if (productListAdapter != null) {
                         productListAdapter.notifyDataSetChanged();
+                    }
                 }
             });
-            Log.d("Found books:", books.size() + "");
 
         } catch(Exception ex){ ex.printStackTrace();}
     }
