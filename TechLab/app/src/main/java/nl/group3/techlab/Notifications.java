@@ -60,44 +60,62 @@ public class Notifications extends MenuActivity {
                 break;
 
             default:
+                settings.notificationOn = true;
                 break;
         }
+
+
         borrowedItems = new ArrayList<>();
+
+        Log.d("SendMail", "before");
         mNotificationHelper = new NotificationHelper(this);
         if (settings.notificationOn ){
-            SendOnChannel("Return item tomorrow","t2");
-            thread = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
-                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-                        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
-                        for(JsonElement elem : jsonArray){
-                            JsonObject obj = elem.getAsJsonObject();
-//                        Log.d("?????????", "try again");
-//                        Log.d("ABCDEFG", obj.get("user").getAsJsonObject().get("email").getAsString());
-                            if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
-                                borrowedItems.add(obj);
-//                            if (obj.get("item").getAsJsonObject().get("name").getAsString());
-                            }
-                        }
-                    }catch(Exception ex){ ex.printStackTrace();}
-                }
-                
-            });
-            // Start the new thread and run the code.
-            thread.start();
-            // Join the thread when it's done, meaning that the application will wait untill the
-            // thread is done.
+            Log.d("SendMail", "start");
             try {
-                thread.join();
-
-            } catch (Exception ex){}
+                GMailSender sender = new GMailSender("techlabapp00@gmail.com", "voordeapp");
+                sender.sendMail("This is Subject",
+                        "This is Body",
+                        "techlabapp00@gmail.com",
+                        "0960882@hr.nl");
+            } catch (Exception e) {
+                Log.e("SendMail", e.getMessage());
+            }
+            Log.d("SendMail", "end");
+//            SendOnChannel("Return item tomorrow","t2");
+//            thread = new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
+//                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+//                        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+//                        for(JsonElement elem : jsonArray){
+//                            JsonObject obj = elem.getAsJsonObject();
+////                        Log.d("?????????", "try again");
+////                        Log.d("ABCDEFG", obj.get("user").getAsJsonObject().get("email").getAsString());
+//                            if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
+//                                borrowedItems.add(obj);
+////                            if (obj.get("item").getAsJsonObject().get("name").getAsString());
+//                            }
+//                        }
+//                    }catch(Exception ex){ ex.printStackTrace();}
+//                }
+//
+//            });
+//            // Start the new thread and run the code.
+//            thread.start();
+//            // Join the thread when it's done, meaning that the application will wait untill the
+//            // thread is done.
+//            try {
+//                thread.join();
+//
+//            } catch (Exception ex){}
         }
-        Log.d("Items", borrowedItems + "");
+//        Log.d("Items", borrowedItems + "");
 //        Date currentTime = Calendar.getInstance().getTime();
 //        Time now = new Time();
 //        now.setToNow();
+
+        Log.d("SendMail", "after");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mmaa");
         String format = sdf.format(Calendar.getInstance().getTime());
         Calendar cal = Calendar.getInstance();
