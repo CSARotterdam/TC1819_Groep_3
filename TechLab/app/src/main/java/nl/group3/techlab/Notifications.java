@@ -1,6 +1,7 @@
 package nl.group3.techlab;
 
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,34 +66,53 @@ public class Notifications extends MenuActivity {
         borrowedItems = new ArrayList<>();
         mNotificationHelper = new NotificationHelper(this);
         if (settings.notificationOn ){
-            SendOnChannel("Return item tomorrow","t2");
-            thread = new Thread(new Runnable() {
+            Log.d("SEND MAIL", "in if statement");
+            new Thread(new Runnable() {
                 public void run() {
                     try {
-                        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
-                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
-                        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
-                        for(JsonElement elem : jsonArray){
-                            JsonObject obj = elem.getAsJsonObject();
-//                        Log.d("?????????", "try again");
-//                        Log.d("ABCDEFG", obj.get("user").getAsJsonObject().get("email").getAsString());
-                            if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
-                                borrowedItems.add(obj);
-//                            if (obj.get("item").getAsJsonObject().get("name").getAsString());
-                            }
-                        }
-                    }catch(Exception ex){ ex.printStackTrace();}
-                }
-                
-            });
-            // Start the new thread and run the code.
-            thread.start();
-            // Join the thread when it's done, meaning that the application will wait untill the
-            // thread is done.
-            try {
-                thread.join();
+                        Log.d("SEND MAIL", "in thread");
+                        GMailSender sender = new GMailSender(
+                                "techlabapp00@gmail.com",
+                                "voordeapp");
 
-            } catch (Exception ex){}
+//                        sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
+                        sender.sendMail("Test mail", "This mail has been sent from android app along with attachment",
+                                "techlabapp00@gmail.com",
+                                "0961065@hr.nl");
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }).start();
+//            SendOnChannel("Return item tomorrow","t2");
+//            thread = new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        String jsonString = JSONHelper.JSONStringFromURL(String.format( "http://84.86.201.7:8000/api/v1/borrowitems/"), null, 1000, "GET", null);
+//                        JsonArray jsonArray = new JsonParser().parse(jsonString).getAsJsonArray();
+//                        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+//                        for(JsonElement elem : jsonArray){
+//                            JsonObject obj = elem.getAsJsonObject();
+////                        Log.d("?????????", "try again");
+////                        Log.d("ABCDEFG", obj.get("user").getAsJsonObject().get("email").getAsString());
+//                            if (acct.getEmail().equals(obj.get("user").getAsJsonObject().get("email").getAsString())) {
+//                                borrowedItems.add(obj);
+////                            if (obj.get("item").getAsJsonObject().get("name").getAsString());
+//                            }
+//                        }
+//                    }catch(Exception ex){ ex.printStackTrace();}
+//                }
+//
+//            });
+//            // Start the new thread and run the code.
+//            thread.start();
+//            // Join the thread when it's done, meaning that the application will wait untill the
+//            // thread is done.
+//            try {
+//                thread.join();
+//
+//            } catch (Exception ex){}
         }
         Log.d("Items", borrowedItems + "");
 //        Date currentTime = Calendar.getInstance().getTime();
