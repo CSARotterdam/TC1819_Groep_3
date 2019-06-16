@@ -135,9 +135,9 @@ public class Notifications extends MenuActivity {
 //            }
 //        });
     }
-    public void SendOnChannel(String title, String description) {
-        NotificationCompat.Builder nb = mNotificationHelper.getCahnnelNotification(title, description);
-        mNotificationHelper.getMAnager().notify(1,nb.build());
-    }
+//    public void SendOnChannel(String title, String description) {
+//        NotificationCompat.Builder nb = mNotificationHelper.getCahnnelNotification(title, description);
+//        mNotificationHelper.getMAnager().notify(1,nb.build());
+//    }
 
 }
