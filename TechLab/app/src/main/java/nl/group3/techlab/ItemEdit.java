@@ -129,7 +129,7 @@ public class ItemEdit extends AppCompatActivity {
             delButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+//                    final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
 
                     Thread thread;
                     thread = new Thread(new Runnable() {
@@ -137,7 +137,7 @@ public class ItemEdit extends AppCompatActivity {
                             try {
                                 String jsonString = JSONHelper.JSONStringFromURL(String.format("http://84.86.201.7:8000/api/v1/items/%s/", item.get("id").getAsString()),
                                         new HashMap<String, String>() {{
-                                            put("username", acct.getEmail());
+                                            put("username", MenuActivity.personEmail);
                                         }}
                                         , 1000, "DELETE", null);
 
@@ -149,6 +149,12 @@ public class ItemEdit extends AppCompatActivity {
                                 obj.get("success").getAsBoolean();
                                 Log.d("JSON", obj.get("success").getAsString() + "");
                                 if (obj.get("success").getAsString().equalsIgnoreCase("true")) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getBaseContext(), R.string.product_verwijderd, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                                     onBackPressed();
                                 }
                             } catch (Exception ex) {
@@ -267,7 +273,7 @@ public class ItemEdit extends AppCompatActivity {
         Borrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+//                final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getBaseContext());
                 Thread thread;
                 thread = new Thread(new Runnable() {
                     public void run() {
@@ -275,7 +281,7 @@ public class ItemEdit extends AppCompatActivity {
                             try {
                                 String jsonString = JSONHelper.JSONStringFromURL("http://84.86.201.7:8000/api/v1/borrowitems/",
                                         new HashMap<String, String>() {{
-                                            put("email", acct.getEmail());
+                                            put("email", MenuActivity.personEmail);
                                             put("item_id", item.get("id").getAsString());
                                             put("borrow_date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                                         }}

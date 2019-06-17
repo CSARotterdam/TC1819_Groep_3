@@ -11,7 +11,7 @@
     <string name="geschiedenis">History</string>
     <string name="thema">Theme</string>
     <string name="taal">Language</string>
-    <string name="notificatie">Notification</string>
+    <string name="notificatie">Email notifications</string>
     <string name="geleend_door_s">Borrowed by %s</string>
     <string name="log_in_met_je_hr_account">Sign in with your HR account</string>
     <string name="inloggen_als_student">Sign in as a student</string>
