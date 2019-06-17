@@ -100,7 +100,7 @@
                     android:layout_height="50dp"
                     android:layout_alignBottom="@+id/imageView2"
                     android:textAlignment="viewEnd"
-                    android:layout_marginBottom="-103dp"
+                    android:layout_marginBottom="-70dp"
                     android:layout_marginRight="21dp"
                     android:layout_alignParentRight="true"
                     android:text="@string/beschikbaarheid"
